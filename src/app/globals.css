@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds — warm paper / stone */
+  --bg-primary:     #f7f4ef;   /* aged paper warm off-white */
+  --bg-secondary:   #f0ebe2;   /* slightly deeper parchment */
+  --bg-card:        #faf8f4;   /* notebook page */
+  --bg-card-hover:  #f5f1ea;
+
+  /* Foreground — charcoal / iron */
+  --fg-primary:     #1c1917;   /* iron black */
+  --fg-secondary:   #44403c;   /* charcoal */
+  --fg-muted:       #78716c;   /* stone */
+  --fg-subtle:      #a8a29e;   /* very muted */
+
+  /* Accent — muted emerald */
+  --accent-emerald:        #2d6a4f;
+  --accent-emerald-light:  #40916c;
+  --accent-emerald-dim:    rgba(45, 106, 79, 0.12);
+
+  /* Accent — copper / brass */
+  --accent-copper:  #92400e;
+  --accent-copper-dim: rgba(146, 64, 14, 0.1);
+
+  /* Borders */
+  --border-subtle:  rgba(28, 25, 23, 0.1);
+  --border-medium:  rgba(28, 25, 23, 0.18);
+
+  /* Typography */
+  --font-display:  var(--font-playfair), Georgia, serif;
+  --font-body:     var(--font-inter), system-ui, sans-serif;
+  --font-mono:     var(--font-jetbrains), 'Courier New', monospace;
+
+  /* Spacing */
+  --nav-height: 64px;
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--fg-primary);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/* ─── Reset & Base ───────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--fg-primary);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100dvh;
+
+  /* Paper texture — subtle noise via layered gradients */
+  background-image:
+    /* Tiny dot grid — blueprint paper feel */
+    radial-gradient(circle, rgba(28, 25, 23, 0.08) 0.5px, transparent 0.5px),
+    /* Warm parchment gradient */
+    linear-gradient(
+      160deg,
+      #f7f4ef 0%,
+      #f2ede4 50%,
+      #f7f4ef 100%
+    );
+  background-size: 24px 24px, 100% 100%;
+  background-attachment: fixed;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fg-subtle);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-muted);
+}
+
+/* ─── Selection ─────────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--accent-emerald-dim);
+  color: var(--fg-primary);
+}
+
+/* ─── Typography Utilities ──────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+}
+.font-body {
+  font-family: var(--font-body);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Hero display name scale */
+.text-hero {
+  font-size: clamp(5rem, 18vw, 16rem);
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--fg-primary);
+}
+
+/* Lab label — small caps monospace */
+.text-lab-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-emerald);
+}
+
+/* ─── Layout Utilities ──────────────────────────────────────────────── */
+.container-lab {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 5vw, 4rem);
+}
+
+/* ─── Ink Underline Effect ──────────────────────────────────────────── */
+.ink-underline {
+  position: relative;
+  text-decoration: none;
+}
+.ink-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--accent-emerald);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ink-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* ─── Ruled Lines (for notebook card backgrounds) ────────────────────── */
+.ruled-card {
+  background-image:
+    linear-gradient(
+      transparent calc(1.6rem - 1px),
+      rgba(28, 25, 23, 0.07) calc(1.6rem - 1px),
+      rgba(28, 25, 23, 0.07) 1.6rem,
+      transparent 1.6rem
+    );
+  background-size: 100% 1.6rem;
+  background-position: 0 1.6rem;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
