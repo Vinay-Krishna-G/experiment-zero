@@ -30,7 +30,7 @@ export default function ContactSection() {
       id="contact"
       aria-label="Laboratory Correspondence"
       style={{
-        paddingBlock: "clamp(4rem, 8vw, 8rem)",
+        paddingBlock: "clamp(2rem, 4vw, 4rem)",
         position: "relative",
       }}
     >

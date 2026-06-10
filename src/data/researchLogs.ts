@@ -38,11 +38,11 @@ export const RESEARCH_LOGS: ResearchLog[] = [
   },
   {
     id: "rl-002",
-    title: "One-click copy became the most-used feature",
+    title: "One-click copy metrics",
     date: "2025.11.08",
     category: "Discovery",
-    summary: "The most complex engineering backend is only valuable if it perfectly serves the simplest possible frontend interaction.",
-    content: "When building PromptVault, I assumed the semantic search engine would be the star feature. I spent weeks refining embeddings and ranking algorithms.\n\nYet, analytics and user feedback pointed to something much simpler: the raw utility of the 'Copy to Clipboard' button on every snippet.\n\nUsers weren't coming to browse; they were coming to execute. They wanted to find a prompt, copy it, and paste it into an LLM interface with zero friction.\n\nIt shifted my entire product philosophy. The complex engineering backend is only valuable if it perfectly serves the simplest possible frontend interaction.",
+    summary: "Usage data reveals execution speed matters more than semantic discovery.",
+    content: "PromptVault usage data is in.\n\n- Search usage: 12%\n- Copy button usage: 84%\n\nI assumed discovery was the bottleneck. It wasn't.\n\nExecution was.\n\nPeople don't want to browse. They want to paste.\n\nNote to self: Never optimize retrieval until friction at the point of execution is near zero.",
     tags: ["product", "user-experience", "prompt-engineering"],
     relatedExperimentId: "exp-002"
   },
@@ -58,11 +58,11 @@ export const RESEARCH_LOGS: ResearchLog[] = [
   },
   {
     id: "rl-004",
-    title: "Data models should be stabilized early",
+    title: "Schema shift cascading failure",
     date: "2025.08.14",
     category: "Failed Experiment",
-    summary: "Building features before stabilizing the data model leads to cascading migration failures.",
-    content: "During the first month of development on an early prototype, I adopted an agile 'build-the-plane-as-you-fly' approach to the database schema. I added columns as features required them.\n\nThis led to a cascading failure of migrations. Features built on week one broke during week three because the underlying assumptions about data relationships had shifted from 1:1 to 1:many.\n\nI scrapped the database and spent two days whiteboarding the absolute worst-case complexity the system would need to handle. Stabilizing the data model early isn't waterfall planning; it's establishing the laws of physics for your application.",
+    summary: "Ad-hoc column additions created 1:many contradictions and broke auth.",
+    content: "Migration failed again today.\n\n- Week 1: Assumed 1:1 relationship between Users and Workspaces.\n- Week 3: Feature request required multi-workspace support.\n\nAdded columns ad-hoc to patch it. Now the entire authentication flow is broken.\n\nThe 'build-the-plane-as-you-fly' approach doesn't work for databases. You can iterate on UI. You cannot iterate on gravity.\n\nNote to self: Next project, lock down the relational constraints on day zero. No code until the whiteboard schema survives worst-case interrogation.",
     tags: ["engineering", "schema", "lessons"]
   },
   {
@@ -77,20 +77,20 @@ export const RESEARCH_LOGS: ResearchLog[] = [
   },
   {
     id: "rl-006",
-    title: "The cost of uncontrolled state",
+    title: "Context API infinite loop trace",
     date: "2025.09.30",
     category: "Failed Experiment",
-    summary: "Avoiding state management libraries to 'keep it simple' often creates infinitely more complex component trees.",
-    content: "I once tried to build a complex multi-step wizard using only React Context and local state, avoiding external state management libraries to 'keep it simple'.\n\nIt didn't stay simple. The component tree became a tangled web of prop drilling, infinite render loops, and stale closures. Debugging a simple toggle took hours because the state mutation could have originated from anywhere.\n\nI learned the hard way that 'simple' tools don't always scale to complex problems. Adopting a strict unidirectional data flow is a necessity, not an optimization, for complex UI state.",
+    summary: "Attempted to use raw React Context for a 6-step wizard. Resulted in untraceable state mutations.",
+    content: "Spent 4 hours tracing a bug in the wizard flow.\n\n- Toggle state triggers Context update\n- Causes full tree re-render\n- Re-initializes child local state\n- Fires stale closure effect\n- Mutates Context again\n\nInfinite loop.\n\nThought I was being 'clean' by avoiding external state libraries. Instead, I built a bespoke, undocumented, broken version of Redux.\n\nHypothesis: 'Simple' tools (Context) applied to complex problems (global mutative state) actually generate the most technical debt.\n\nIs strict unidirectional data flow an absolute requirement here?",
     tags: ["react", "state-management", "architecture"]
   },
   {
     id: "rl-007",
-    title: "Building the Ship in a Bottle",
+    title: "GLB payload vs interaction latency",
     date: "2026.06.10",
     category: "Future Expedition",
-    summary: "Planning the architectural transition from CSS representations to 3D WebGL models.",
-    content: "The current iteration of the Experiment Rack uses CSS to render the bottles. It's performant and clean, but lacks depth.\n\nThe next major milestone is to replace these CSS representations with actual 3D WebGL models using Three.js and React Three Fiber.\n\nThe architectural challenge will be maintaining the snappy, instant-load feel of the site while loading heavy GLB assets. I plan to use asynchronous loading, suspense boundaries, and low-poly placeholders. The renderer abstraction layer is already in place; now we just need to build the ship.",
+    summary: "Can we load a 2MB 3D model without breaking the 60fps scroll feel?",
+    content: "Current CSS bottle render time: ~4ms.\nTarget Three.js GLB payload: ~1.8MB.\n\nThe abstraction layer (BottleRenderer) is ready. But what happens to the interaction latency when the GLB mounts?\n\nStrategies to test:\n1. React Suspense boundaries around the Canvas\n2. Low-poly placeholder wireframes\n3. Web Worker for geometry parsing\n\nIf the 3D models drop frame rates during scroll, the tactile 'laboratory' feel is dead.\n\nQuestion: Should the 3D canvas only mount upon explicit user interaction (click), rather than rendering all 5 bottles simultaneously on load?",
     tags: ["3d", "threejs", "webgl"],
     relatedBlueprintId: "bp-003"
   },
@@ -105,11 +105,11 @@ export const RESEARCH_LOGS: ResearchLog[] = [
   },
   {
     id: "rl-009",
-    title: "Listening to users vs intuition",
+    title: "Folder hierarchy feature request",
     date: "2025.12.05",
     category: "Observation",
-    summary: "Users request specific implementations, but you must build solutions to their underlying problems.",
-    content: "A recurring challenge in product development is balancing user feedback against your own vision.\n\nUsers requested a complex folder-hierarchy system for organizing snippets in PromptVault. My intuition said that tags and powerful search would be faster and more scalable.\n\nI shipped the tag/search system. Initially, there was pushback. A month later, those same users admitted they were retrieving snippets twice as fast as they would have with folders.\n\nListen to users to understand their problems. Trust your intuition and engineering experience to design the solution.",
+    summary: "Users asked for folders. I built tags instead. Awaiting metrics validation.",
+    content: "Feature request log is flooded with: 'Add folders for snippets.'\n\nAnalyzed the usage patterns. People aren't having trouble *storing* snippets, they are having trouble *finding* them.\n\nFolders create mutually exclusive silos. A React snippet can't live in both 'Frontend' and 'API' folders without duplicating.\n\nI refused the folder request. Shipped a multi-select tag system instead.\n\nImmediate pushback on Discord.\n\nWe'll see if the retrieval time metrics validate the decision next week. If average time-to-copy doesn't drop by 20%, I was wrong.",
     tags: ["product", "feedback", "vision"]
   },
   {

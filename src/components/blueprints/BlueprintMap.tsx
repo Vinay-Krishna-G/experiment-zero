@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { BlueprintStage, Discovery } from "@/data/blueprints";
 
@@ -28,13 +28,14 @@ interface BlueprintMapProps {
 
 export default function BlueprintMap({ stages, discoveries }: BlueprintMapProps) {
   const [revealed, setRevealed] = useState(0);
+  const gradientId = useId();
 
   return (
     <div style={{ position: "relative" }}>
       {/* SVG Definitions for the connector line */}
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
-          <linearGradient id="route-gradient" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={`route-gradient-${gradientId}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="var(--accent-emerald)" stopOpacity="0.5" />
             <stop offset="100%" stopColor="var(--border-subtle)" stopOpacity="0.8" />
           </linearGradient>
@@ -67,7 +68,7 @@ export default function BlueprintMap({ stages, discoveries }: BlueprintMapProps)
           const discovery = i < discoveries.length ? discoveries[i] : null;
           
           const isEven = i % 2 === 0;
-          const indent = isEven ? 0 : 36;
+          const indent = isEven ? 0 : 64;
           const symbol = WAYPOINT_SYMBOLS[i % WAYPOINT_SYMBOLS.length];
 
           return (
@@ -77,10 +78,10 @@ export default function BlueprintMap({ stages, discoveries }: BlueprintMapProps)
               onAnimationStart={() => setRevealed(i + 1)}
               style={{
                 display: "flex",
-                gap: "1.25rem",
+                gap: "2rem",
                 alignItems: "stretch",
                 paddingLeft: indent,
-                paddingBottom: isLast ? 0 : "2.5rem",
+                paddingBottom: isLast ? 0 : "2rem",
                 position: "relative",
               }}
             >
@@ -141,14 +142,14 @@ export default function BlueprintMap({ stages, discoveries }: BlueprintMapProps)
                 {!isLast && (
                   <div style={{ flex: 1, width: "100%", position: "relative", minHeight: "32px" }}>
                     <svg
-                      viewBox="0 0 36 100"
+                      viewBox="0 0 64 100"
                       preserveAspectRatio="none"
                       style={{
                         position: "absolute",
                         top: "4px",
                         bottom: "-8px",
-                        left: isEven ? "11px" : "-25px",
-                        width: "36px",
+                        left: isEven ? "11px" : "-53px",
+                        width: "64px",
                         height: "calc(100% + 4px)",
                         overflow: "visible",
                         zIndex: 1,
@@ -159,11 +160,11 @@ export default function BlueprintMap({ stages, discoveries }: BlueprintMapProps)
                         animate={isVisible ? { pathLength: 1 } : {}}
                         transition={{ duration: 0.4, ease: "linear", delay: 0.15 }}
                         d={isEven 
-                          ? "M 0 0 L 0 50 L 36 50 L 36 100" 
-                          : "M 36 0 L 36 50 L 0 50 L 0 100"
+                          ? "M 0 0 L 0 50 L 64 50 L 64 100" 
+                          : "M 64 0 L 64 50 L 0 50 L 0 100"
                         }
                         fill="none"
-                        stroke="url(#route-gradient)"
+                        stroke={`url(#route-gradient-${gradientId})`}
                         strokeWidth="1.5"
                         vectorEffect="non-scaling-stroke"
                         strokeDasharray="4 2"
@@ -178,7 +179,7 @@ export default function BlueprintMap({ stages, discoveries }: BlueprintMapProps)
                 initial={{ opacity: 0, x: -8 }}
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.35, ease: EASE, delay: 0.08 }}
-                style={{ flex: 1, paddingBottom: isLast ? 0 : "0.5rem" }}
+                style={{ flex: 1, paddingBottom: isLast ? 0 : "0.25rem" }}
               >
                 {/* Waypoint header */}
                 <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.2rem", flexWrap: "wrap" }}>
@@ -243,7 +244,7 @@ export default function BlueprintMap({ stages, discoveries }: BlueprintMapProps)
                       <div
                         style={{
                           flex: 1,
-                          maxWidth: "clamp(180px, 75%, 320px)",
+                          maxWidth: "clamp(240px, 85%, 420px)",
                           backgroundColor: "color-mix(in srgb, var(--bg-secondary) 97%, #A07820 3%)",
                           border: "1px solid var(--border-subtle)",
                           borderTop: "1px solid rgba(160, 120, 32, 0.3)",

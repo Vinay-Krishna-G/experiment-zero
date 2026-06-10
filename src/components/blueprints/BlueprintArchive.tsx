@@ -18,7 +18,7 @@ export default function BlueprintArchive() {
     <section
       id="blueprints"
       aria-label="Blueprint Archive"
-      style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)", position: "relative" }}
+      style={{ paddingBlock: "clamp(2rem, 4vw, 4rem)", position: "relative" }}
     >
       <div className="container-lab">
         {/* ── Section header ── */}

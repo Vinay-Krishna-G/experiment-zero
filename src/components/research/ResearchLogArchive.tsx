@@ -17,7 +17,7 @@ export default function ResearchLogArchive() {
     <section
       id="research-log"
       aria-label="Research Log Archive"
-      style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)", position: "relative" }}
+      style={{ paddingBlock: "clamp(2rem, 4vw, 4rem)", position: "relative" }}
     >
       <div className="container-lab">
         
