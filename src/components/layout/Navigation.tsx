@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const NAV_ITEMS = [
   { label: "Mission", href: "#mission" },
@@ -60,7 +61,7 @@ export default function Navigation() {
         }}
       >
         {/* Logo */}
-        <a
+        <Link
           href="/"
           aria-label="Vinay Krishna Laboratory — home"
           style={{
@@ -78,7 +79,7 @@ export default function Navigation() {
         >
           VK
           <span style={{ color: "var(--accent-emerald)", fontSize: "0.5rem" }}>◆</span>
-        </a>
+        </Link>
 
         {/* Nav links */}
         <nav

@@ -101,7 +101,24 @@ export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
       <div aria-hidden="true" style={{ position: "absolute", top: 32, right: 50, width: 10, height: 1, backgroundColor: "rgba(28,20,8,0.08)", transform: "rotate(-18deg)" }} />
       <div aria-hidden="true" style={{ position: "absolute", bottom: 32, left: 20, width: 12, height: 1, backgroundColor: "rgba(28,20,8,0.08)", transform: "rotate(8deg)" }} />
 
-      <div style={{ padding: "2.75rem 2.5rem 2.5rem 3rem" }}>
+      {/* ── Dedicated Archive Metadata Strip ── */}
+      <div style={{
+        display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.5rem 1.25rem",
+        backgroundColor: "var(--fg-primary)", color: "var(--bg-primary)",
+        fontFamily: "var(--font-mono)", fontSize: "0.48rem", letterSpacing: "0.2em", textTransform: "uppercase",
+        borderBottom: "1px solid var(--border-medium)"
+      }}>
+        <div style={{ display: "flex", gap: "2.5rem" }}>
+           <span>ENGINEERING RECORD :: RECOVERED</span>
+           <span style={{ opacity: 0.7 }}>{"// DO NOT DESTROY"}</span>
+        </div>
+        <div style={{ display: "flex", gap: "2.5rem" }}>
+           <span>AUTHORIZATION: LEVEL 4</span>
+           <span>ARCHIVE REF: {blueprint.id.toUpperCase()}</span>
+        </div>
+      </div>
+
+      <div style={{ padding: "2rem 2.5rem 2.5rem 3rem" }}>
         {/* ── Document header ── */}
         <motion.div variants={sectionVariants} style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1.75rem", gap: "1.5rem", flexWrap: "wrap" }}>
           <div style={{ flex: 1 }}>
@@ -110,17 +127,9 @@ export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
               Laboratory Archive / Engineering Documents / {blueprint.id.toUpperCase()}
             </div>
 
-            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "var(--fg-primary)", letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "1.25rem" }}>
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, color: "var(--fg-primary)", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
               {blueprint.title}
             </h3>
-
-            {/* Archive reference block — key improvement */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, max-content))", gap: "0.75rem 2rem" }}>
-              <ArchiveRow label="Archive Ref" value={blueprint.id.toUpperCase()} />
-              <ArchiveRow label="Recovered" value={recoveredYear} />
-              <ArchiveRow label="Classification" value="Open Research" />
-              <ArchiveRow label="Document" value="Engineering Plan" />
-            </div>
           </div>
 
           {/* Stamp */}
@@ -179,22 +188,19 @@ export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
                 ))}
               </div>
             </motion.div>
-          </div>
 
-          {/* ── Right sidebar ── */}
-          <motion.div variants={sectionVariants} style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
             {/* Technologies */}
             {blueprint.technologies.length > 0 && (
-              <div>
-                <SectionLabel>Technologies</SectionLabel>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+              <motion.div variants={sectionVariants}>
+                <SectionLabel>Technologies Utilized</SectionLabel>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                   {blueprint.technologies.map((tech) => (
                     <div key={tech} style={{
                       fontFamily: "var(--font-mono)",
                       fontSize: "0.6rem",
                       letterSpacing: "0.06em",
                       color: "var(--fg-secondary)",
-                      backgroundColor: "var(--bg-secondary)",
+                      backgroundColor: "rgba(28,20,8,0.03)",
                       border: "1px solid var(--border-subtle)",
                       padding: "0.3rem 0.65rem",
                       borderRadius: "2px",
@@ -207,52 +213,30 @@ export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             )}
+          </div>
 
-            {/* All discoveries — pinned slip style in sidebar */}
-            <div>
-              <SectionLabel>Field Discoveries</SectionLabel>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
-                {blueprint.discoveries.map((disc, i) => (
-                  <div
-                    key={disc.id}
-                    style={{
-                      backgroundColor: "color-mix(in srgb, var(--bg-secondary) 93%, #A07820 7%)",
-                      border: "1px solid rgba(160, 120, 32, 0.2)",
-                      borderTop: "2px solid rgba(160, 120, 32, 0.4)",
-                      borderRadius: "1px",
-                      padding: "0.65rem 0.75rem",
-                      // Alternating slight rotations for paper-layering feel
-                      transform: `rotate(${i % 2 === 0 ? "0.5deg" : "-0.4deg"})`,
-                      transformOrigin: "center",
-                      position: "relative",
-                      boxShadow: "1px 2px 6px rgba(28,20,8,0.08)",
-                    }}
-                  >
-                    {/* Pin */}
-                    <div aria-hidden="true" style={{ position: "absolute", top: -4, left: "50%", transform: "translateX(-50%)", width: 6, height: 6, borderRadius: "50%", backgroundColor: "rgba(146, 100, 14, 0.5)", boxShadow: "0 1px 2px rgba(0,0,0,0.15)" }} />
-                    <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.44rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(146, 100, 14, 0.75)", marginBottom: "0.3rem" }}>
-                      #{disc.id}
-                    </div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "var(--fg-secondary)", lineHeight: 1.55, fontStyle: "italic", margin: 0 }}>
-                      {disc.text}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* ── Right sidebar ── */}
+          <motion.div variants={sectionVariants} style={{ display: "flex", flexDirection: "column", gap: "1.75rem", position: "sticky", top: "2rem" }}>
 
-            {/* Archive metadata block */}
-            <div style={{ paddingTop: "1rem", borderTop: "1px solid var(--border-subtle)" }}>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.46rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--fg-subtle)", lineHeight: 2.1 }}>
-                <div>Archive Ref: {blueprint.id.toUpperCase()}</div>
-                <div>Document: Engineering Plan</div>
-                <div>Classification: Open</div>
-                <div>Status: {blueprint.status}</div>
+            {/* Archive Registry Panel */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div>
+                <SectionLabel>Document Registry</SectionLabel>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <ArchiveRow label="Archive Ref" value={blueprint.id.toUpperCase()} />
+                  <ArchiveRow label="Recovered" value={recoveredYear} />
+                  <ArchiveRow label="Classification" value="Open Research" />
+                  <ArchiveRow label="Status" value={blueprint.status} />
+                  <ArchiveRow label="Revision" value="03" />
+                  <ArchiveRow label="Indexed By" value="VK-07" />
+                  <ArchiveRow label="Document Integrity" value="Verified" />
+                </div>
               </div>
+
               {/* Annotation arrows — decorative sketch marks */}
-              <div aria-hidden="true" style={{ marginTop: "0.75rem", display: "flex", gap: "0.5rem", alignItems: "center", opacity: 0.3 }}>
+              <div aria-hidden="true" style={{ marginTop: "0.5rem", display: "flex", gap: "0.5rem", alignItems: "center", opacity: 0.3 }}>
                 <div style={{ width: 20, height: 1, backgroundColor: "var(--fg-subtle)" }} />
                 <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.4rem", color: "var(--fg-subtle)" }}>verified</span>
               </div>

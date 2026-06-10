@@ -6,7 +6,7 @@ import LabStatusPanel from "@/components/home/LabStatusPanel";
 import FieldNotesSection from "@/components/home/FieldNotesSection";
 import ExperimentRack from "@/components/experiments/ExperimentRack";
 import BlueprintArchive from "@/components/blueprints/BlueprintArchive";
-import SectionPlaceholder from "@/components/ui/SectionPlaceholder";
+import ResearchLogArchive from "@/components/research/ResearchLogArchive";
 import ContactSection from "@/components/home/ContactSection";
 
 export default function HomePage() {
@@ -31,14 +31,8 @@ export default function HomePage() {
         {/* 02 — Blueprint Archive */}
         <BlueprintArchive />
 
-        {/* 03 — Research Log (Phase 4) */}
-        <SectionPlaceholder
-          id="research-log"
-          sectionNumber="03"
-          title="Research Log"
-          description="A living journal of learnings, discoveries, and notes from the workbench. Thoughts become experiments, experiments become products."
-          phase="Phase 4"
-        />
+        {/* 03 — Research Log (Phase 4A) */}
+        <ResearchLogArchive />
 
         {/* 04 — Laboratory Correspondence */}
         <ContactSection />

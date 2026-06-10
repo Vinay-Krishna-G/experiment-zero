@@ -42,27 +42,27 @@ export const BLUEPRINTS: Blueprint[] = [
     technologies: ["Next.js", "MongoDB", "TypeScript", "TailwindCSS", "NextAuth"],
     stages: [
       {
-        name: "Problem Definition",
+        name: "Prompt Discovery",
         annotation: "Identified prompt loss as a recurring frustration",
       },
       {
-        name: "Data Modeling",
+        name: "Taxonomy Design",
         annotation: "Designed prompt schema with tagging taxonomy",
       },
       {
-        name: "API Design",
+        name: "Storage Architecture",
         annotation: "REST endpoints for CRUD + full-text search",
       },
       {
-        name: "UI Architecture",
+        name: "Retrieval System",
         annotation: "Tag-based filtering, keyboard-first navigation",
       },
       {
-        name: "Authentication",
+        name: "Interface Construction",
         annotation: "NextAuth with session-based user vaults",
       },
       {
-        name: "Deployment",
+        name: "Launch Validation",
         annotation: "Shipped to production on Vercel + MongoDB Atlas",
       },
     ],
@@ -96,32 +96,28 @@ export const BLUEPRINTS: Blueprint[] = [
     technologies: ["Python", "LangChain", "Pinecone", "Next.js", "TypeScript", "FastAPI"],
     stages: [
       {
-        name: "Repository Ingestion",
+        name: "Repository Arrival",
         annotation: "Clone or upload repository files",
       },
       {
-        name: "File Parsing",
+        name: "Source Excavation",
         annotation: "Extract meaningful code + comment content",
       },
       {
-        name: "Chunking",
+        name: "Knowledge Extraction",
         annotation: "Split into context-window-safe segments",
       },
       {
-        name: "Embedding",
+        name: "Memory Construction",
         annotation: "Convert chunks to vector representations",
       },
       {
-        name: "Index Storage",
+        name: "Retrieval Expedition",
         annotation: "Store vectors in Pinecone for retrieval",
       },
       {
-        name: "Query Pipeline",
+        name: "Insight Delivery",
         annotation: "Retrieve relevant chunks, augment LLM prompt",
-      },
-      {
-        name: "Answer Generation",
-        annotation: "LLM synthesizes accurate, grounded response",
       },
     ],
     discoveries: [
@@ -158,27 +154,27 @@ export const BLUEPRINTS: Blueprint[] = [
     technologies: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion", "CSS Custom Properties"],
     stages: [
       {
-        name: "Design Language",
+        name: "Concept Formation",
         annotation: "Warm paper, muted emerald, JetBrains Mono — inventor notebook",
       },
       {
-        name: "Typography System",
+        name: "Identity Research",
         annotation: "Playfair Display editorial + Inter body + JetBrains Mono",
       },
       {
-        name: "Component Architecture",
+        name: "Laboratory Design",
         annotation: "Data-driven components — content lives in data files",
       },
       {
-        name: "Animation Layer",
+        name: "Archive Construction",
         annotation: "Framer Motion — staggered reveals, parallax, sweep lines",
       },
       {
-        name: "Experiment Rack",
+        name: "System Expansion",
         annotation: "CSS bottle system with BottleRenderer abstraction for Phase 6",
       },
       {
-        name: "Blueprint Archive",
+        name: "Public Launch",
         annotation: "Expedition route maps replacing conventional diagrams",
       },
     ],
