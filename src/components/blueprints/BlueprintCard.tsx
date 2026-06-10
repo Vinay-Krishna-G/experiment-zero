@@ -4,6 +4,8 @@ import { motion, type Variants } from "framer-motion";
 import type { Blueprint } from "@/data/blueprints";
 import BlueprintMap from "./BlueprintMap";
 import BlueprintStamp from "./BlueprintStamp";
+import ArchiveReference from "@/components/ui/ArchiveReference";
+import { RESEARCH_LOGS } from "@/data/researchLogs";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -52,6 +54,7 @@ interface BlueprintCardProps {
 
 export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
   const recoveredYear = "2026";
+  const relatedLogs = RESEARCH_LOGS.filter(log => log.relatedBlueprintId === blueprint.id);
 
   return (
     <motion.div
@@ -240,6 +243,18 @@ export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
                 <div style={{ width: 20, height: 1, backgroundColor: "var(--fg-subtle)" }} />
                 <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.4rem", color: "var(--fg-subtle)" }}>verified</span>
               </div>
+
+              {/* Related Journals */}
+              {relatedLogs.length > 0 && (
+                <div style={{ marginTop: "1rem" }}>
+                  <SectionLabel>Related Journals</SectionLabel>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    {relatedLogs.map(log => (
+                      <ArchiveReference key={log.id} type="research" id={log.id} title={log.title} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
         </div>

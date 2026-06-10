@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import TitleCycler from "./TitleCycler";
 import LabCoordinates from "./LabCoordinates";
+import { EXPERIMENTS } from "@/data/experiments";
+import { BLUEPRINTS } from "@/data/blueprints";
+import { RESEARCH_LOGS } from "@/data/researchLogs";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -47,6 +50,12 @@ export default function HeroSection() {
   const nameY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   // Coordinates drift very gently
   const coordY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+
+  const connections = 
+    EXPERIMENTS.filter(e => e.blueprintId).length + 
+    BLUEPRINTS.filter(b => b.projectId).length + 
+    RESEARCH_LOGS.filter(r => r.relatedBlueprintId).length + 
+    RESEARCH_LOGS.filter(r => r.relatedExperimentId).length;
 
   return (
     <section
@@ -275,6 +284,31 @@ export default function HeroSection() {
                   <br />
                   and software experiments that ship.
                 </p>
+              </div>
+            </motion.div>
+
+            {/* Archive Status block */}
+            <motion.div
+              variants={fadeVariants}
+              style={{
+                marginTop: "2.5rem",
+                display: "inline-flex",
+                flexDirection: "column",
+                gap: "0.5rem",
+                padding: "0.8rem 1.25rem",
+                backgroundColor: "rgba(28,20,8,0.02)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: "2px",
+              }}
+            >
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg-subtle)", marginBottom: "0.25rem" }}>
+                Archive Status
+              </span>
+              <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--fg-secondary)" }}>
+                <span>Experiments: {EXPERIMENTS.length}</span>
+                <span>Blueprints: {BLUEPRINTS.length}</span>
+                <span>Research Logs: {RESEARCH_LOGS.length}</span>
+                <span style={{ color: "var(--accent-emerald)" }}>Connections: {connections}</span>
               </div>
             </motion.div>
 

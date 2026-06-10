@@ -2,12 +2,18 @@
 
 import { motion } from "framer-motion";
 import type { ResearchLog } from "@/data/researchLogs";
+import { EXPERIMENTS } from "@/data/experiments";
+import { BLUEPRINTS } from "@/data/blueprints";
+import ArchiveReference from "@/components/ui/ArchiveReference";
 
 interface ResearchEntryProps {
   log: ResearchLog;
 }
 
 export default function ResearchEntry({ log }: ResearchEntryProps) {
+  const relatedExp = log.relatedExperimentId ? EXPERIMENTS.find(e => e.id === log.relatedExperimentId) : null;
+  const relatedBp = log.relatedBlueprintId ? BLUEPRINTS.find(b => b.id === log.relatedBlueprintId) : null;
+
   return (
     <motion.div
       key={log.id}
@@ -104,21 +110,24 @@ export default function ResearchEntry({ log }: ResearchEntryProps) {
           </div>
 
           {/* Cross References */}
-          {(log.relatedExperimentId || log.relatedBlueprintId) && (
+          {(relatedExp || relatedBp) && (
             <div style={{
-              display: "flex", gap: "1.5rem", flexWrap: "wrap",
-              fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg-subtle)"
+              display: "flex", gap: "2rem", flexWrap: "wrap",
             }}>
-              {log.relatedExperimentId && (
-                <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                  <span style={{ color: "var(--accent-emerald)" }}>🔗 EXPERIMENT:</span>
-                  <span>{log.relatedExperimentId.toUpperCase()}</span>
+              {relatedExp && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg-subtle)" }}>
+                    RELATED EXPERIMENT
+                  </span>
+                  <ArchiveReference type="experiment" id={`exp-${relatedExp.id}`} title={relatedExp.title} />
                 </div>
               )}
-              {log.relatedBlueprintId && (
-                <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                  <span style={{ color: "var(--accent-emerald)" }}>🔗 BLUEPRINT:</span>
-                  <span>{log.relatedBlueprintId.toUpperCase()}</span>
+              {relatedBp && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg-subtle)" }}>
+                    RELATED BLUEPRINT
+                  </span>
+                  <ArchiveReference type="blueprint" id={relatedBp.id} title={relatedBp.title} />
                 </div>
               )}
             </div>

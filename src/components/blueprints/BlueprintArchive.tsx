@@ -1,12 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 import BlueprintCard from "./BlueprintCard";
 import { BLUEPRINTS, type Blueprint } from "@/data/blueprints";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+function URLSync({ onSync }: { onSync: (id: string) => void }) {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("bp");
+  useEffect(() => {
+    if (id) onSync(id);
+  }, [id, onSync]);
+  return null;
+}
 
 export default function BlueprintArchive() {
   const [selectedId, setSelectedId] = useState<string>(BLUEPRINTS[0].id);
@@ -20,6 +30,7 @@ export default function BlueprintArchive() {
       aria-label="Blueprint Archive"
       style={{ paddingBlock: "clamp(2rem, 4vw, 4rem)", position: "relative" }}
     >
+      <Suspense fallback={null}><URLSync onSync={setSelectedId} /></Suspense>
       <div className="container-lab">
         {/* ── Section header ── */}
         <motion.div

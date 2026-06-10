@@ -2,6 +2,9 @@
 
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import type { Experiment } from "@/data/experiments";
+import { BLUEPRINTS } from "@/data/blueprints";
+import { RESEARCH_LOGS } from "@/data/researchLogs";
+import ArchiveReference from "@/components/ui/ArchiveReference";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -133,6 +136,9 @@ function MetaRow({ label, value }: { label: string; value: string }) {
 
 // ── Main component ────────────────────────────────────────────────────────────
 export default function ExperimentPreview({ experiment, onClose }: ExperimentPreviewProps) {
+  const relatedBp = experiment?.blueprintId ? BLUEPRINTS.find(b => b.id === experiment.blueprintId) : null;
+  const relatedLogs = experiment ? RESEARCH_LOGS.filter(log => log.relatedExperimentId === experiment.id) : [];
+
   return (
     <AnimatePresence mode="wait">
       {experiment && (
@@ -216,6 +222,23 @@ export default function ExperimentPreview({ experiment, onClose }: ExperimentPre
                   <TimelineView stages={experiment.timeline} />
                 </div>
               </motion.div>
+
+              {/* ── Documented In ── */}
+              {(relatedBp || relatedLogs.length > 0) && (
+                <motion.div variants={rowVariants} style={{ marginBottom: "2rem" }}>
+                  <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--fg-subtle)", marginBottom: "0.85rem" }}>
+                    Documented In
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    {relatedBp && (
+                      <ArchiveReference type="blueprint" id={relatedBp.id} title={relatedBp.title} />
+                    )}
+                    {relatedLogs.map(log => (
+                      <ArchiveReference key={log.id} type="research" id={log.id} title={log.title} />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
 
               {/* ── Stack ── */}
               {experiment.stack.length > 0 && (

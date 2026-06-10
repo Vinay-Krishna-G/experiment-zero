@@ -1,12 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { RESEARCH_LOGS, getResearchLogById } from "@/data/researchLogs";
 import ResearchEntry from "./ResearchEntry";
 import SectionHeader from "@/components/ui/SectionHeader";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+function URLSync({ onSync }: { onSync: (id: string) => void }) {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("rl");
+  useEffect(() => {
+    if (id) onSync(id);
+  }, [id, onSync]);
+  return null;
+}
 
 export default function ResearchLogArchive() {
   const [selectedId, setSelectedId] = useState<string>(RESEARCH_LOGS[0].id);
@@ -19,6 +29,7 @@ export default function ResearchLogArchive() {
       aria-label="Research Log Archive"
       style={{ paddingBlock: "clamp(2rem, 4vw, 4rem)", position: "relative" }}
     >
+      <Suspense fallback={null}><URLSync onSync={setSelectedId} /></Suspense>
       <div className="container-lab">
         
         {/* ── Section Header ── */}

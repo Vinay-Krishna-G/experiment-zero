@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 import LaboratoryShelf from "./LaboratoryShelf";
@@ -36,6 +37,15 @@ const RACK_CONFIG: Record<RackSlot, { label: string; caption: string; maxCapacit
 
 const RACK_ORDER: RackSlot[] = ["active", "completed", "future"];
 
+function URLSync({ onSync }: { onSync: (id: string) => void }) {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("exp");
+  useEffect(() => {
+    if (id) onSync(id);
+  }, [id, onSync]);
+  return null;
+}
+
 export default function ExperimentRack() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -54,6 +64,7 @@ export default function ExperimentRack() {
       aria-label="Experiments"
       style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)", position: "relative" }}
     >
+      <Suspense fallback={null}><URLSync onSync={setSelectedId} /></Suspense>
       <div className="container-lab">
         {/* ── Section header ── */}
         <motion.div
