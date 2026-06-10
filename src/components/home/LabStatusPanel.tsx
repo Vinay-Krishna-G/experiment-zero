@@ -141,9 +141,9 @@ export default function LabStatusPanel() {
           >
             {sections.map((section) => (
               <motion.div key={section.id} variants={itemVariants}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.7rem" }}>
-                  <span style={{ color: section.accent, fontSize: "0.65rem", lineHeight: 1 }} aria-hidden="true">{section.icon}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg-muted)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.65rem" }}>
+                  <span style={{ color: section.accent, fontSize: "0.7rem", lineHeight: 1 }} aria-hidden="true">{section.icon}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg-muted)" }}>
                     {section.label}
                   </span>
                 </div>
@@ -154,7 +154,7 @@ export default function LabStatusPanel() {
                     </div>
                   ))}
                 </div>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.52rem", letterSpacing: "0.18em", textTransform: "uppercase", color: section.accent, opacity: 0.7 }}>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", letterSpacing: "0", color: section.accent, opacity: 0.85, fontStyle: "italic" }}>
                   {section.note}
                 </span>
               </motion.div>

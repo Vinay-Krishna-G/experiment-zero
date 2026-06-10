@@ -16,18 +16,21 @@ import {
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const RACK_CONFIG: Record<RackSlot, { label: string; emptyNote: string }> = {
+const RACK_CONFIG: Record<RackSlot, { label: string; caption: string; maxCapacity: number }> = {
   active: {
-    label: "Rack A — Active Experiments",
-    emptyNote: "No active experiments",
+    label: "Rack A — Active Inventions",
+    caption: "Currently in progress",
+    maxCapacity: 12,
   },
   completed: {
     label: "Rack B — Completed Experiments",
-    emptyNote: "No completed experiments yet",
+    caption: "Preserved and archived",
+    maxCapacity: 12,
   },
   future: {
     label: "Rack C — Future Concepts",
-    emptyNote: "Concepts being gathered",
+    caption: "Concepts being gathered",
+    maxCapacity: 12,
   },
 };
 
@@ -149,8 +152,11 @@ export default function ExperimentRack() {
               {RACK_ORDER.map((slot) => {
                 const exps = racks[slot];
                 if (exps.length === 0) return null;
+                const cfg = RACK_CONFIG[slot];
+                const capacity = cfg.maxCapacity;
+                const rackLabel = `${cfg.label}  ·  ${exps.length} / ${capacity} specimens`;
                 return (
-                  <LaboratoryShelf key={slot} label={RACK_CONFIG[slot].label}>
+                  <LaboratoryShelf key={slot} label={rackLabel}>
                     {exps.map((exp) => (
                       <BottleRenderer
                         key={exp.id}
@@ -165,8 +171,15 @@ export default function ExperimentRack() {
             </div>
           </div>
 
-          {/* Cabinet base */}
-          <div aria-hidden="true" style={{ height: 12, borderRadius: "0 0 4px 4px", background: "linear-gradient(to bottom, #3D2710, #2D1C08)", boxShadow: "0 6px 20px rgba(28,20,8,0.3)" }} />
+          {/* Cabinet base with metadata stamp */}
+          <div style={{ borderRadius: "0 0 4px 4px", background: "linear-gradient(to bottom, #3D2710, #2D1C08)", boxShadow: "0 6px 24px rgba(28,20,8,0.35), 0 12px 40px rgba(28,20,8,0.15)", padding: "0.55rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span aria-hidden="true" style={{ fontFamily: "var(--font-mono)", fontSize: "0.42rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(184, 134, 11, 0.4)" }}>
+              Lab Cabinet No. 1
+            </span>
+            <span aria-hidden="true" style={{ fontFamily: "var(--font-mono)", fontSize: "0.42rem", letterSpacing: "0.18em", color: "rgba(184, 134, 11, 0.3)" }}>
+              {EXPERIMENTS.length} specimens catalogued
+            </span>
+          </div>
         </motion.div>
 
         {/* ── Preview panel ── */}
