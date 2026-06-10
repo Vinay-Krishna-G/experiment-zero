@@ -1,13 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-export interface FieldNote {
-  id: string;
-  date: string;
-  note: string;
-  tag?: string;
-}
+import type { FieldNote } from "@/data/fieldNotes";
 
 interface FieldNoteCardProps {
   note: FieldNote;
