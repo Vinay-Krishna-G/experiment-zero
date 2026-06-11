@@ -151,7 +151,6 @@ export default function ExperimentBottle({
           flexDirection: "column",
           alignItems: "center",
           gap: "0.75rem",
-          outline: "none",
         }}
       >
         {/* Bottle silhouette */}

@@ -148,7 +148,7 @@ export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
         </motion.div>
 
         {/* ── Main grid: content + sidebar ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr clamp(180px, 28%, 250px)", gap: "3.5rem", alignItems: "start" }}>
+        <div className="blueprint-card-grid" style={{ display: "grid", gridTemplateColumns: "1fr clamp(180px, 28%, 250px)", gap: "3.5rem", alignItems: "start" }}>
           {/* ── Left: main document body ── */}
           <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
             {/* Objective */}

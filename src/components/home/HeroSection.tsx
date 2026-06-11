@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import TitleCycler from "./TitleCycler";
 import LabCoordinates from "./LabCoordinates";
 import { EXPERIMENTS } from "@/data/experiments";
@@ -46,10 +46,14 @@ export default function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  // Subtle parallax — name moves slightly slower than scroll
-  const nameY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  // Coordinates drift very gently
+  // Parallax transforms — always called unconditionally (Rules of Hooks)
+  const nameYTransform = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const coordY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+
+  const prefersReducedMotion = useReducedMotion();
+  // Disable parallax for users who prefer reduced motion
+  const nameY = prefersReducedMotion ? "0%" : nameYTransform;
+  const activeCoordY = prefersReducedMotion ? "0%" : coordY;
 
   const connections = 
     EXPERIMENTS.filter(e => e.blueprintId).length + 
@@ -105,10 +109,10 @@ export default function HeroSection() {
 
       <div
         className="container-lab"
-        style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column" }}
+        style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", overflow: "clip" }}
       >
         {/* ── Lab Coordinates (top-right, parallax drift) ── */}
-        <motion.div style={{ y: coordY }}>
+        <motion.div style={{ y: activeCoordY, position: "absolute", top: 0, right: 0, bottom: 0, left: 0, pointerEvents: "none" }}>
           <LabCoordinates />
         </motion.div>
 
@@ -120,7 +124,7 @@ export default function HeroSection() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            style={{ paddingLeft: "1.5rem" }}
+            style={{ paddingLeft: "clamp(0rem, 2vw, 1.5rem)" }}
           >
             {/* Experiment identifier */}
             <motion.div

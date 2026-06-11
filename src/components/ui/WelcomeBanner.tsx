@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 // Each log line appears in sequence
 const LOG_LINES = [
@@ -120,12 +120,14 @@ function LogEntry({ line, now }: { line: LogLine; now: Date }) {
 export default function WelcomeBanner() {
   const [visible, setVisible] = useState(true);
   const [now] = useState(() => new Date());
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    // Hold for 3.4s total (log lines finish ~2.4s, then pause)
-    const timer = setTimeout(() => setVisible(false), 3400);
+    // If reduced motion is preferred, skip the banner immediately
+    const delay = prefersReducedMotion ? 0 : 3400;
+    const timer = setTimeout(() => setVisible(false), delay);
     return () => clearTimeout(timer);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <AnimatePresence>

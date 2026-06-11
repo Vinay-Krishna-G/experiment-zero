@@ -54,6 +54,10 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll from any escaped absolutely-positioned elements.
+     overflow-x:clip is safer than overflow-x:hidden — it doesn't create a new
+     stacking context and does NOT break position:sticky children. */
+  overflow-x: clip;
 }
 
 body {
@@ -178,5 +182,37 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Unified Focus State System ─────────────────────────────────────── */
+/* Remove browser default blue on click, keep visible ring on keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--accent-emerald);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Mobile Layout Helpers ──────────────────────────────────────────── */
+/* Collapse sidebar grid on small screens */
+@media (max-width: 767px) {
+  .blueprint-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .research-log-pane {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    position: static !important;
+  }
+
+  /* Prevent overflow on hero */
+  .text-hero {
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 }

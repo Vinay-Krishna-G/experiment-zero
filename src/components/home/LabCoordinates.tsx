@@ -10,6 +10,7 @@ export default function LabCoordinates() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, delay: 3.6 }}
       aria-label="Laboratory location metadata"
+      className="lab-coordinates-panel"
       style={{
         position: "absolute",
         top: "calc(var(--nav-height) + 2rem)",
@@ -21,6 +22,7 @@ export default function LabCoordinates() {
         textAlign: "right",
         pointerEvents: "none",
         userSelect: "none",
+        maxWidth: "120px",
       }}
     >
       {/* Top rule */}
@@ -55,6 +57,11 @@ export default function LabCoordinates() {
           marginTop: "0.5rem",
         }}
       />
+      <style>{`
+        @media (max-width: 767px) {
+          .lab-coordinates-panel { display: none !important; }
+        }
+      `}</style>
     </motion.div>
   );
 }

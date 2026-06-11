@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const TITLES = [
   "Web Developer",
@@ -22,6 +22,7 @@ export default function TitleCycler() {
   const [direction, setDirection] = useState<"ltr" | "rtl">("ltr");
   const [showNext, setShowNext] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const startTransition = () => {
     setIsTransitioning(true);
@@ -42,6 +43,8 @@ export default function TitleCycler() {
   };
 
   useEffect(() => {
+    // Don't cycle titles when reduced motion is preferred
+    if (prefersReducedMotion) return;
     const schedule = () => {
       intervalRef.current = setTimeout(() => {
         startTransition();
@@ -52,13 +55,31 @@ export default function TitleCycler() {
     return () => {
       if (intervalRef.current) clearTimeout(intervalRef.current);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   const sweepInitial =
     direction === "ltr" ? { x: "-102%" } : { x: "102%" };
   const sweepAnimate = { x: "0%" };
   const sweepExit =
     direction === "ltr" ? { x: "102%" } : { x: "-102%" };
+
+  // Reduced motion: render a single static title, no sweep
+  if (prefersReducedMotion) {
+    return (
+      <span
+        style={{
+          fontFamily: "var(--font-body)",
+          fontWeight: 300,
+          fontSize: "clamp(1.1rem, 3vw, 2.2rem)",
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          color: "var(--fg-secondary)",
+        }}
+      >
+        {TITLES[currentIndex]}
+      </span>
+    );
+  }
 
   return (
     <div

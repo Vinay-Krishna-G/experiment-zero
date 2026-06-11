@@ -41,7 +41,11 @@ function URLSync({ onSync }: { onSync: (id: string) => void }) {
   const searchParams = useSearchParams();
   const id = searchParams.get("exp");
   useEffect(() => {
-    if (id) onSync(id);
+    if (id) {
+      const rawId = id.startsWith("exp-") ? id.replace("exp-", "") : id;
+      const exists = EXPERIMENTS.some(e => e.id === rawId);
+      if (exists) onSync(rawId);
+    }
   }, [id, onSync]);
   return null;
 }

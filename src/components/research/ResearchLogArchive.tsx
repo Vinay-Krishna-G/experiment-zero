@@ -63,6 +63,7 @@ export default function ResearchLogArchive() {
             transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
             aria-label="Research Log Index"
             role="tablist"
+            className="research-log-pane"
             style={{
               position: "sticky",
               top: "calc(var(--nav-height) + 2rem)",
