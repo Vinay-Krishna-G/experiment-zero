@@ -50,7 +50,7 @@ export default function BlueprintArticle({ blueprint }: { blueprint: Blueprint }
           </section>
         )}
 
-        <EnterLaboratoryCTA expId={blueprint.projectId} />
+        <EnterLaboratoryCTA expId={blueprint.id} />
       </article>
     </main>
   );

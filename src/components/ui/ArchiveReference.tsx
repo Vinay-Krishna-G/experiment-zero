@@ -20,7 +20,8 @@ function ArchiveReferenceInner({ type, id, title }: ArchiveReferenceProps) {
     const sectionId = type === "experiment" ? "experiments" : type === "blueprint" ? "blueprints" : "research-log";
     
     params.set(queryKey, id);
-    router.push(`${pathname}?${params.toString()}#${sectionId}`, { scroll: false });
+    const targetPath = pathname === "/" ? "" : "/";
+    router.push(`${targetPath}?${params.toString()}#${sectionId}`, { scroll: false });
     
     // Smooth scroll manually after updating URL state
     requestAnimationFrame(() => {

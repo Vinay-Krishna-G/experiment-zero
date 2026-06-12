@@ -38,15 +38,23 @@ const RACK_CONFIG: Record<RackSlot, { label: string; caption: string; maxCapacit
 
 const RACK_ORDER: RackSlot[] = ["active", "completed", "future"];
 
+const LEGACY_ID_MAP: Record<string, string> = {
+  "001": "promptvault",
+  "002": "ai-codebase-analyzer",
+  "003": "experiment-zero",
+  "004": "future-experiment",
+};
+
 function URLSync({ onSync }: { onSync: (id: string | null) => void }) {
   const searchParams = useSearchParams();
   const id = searchParams.get("exp");
   useEffect(() => {
     if (id) {
       const rawId = id.startsWith("exp-") ? id.replace("exp-", "") : id;
-      const exists = EXPERIMENTS.some(e => e.id === rawId);
+      const canonicalId = LEGACY_ID_MAP[rawId] || rawId;
+      const exists = EXPERIMENTS.some(e => e.id === canonicalId);
       if (exists) {
-        onSync(rawId);
+        onSync(canonicalId);
       } else {
         onSync(null);
       }
