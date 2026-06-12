@@ -24,15 +24,30 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vinay Krishna — Laboratory",
-  description:
-    "Building useful software, one experiment at a time. The personal laboratory of Vinay Krishna — Web Developer, UI/UX Designer, AI Explorer.",
+  metadataBase: new URL("https://vinaykrishna.dev"),
+  title: "Experiment Zero — Vinay Krishna",
+  description: "Software experiments, AI systems, architecture research, and engineering documentation.",
   keywords: ["Vinay Krishna", "Web Developer", "UI/UX Designer", "Portfolio", "Laboratory"],
   authors: [{ name: "Vinay Krishna" }],
   openGraph: {
-    title: "Vinay Krishna — Laboratory",
-    description: "Building useful software, one experiment at a time.",
+    title: "Experiment Zero — Vinay Krishna",
+    description: "Software experiments, AI systems, architecture research, and engineering documentation.",
+    siteName: "Experiment Zero",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Experiment Zero",
+      },
+    ],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Experiment Zero — Vinay Krishna",
+    description: "Software experiments, AI systems, architecture research, and engineering documentation.",
+    images: ["/og-image.jpg"],
   },
 };
 

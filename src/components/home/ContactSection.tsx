@@ -3,25 +3,11 @@
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 
-const SOCIAL_LINKS = [
-  {
-    label: "GitHub",
-    href: "https://github.com/vinaykrishna",
-    desc: "Open source experiments",
-    id: "correspondence-github",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/vinaykrishna",
-    desc: "Professional journal",
-    id: "correspondence-linkedin",
-  },
-  {
-    label: "Twitter / X",
-    href: "https://twitter.com/vinaykrishna",
-    desc: "Dispatches from the lab",
-    id: "correspondence-twitter",
-  },
+const CONTACT_RECORDS = [
+  { label: "EMAIL", value: "vinay@example.com", href: "mailto:vinay@example.com" },
+  { label: "GITHUB", value: "github.com/username", href: "https://github.com/username" },
+  { label: "LINKEDIN", value: "linkedin.com/in/username", href: "https://linkedin.com/in/username" },
+  { label: "LOCATION", value: "Vijayawada, India" },
 ];
 
 export default function ContactSection() {
@@ -57,7 +43,7 @@ export default function ContactSection() {
               gap: "3rem",
             }}
           >
-            {/* Message / email */}
+            {/* Left Column */}
             <div>
               <p
                 style={{
@@ -69,102 +55,92 @@ export default function ContactSection() {
                   maxWidth: "40ch",
                 }}
               >
-                Whether you have a project in mind, want to collaborate on an experiment, or simply wish to correspond with the laboratory.
+                If an experiment resonates with you, feel free to reach out. I enjoy discussing software architecture, AI systems, product design, and ambitious engineering projects.
               </p>
-              <a
-                href="mailto:hello@vinaykrishna.dev"
-                id="correspondence-email"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(1.05rem, 2.2vw, 1.4rem)",
-                  fontWeight: 700,
-                  color: "var(--fg-primary)",
-                  textDecoration: "none",
-                  letterSpacing: "-0.01em",
-                  borderBottom: "2px solid var(--accent-emerald)",
-                  paddingBottom: "2px",
-                  transition: "color 0.2s ease",
-                  display: "inline-block",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = "var(--accent-emerald)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)";
-                }}
-              >
-                hello@vinaykrishna.dev
-              </a>
             </div>
 
-            {/* Social cards */}
+            {/* Right Column */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.id}
-                  href={social.href}
-                  id={social.id}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {CONTACT_RECORDS.map((record) => (
+                <div
+                  key={record.label}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    display: "grid",
+                    gridTemplateColumns: "100px 1fr",
+                    gap: "1rem",
                     padding: "0.85rem 1rem",
                     border: "1px solid var(--border-subtle)",
                     borderRadius: "2px",
-                    textDecoration: "none",
                     backgroundColor: "var(--bg-card)",
-                    transition:
-                      "border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
-                    gap: "1rem",
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "var(--accent-emerald)";
-                    el.style.transform = "translateY(-2px)";
-                    el.style.boxShadow = "0 4px 16px rgba(28,25,23,0.08)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "var(--border-subtle)";
-                    el.style.transform = "translateY(0)";
-                    el.style.boxShadow = "none";
+                    alignItems: "center",
                   }}
                 >
-                  <div>
-                    <div
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.15em",
+                      color: "var(--fg-subtle)",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {record.label}
+                  </div>
+                  {record.href ? (
+                    <a
+                      href={record.href}
+                      target={record.href.startsWith("http") ? "_blank" : undefined}
+                      rel={record.href.startsWith("http") ? "noopener noreferrer" : undefined}
                       style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "0.82rem",
-                        fontWeight: 500,
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.8rem",
                         color: "var(--fg-primary)",
-                        marginBottom: "0.15rem",
+                        textDecoration: "none",
+                        transition: "color 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = "var(--accent-emerald)";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)";
                       }}
                     >
-                      {social.label}
-                    </div>
+                      {record.value}
+                    </a>
+                  ) : (
                     <div
                       style={{
                         fontFamily: "var(--font-mono)",
-                        fontSize: "0.55rem",
-                        letterSpacing: "0.12em",
-                        color: "var(--fg-subtle)",
-                        textTransform: "uppercase",
+                        fontSize: "0.8rem",
+                        color: "var(--fg-primary)",
                       }}
                     >
-                      {social.desc}
+                      {record.value}
                     </div>
-                  </div>
-                  <span
-                    style={{ color: "var(--fg-subtle)", fontSize: "0.75rem" }}
-                    aria-hidden="true"
-                  >
-                    ↗
-                  </span>
-                </a>
+                  )}
+                </div>
               ))}
             </div>
+          </div>
+
+          <div
+            style={{
+              marginTop: "4rem",
+              paddingTop: "2rem",
+              borderTop: "1px solid var(--border-subtle)",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.75rem",
+                color: "var(--fg-subtle)",
+                letterSpacing: "0.05em",
+              }}
+            >
+              Currently available for software engineering opportunities, freelance collaborations, and research discussions.
+            </p>
           </div>
         </motion.div>
       </div>

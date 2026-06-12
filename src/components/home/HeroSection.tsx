@@ -57,7 +57,6 @@ export default function HeroSection() {
 
   const connections = 
     EXPERIMENTS.filter(e => e.blueprintId).length + 
-    BLUEPRINTS.filter(b => b.projectId).length + 
     RESEARCH_LOGS.filter(r => r.relatedBlueprintId).length + 
     RESEARCH_LOGS.filter(r => r.relatedExperimentId).length;
 
@@ -112,7 +111,7 @@ export default function HeroSection() {
         style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", overflow: "clip" }}
       >
         {/* ── Lab Coordinates (top-right, parallax drift) ── */}
-        <motion.div style={{ y: activeCoordY, position: "absolute", top: 0, right: 0, bottom: 0, left: 0, pointerEvents: "none" }}>
+        <motion.div className="hidden md:block" style={{ y: activeCoordY, position: "absolute", top: 0, right: 0, bottom: 0, left: 0, pointerEvents: "none" }}>
           <LabCoordinates />
         </motion.div>
 
@@ -138,8 +137,8 @@ export default function HeroSection() {
             >
               <span className="text-lab-label">◆ Experiment Zero</span>
               <div
+                className="hidden md:flex"
                 style={{
-                  display: "flex",
                   flexDirection: "column",
                   alignItems: "flex-start",
                   gap: "0",
@@ -390,6 +389,7 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
+        className="hidden md:flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 4.5, duration: 0.8 }}

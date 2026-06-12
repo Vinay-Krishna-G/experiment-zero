@@ -13,7 +13,12 @@ function URLSync({ onSync }: { onSync: (id: string) => void }) {
   const searchParams = useSearchParams();
   const id = searchParams.get("bp");
   useEffect(() => {
-    if (id) onSync(id);
+    if (id) {
+      const exists = BLUEPRINTS.some(bp => bp.id === id);
+      if (exists) {
+        onSync(id);
+      }
+    }
   }, [id, onSync]);
   return null;
 }

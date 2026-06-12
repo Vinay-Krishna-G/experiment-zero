@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 import LaboratoryShelf from "./LaboratoryShelf";
@@ -37,14 +37,20 @@ const RACK_CONFIG: Record<RackSlot, { label: string; caption: string; maxCapacit
 
 const RACK_ORDER: RackSlot[] = ["active", "completed", "future"];
 
-function URLSync({ onSync }: { onSync: (id: string) => void }) {
+function URLSync({ onSync }: { onSync: (id: string | null) => void }) {
   const searchParams = useSearchParams();
   const id = searchParams.get("exp");
   useEffect(() => {
     if (id) {
       const rawId = id.startsWith("exp-") ? id.replace("exp-", "") : id;
       const exists = EXPERIMENTS.some(e => e.id === rawId);
-      if (exists) onSync(rawId);
+      if (exists) {
+        onSync(rawId);
+      } else {
+        onSync(null);
+      }
+    } else {
+      onSync(null);
     }
   }, [id, onSync]);
   return null;
@@ -59,8 +65,19 @@ export default function ExperimentRack() {
   const racks = groupByRack(EXPERIMENTS);
   const counts = getInventoryCounts(EXPERIMENTS);
 
-  const handleBottleClick = (id: string) =>
-    setSelectedId((prev) => (prev === id ? null : id));
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleBottleClick = (id: string) => {
+    const newId = selectedId === id ? null : id;
+    const params = new URLSearchParams(window.location.search);
+    if (newId) {
+      params.set("exp", `exp-${newId}`);
+    } else {
+      params.delete("exp");
+    }
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <section
@@ -200,7 +217,7 @@ export default function ExperimentRack() {
         {/* ── Preview panel ── */}
         <ExperimentPreview
           experiment={selectedExperiment}
-          onClose={() => setSelectedId(null)}
+          onClose={() => handleBottleClick(selectedId!)}
         />
 
         {/* ── Empty state ── */}

@@ -123,9 +123,17 @@ export default function WelcomeBanner() {
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    // If reduced motion is preferred, skip the banner immediately
-    const delay = prefersReducedMotion ? 0 : 3400;
-    const timer = setTimeout(() => setVisible(false), delay);
+    // If reduced motion is preferred or user has already seen it this session, skip the banner immediately
+    const hasSeen = sessionStorage.getItem("welcome-seen");
+    if (hasSeen === "true" || prefersReducedMotion) {
+      // Avoid synchronous setState in effect to satisfy linter
+      setTimeout(() => setVisible(false), 0);
+      return;
+    }
+
+    sessionStorage.setItem("welcome-seen", "true");
+
+    const timer = setTimeout(() => setVisible(false), 3400);
     return () => clearTimeout(timer);
   }, [prefersReducedMotion]);
 
