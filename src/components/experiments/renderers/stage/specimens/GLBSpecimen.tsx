@@ -7,7 +7,7 @@ import { useDeviceTier } from "../../theme/DeviceTierContext";
 
 // Preload globally so suspense doesn't pop in on first click
 EXPERIMENTS.forEach((exp) => {
-  useGLTF.preload(`/models/specimens/exp-${exp.id}.glb`);
+  useGLTF.preload(`/models/specimens/${exp.id}.glb`);
 });
 
 export default function GLBSpecimen({
@@ -18,7 +18,7 @@ export default function GLBSpecimen({
   theme: LaboratoryTheme;
 }) {
   const tier = useDeviceTier();
-  const assetUrl = `/models/specimens/exp-${experiment.id}.glb`;
+  const assetUrl = `/models/specimens/${experiment.id}.glb`;
   
   const { scene } = useGLTF(assetUrl);
 

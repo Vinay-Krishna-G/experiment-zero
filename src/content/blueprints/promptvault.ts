@@ -1,7 +1,8 @@
-import type { Blueprint } from "@/types";
+import { createBlueprint } from "../factories";
 
-export const promptvault: Blueprint = {
-  "id": "bp-001",
+export const promptvault = createBlueprint({
+  id: "promptvault",
+  publishedAt: "2026-06-12",
   "projectId": "001",
   "title": "PromptVault",
   "objective": "Design a system that allows developers and creators to store, organize, and instantly retrieve AI prompts — eliminating the problem of losing high-value prompts inside chat history.",
@@ -40,15 +41,12 @@ export const promptvault: Blueprint = {
   ],
   "discoveries": [
     {
-      "id": "D1",
       "text": "Tagging taxonomy matters more than search — users navigate by category, not keyword."
     },
     {
-      "id": "D2",
       "text": "One-click copy is the most-used feature. Friction here kills the product."
     },
     {
-      "id": "D3",
       "text": "MongoDB's full-text search was sufficient at this scale; no Elasticsearch needed."
     }
   ],
@@ -58,5 +56,5 @@ export const promptvault: Blueprint = {
     "User authentication should be treated as infrastructure, not a feature."
   ],
   "status": "Verified",
-  "slug": "promptvault"
-};
+
+});

@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const largerepositoriesrequirechunkedindexing: ResearchLog = {
-  "id": "rl-003",
+export const largeRepositoriesRequireChunkedIndexing = createResearchLog({
+  id: "large-repositories-require-chunked-indexing",
+  publishedAt: "2026-06-12",
   "title": "Large repositories require chunked indexing",
   "date": "2026.01.22",
   "category": "System Design Note",
@@ -12,6 +13,7 @@ export const largerepositoriesrequirechunkedindexing: ResearchLog = {
     "performance",
     "code-analysis"
   ],
-  "relatedBlueprintId": "bp-001",
-  "slug": "large-repositories-require-chunked-indexing"
-};
+  "relatedBlueprintId": "ai-codebase-analyzer",
+  "relatedExperimentId": "ai-codebase-analyzer",
+
+});

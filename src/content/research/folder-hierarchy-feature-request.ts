@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const folderhierarchyfeaturerequest: ResearchLog = {
-  "id": "rl-009",
+export const folderHierarchyFeatureRequest = createResearchLog({
+  id: "folder-hierarchy-feature-request",
+  publishedAt: "2026-06-12",
   "title": "Folder hierarchy feature request",
   "date": "2025.12.05",
   "category": "Observation",
@@ -12,5 +13,5 @@ export const folderhierarchyfeaturerequest: ResearchLog = {
     "feedback",
     "vision"
   ],
-  "slug": "folder-hierarchy-feature-request"
-};
+
+});

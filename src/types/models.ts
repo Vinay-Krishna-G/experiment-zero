@@ -1,32 +1,50 @@
 import type { BottleConfig } from "./renderer";
 import type { ContentSections, TimelineStage } from "./content";
 
+export type ContentVisibility = "public" | "unlisted" | "draft";
+
+export interface BaseContent {
+  id: string;
+  slug: string;
+  visibility: ContentVisibility;
+  archived: boolean;
+  featured: boolean;
+  priority: number;
+  publishedAt: string;
+  updatedAt: string;
+  promptSource?: string;
+  aiAssisted?: boolean;
+}
+
+export type PrimaryCategory =
+  | "Developer Tool"
+  | "Research"
+  | "Infrastructure"
+  | "AI"
+  | "Frontend"
+  | "Backend"
+  | "Design"
+  | "Productivity"
+  | "Unknown";
+
 export type ExperimentStatus =
   | "Completed"
   | "In Progress"
-  | "On Hold"
-  | "Archived"
-  | "Planned";
-
-export type ExperimentCategory =
-  | "Productivity"
-  | "AI Tooling"
-  | "Dev Tools"
-  | "Portfolio"
-  | "Design"
+  | "Beta"
   | "Research"
-  | "Unknown";
+  | "On Hold"
+  | "Planned";
 
 export type RackSlot = "active" | "completed" | "future";
 
-export interface Experiment {
-  id: string;
-  slug: string;
+export interface Experiment extends BaseContent {
   title: string;
   tagline: string;
   description: string;
   status: ExperimentStatus;
-  category: ExperimentCategory;
+  primaryCategory: PrimaryCategory;
+  progress: number;
+  tags: string[];
   year: string;
   complexity: number;
   timeline: TimelineStage[];
@@ -50,13 +68,11 @@ export interface BlueprintStage {
 }
 
 export interface Discovery {
-  id: string;
+  id?: string;
   text: string;
 }
 
-export interface Blueprint {
-  id: string;
-  slug: string; // Added to match Experiment architecture
+export interface Blueprint extends BaseContent {
   projectId: string;
   title: string;
   objective: string;
@@ -77,9 +93,7 @@ export type ResearchCategory =
   | "System Design Note"
   | "Future Expedition";
 
-export interface ResearchLog {
-  id: string;
-  slug: string; // Added to match Experiment architecture
+export interface ResearchLog extends BaseContent {
   title: string;
   date: string;
   category: ResearchCategory;
@@ -93,7 +107,7 @@ export interface ResearchLog {
 // ─── Field Note Types ─────────────────────────────────────────────────────────
 
 export interface FieldNote {
-  id: string;
+  id?: string;
   date: string;
   tag: string;
   note: string;

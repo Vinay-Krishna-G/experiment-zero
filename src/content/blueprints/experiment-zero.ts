@@ -1,7 +1,8 @@
-import type { Blueprint } from "@/types";
+import { createBlueprint } from "../factories";
 
-export const experimentzero: Blueprint = {
-  "id": "bp-003",
+export const experimentZero = createBlueprint({
+  id: "experiment-zero",
+  publishedAt: "2026-06-12",
   "projectId": "003",
   "title": "Experiment Zero",
   "objective": "Design a portfolio that feels like entering a living laboratory — not a resume page. Every section should reinforce a narrative: an inventor documenting work in progress.",
@@ -40,15 +41,12 @@ export const experimentzero: Blueprint = {
   ],
   "discoveries": [
     {
-      "id": "D1",
       "text": "A portfolio should feel like a place, not a page. The difference is whether the visitor explores or browses."
     },
     {
-      "id": "D2",
       "text": "Data-driven architecture eliminates the 'update the portfolio' tax — content lives in one file."
     },
     {
-      "id": "D3",
       "text": "CSS-only bottles are convincing enough for Phase 1 — premature Three.js would slow momentum."
     }
   ],
@@ -58,5 +56,5 @@ export const experimentzero: Blueprint = {
     "Animated motion should feel earned, not decorative. Every animation should serve the narrative."
   ],
   "status": "In Development",
-  "slug": "experiment-zero"
-};
+
+});

@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const decouplingrenderingfrominteractionstate: ResearchLog = {
-  "id": "rl-010",
+export const decouplingRenderingFromInteractionState = createResearchLog({
+  id: "decoupling-rendering-from-interaction-state",
+  publishedAt: "2026-06-12",
   "title": "Decoupling rendering from interaction state",
   "date": "2026.04.28",
   "category": "System Design Note",
@@ -12,6 +13,6 @@ export const decouplingrenderingfrominteractionstate: ResearchLog = {
     "patterns",
     "threejs"
   ],
-  "relatedExperimentId": "exp-001",
-  "slug": "decoupling-rendering-from-interaction-state"
-};
+  "relatedExperimentId": "experiment-zero",
+
+});

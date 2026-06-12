@@ -8,7 +8,7 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
       <article>
         <header className="mb-16 border-b border-white/10 pb-8">
           <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-emerald-400 mb-6">
-            <span>{experiment.category}</span>
+            <span>{experiment.primaryCategory}</span>
             <span className="w-1 h-1 bg-white/20 rounded-full" />
             <span>{experiment.year}</span>
           </div>

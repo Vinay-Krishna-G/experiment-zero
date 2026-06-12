@@ -4,7 +4,7 @@ import { type Experiment, type Blueprint, type ResearchLog } from '@/content';
 const SITE_URL = 'https://vinaykrishna.dev';
 
 export function buildExperimentMetadata(experiment: Experiment): Metadata {
-  const url = `${SITE_URL}/experiments/exp-${experiment.id}`;
+  const url = `${SITE_URL}/experiments/${experiment.slug}`;
   const ogImage = experiment.ogImage || '/og-image.jpg';
 
   return {
@@ -13,6 +13,12 @@ export function buildExperimentMetadata(experiment: Experiment): Metadata {
     alternates: {
       canonical: url,
     },
+    ...(experiment.visibility === 'unlisted' ? {
+      robots: {
+        index: false,
+        follow: true,
+      }
+    } : {}),
     openGraph: {
       title: `${experiment.title} — Experiment Zero`,
       description: experiment.description,
@@ -47,6 +53,12 @@ export function buildBlueprintMetadata(blueprint: Blueprint): Metadata {
     alternates: {
       canonical: url,
     },
+    ...(blueprint.visibility === 'unlisted' ? {
+      robots: {
+        index: false,
+        follow: true,
+      }
+    } : {}),
     openGraph: {
       title: `${blueprint.title} Blueprint — Experiment Zero`,
       description: blueprint.objective,
@@ -81,6 +93,12 @@ export function buildResearchMetadata(log: ResearchLog): Metadata {
     alternates: {
       canonical: url,
     },
+    ...(log.visibility === 'unlisted' ? {
+      robots: {
+        index: false,
+        follow: true,
+      }
+    } : {}),
     openGraph: {
       title: `${log.title} — Research Log`,
       description: log.summary,

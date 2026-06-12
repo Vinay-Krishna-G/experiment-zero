@@ -1,15 +1,15 @@
-import { type Experiment } from "@/types";
+import { createExperiment } from "../factories";
 
-export const futureExperiment: Experiment = {
-  id: "004",
-  slug: "future-experiment",
+export const futureExperiment = createExperiment({
+  id: "future-experiment",
+  publishedAt: "2026-06-12",
   title: "Future Experiment",
   tagline: "The next invention is taking shape.",
   description:
     "Every great laboratory has a bench reserved for the next experiment. This shelf is being prepared. The idea is forming. The ingredients are being gathered.",
   status: "Planned",
-  category: "Unknown",
-  year: "2026",
+  primaryCategory: "Developer Tool",
+  tags: ["Unknown"],
   complexity: 1,
   timeline: [
     { label: "Idea", status: "pending" },
@@ -19,11 +19,5 @@ export const futureExperiment: Experiment = {
     { label: "Shipped", status: "pending" },
   ],
   stack: [],
-  bottle: {
-    size: "small",
-    glass: "slate",
-    glow: "none",
-    label: "TBD",
-    fillLevel: 0.1,
-  },
-};
+  blueprintId: "future-experiment",
+});

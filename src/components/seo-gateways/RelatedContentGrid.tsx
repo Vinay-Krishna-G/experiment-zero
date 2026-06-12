@@ -12,7 +12,7 @@ export default function RelatedContentGrid({ experiment }: { experiment: Experim
   }
 
   if (related.length < 2) {
-    const byCategory = EXPERIMENTS.filter(e => e.category === experiment.category && e.id !== experiment.id);
+    const byCategory = EXPERIMENTS.filter(e => e.primaryCategory === experiment.primaryCategory && e.id !== experiment.id);
     related = [...related, ...byCategory].slice(0, 2);
   }
 
@@ -25,10 +25,10 @@ export default function RelatedContentGrid({ experiment }: { experiment: Experim
         {related.map(exp => (
           <Link 
             key={exp.id} 
-            href={`/experiments/exp-${exp.id}`}
+            href={`/experiments/${exp.slug}`}
             className="block p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors rounded"
           >
-            <div className="text-xs text-white/40 mb-2 uppercase tracking-wider">{exp.category}</div>
+            <div className="text-xs text-white/40 mb-2 uppercase tracking-wider">{exp.primaryCategory}</div>
             <h4 className="text-lg text-emerald-400 font-medium mb-2">{exp.title}</h4>
             <p className="text-sm text-white/60 line-clamp-2">{exp.tagline}</p>
           </Link>

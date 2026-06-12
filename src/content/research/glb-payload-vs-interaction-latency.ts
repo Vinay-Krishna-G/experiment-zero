@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const glbpayloadvsinteractionlatency: ResearchLog = {
-  "id": "rl-007",
+export const glbPayloadVsInteractionLatency = createResearchLog({
+  id: "glb-payload-vs-interaction-latency",
+  publishedAt: "2026-06-12",
   "title": "GLB payload vs interaction latency",
   "date": "2026.06.10",
   "category": "Future Expedition",
@@ -12,6 +13,7 @@ export const glbpayloadvsinteractionlatency: ResearchLog = {
     "threejs",
     "webgl"
   ],
-  "relatedBlueprintId": "bp-003",
-  "slug": "glb-payload-vs-interaction-latency"
-};
+  "relatedBlueprintId": "experiment-zero",
+  "relatedExperimentId": "experiment-zero",
+
+});

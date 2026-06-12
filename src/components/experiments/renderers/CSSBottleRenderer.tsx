@@ -96,7 +96,7 @@ export default function ExperimentBottle({
               { k: "Specimen", v: `#${experiment.id}` },
               { k: "Status", v: experiment.status },
               { k: "Recovered", v: experiment.year },
-              { k: "Category", v: experiment.category },
+              { k: "Category", v: experiment.primaryCategory },
             ].map(({ k, v }) => (
               <div
                 key={k}

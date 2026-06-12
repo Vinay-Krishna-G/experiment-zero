@@ -1,7 +1,8 @@
-import type { Blueprint } from "@/types";
+import { createBlueprint } from "../factories";
 
-export const aicodebaseanalyzer: Blueprint = {
-  "id": "bp-002",
+export const aiCodebaseAnalyzer = createBlueprint({
+  id: "ai-codebase-analyzer",
+  publishedAt: "2026-06-12",
   "projectId": "002",
   "title": "AI Codebase Analyzer",
   "objective": "Build a tool that lets developers ask natural language questions about any codebase — without manually reading thousands of files. The system must stay accurate across large repositories.",
@@ -41,19 +42,15 @@ export const aicodebaseanalyzer: Blueprint = {
   ],
   "discoveries": [
     {
-      "id": "D1",
       "text": "Large repositories require chunked indexing — full-file embedding exceeds context limits."
     },
     {
-      "id": "D2",
       "text": "Metadata (file path, function name) dramatically improves retrieval precision."
     },
     {
-      "id": "D3",
       "text": "RAG accuracy depends more on chunking strategy than on the LLM model chosen."
     },
     {
-      "id": "D4",
       "text": "Users ask architectural questions more than implementation questions."
     }
   ],
@@ -63,5 +60,5 @@ export const aicodebaseanalyzer: Blueprint = {
     "Build an evaluation harness early — otherwise you are guessing at quality."
   ],
   "status": "In Development",
-  "slug": "ai-codebase-analyzer"
-};
+
+});

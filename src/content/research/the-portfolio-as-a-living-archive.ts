@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const theportfolioasalivingarchive: ResearchLog = {
-  "id": "rl-005",
+export const thePortfolioAsALivingArchive = createResearchLog({
+  id: "the-portfolio-as-a-living-archive",
+  publishedAt: "2026-06-12",
   "title": "The portfolio as a living archive",
   "date": "2026.05.01",
   "category": "Observation",
@@ -12,6 +13,6 @@ export const theportfolioasalivingarchive: ResearchLog = {
     "portfolio",
     "documentation"
   ],
-  "relatedExperimentId": "exp-001",
-  "slug": "the-portfolio-as-a-living-archive"
-};
+  "relatedExperimentId": "experiment-zero",
+
+});

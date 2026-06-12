@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const contextapiinfinitelooptrace: ResearchLog = {
-  "id": "rl-006",
+export const contextApiInfiniteLoopTrace = createResearchLog({
+  id: "context-api-infinite-loop-trace",
+  publishedAt: "2026-06-12",
   "title": "Context API infinite loop trace",
   "date": "2025.09.30",
   "category": "Failed Experiment",
@@ -12,5 +13,5 @@ export const contextapiinfinitelooptrace: ResearchLog = {
     "state-management",
     "architecture"
   ],
-  "slug": "context-api-infinite-loop-trace"
-};
+
+});

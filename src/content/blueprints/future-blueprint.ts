@@ -1,7 +1,8 @@
-import type { Blueprint } from "@/types";
+import { createBlueprint } from "../factories";
 
-export const futureblueprint: Blueprint = {
-  "id": "bp-004",
+export const futureBlueprint = createBlueprint({
+  id: "future-experiment",
+  publishedAt: "2026-06-12",
   "projectId": "004",
   "title": "Future Blueprint",
   "objective": "The next experiment is still being conceived. The problem space is known; the solution approach is forming. Research and ideation are underway.",
@@ -34,7 +35,6 @@ export const futureblueprint: Blueprint = {
   ],
   "discoveries": [
     {
-      "id": "D1",
       "text": "Research in progress — discoveries being documented."
     }
   ],
@@ -42,5 +42,5 @@ export const futureblueprint: Blueprint = {
     "Lessons will be recorded as the experiment progresses."
   ],
   "status": "In Development",
-  "slug": "future-blueprint"
-};
+
+});

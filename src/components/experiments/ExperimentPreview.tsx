@@ -11,16 +11,18 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const STATUS_COLORS: Record<Experiment["status"], string> = {
   Completed: "var(--accent-emerald)",
   "In Progress": "var(--accent-copper)",
+  Beta: "var(--accent-amber)",
+  Research: "var(--accent-emerald)",
   "On Hold": "var(--fg-muted)",
-  Archived: "var(--fg-subtle)",
   Planned: "var(--fg-subtle)",
 };
 
 const CLASSIFICATION: Record<Experiment["status"], string> = {
   Completed: "Archived Research",
   "In Progress": "Active Research",
+  Beta: "Active Research",
+  Research: "Active Research",
   "On Hold": "Suspended",
-  Archived: "Archived",
   Planned: "Pre-Research",
 };
 
@@ -168,7 +170,7 @@ export default function ExperimentPreview({ experiment, onClose }: ExperimentPre
                   <div style={{ flex: 1 }}>
                     {/* Entry number + category breadcrumb */}
                     <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--fg-subtle)", marginBottom: "0.4rem" }}>
-                      Entry #{experiment.id} / {experiment.category}
+                      Entry #{experiment.id} / {experiment.primaryCategory}
                     </div>
                     <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 700, color: "var(--fg-primary)", letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "0.4rem" }}>
                       {experiment.title}

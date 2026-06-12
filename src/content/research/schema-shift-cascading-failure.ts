@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const schemashiftcascadingfailure: ResearchLog = {
-  "id": "rl-004",
+export const schemaShiftCascadingFailure = createResearchLog({
+  id: "schema-shift-cascading-failure",
+  publishedAt: "2026-06-12",
   "title": "Schema shift cascading failure",
   "date": "2025.08.14",
   "category": "Failed Experiment",
@@ -12,5 +13,5 @@ export const schemashiftcascadingfailure: ResearchLog = {
     "schema",
     "lessons"
   ],
-  "slug": "schema-shift-cascading-failure"
-};
+
+});

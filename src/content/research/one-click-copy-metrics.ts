@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const oneclickcopymetrics: ResearchLog = {
-  "id": "rl-002",
+export const oneClickCopyMetrics = createResearchLog({
+  id: "one-click-copy-metrics",
+  publishedAt: "2026-06-12",
   "title": "One-click copy metrics",
   "date": "2025.11.08",
   "category": "Discovery",
@@ -12,6 +13,6 @@ export const oneclickcopymetrics: ResearchLog = {
     "user-experience",
     "prompt-engineering"
   ],
-  "relatedExperimentId": "exp-002",
-  "slug": "one-click-copy-metrics"
-};
+  "relatedExperimentId": "promptvault",
+
+});

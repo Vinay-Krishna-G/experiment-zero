@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "npm run content:validate",
+    "content:validate": "npx tsx src/content/validate.ts",
     "start": "next start",
     "lint": "eslint"
   },

@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const architectureclaritymattersmorethanvisualpolish: ResearchLog = {
-  "id": "rl-001",
+export const architectureClarityMattersMoreThanVisualPolish = createResearchLog({
+  id: "architecture-clarity-matters-more-than-visual-polish",
+  publishedAt: "2026-06-12",
   "title": "Architecture clarity matters more than visual polish",
   "date": "2026.04.12",
   "category": "Lesson Learned",
@@ -12,5 +13,5 @@ export const architectureclaritymattersmorethanvisualpolish: ResearchLog = {
     "design",
     "portfolio"
   ],
-  "slug": "architecture-clarity-matters-more-than-visual-polish"
-};
+
+});

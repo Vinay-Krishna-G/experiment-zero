@@ -3,7 +3,7 @@ import { type Experiment, type Blueprint, type ResearchLog } from '@/content';
 const SITE_URL = 'https://vinaykrishna.dev';
 
 export function buildCreativeWorkSchema(experiment: Experiment) {
-  const url = `${SITE_URL}/experiments/exp-${experiment.id}`;
+  const url = `${SITE_URL}/experiments/${experiment.slug}`;
   
   return {
     "@context": "https://schema.org",
@@ -18,7 +18,7 @@ export function buildCreativeWorkSchema(experiment: Experiment) {
       "url": SITE_URL
     },
     "dateCreated": experiment.year,
-    "keywords": [experiment.category, ...experiment.stack].join(', ')
+    "keywords": [experiment.primaryCategory, ...experiment.stack].join(', ')
   };
 }
 
@@ -55,7 +55,7 @@ export function buildResearchSchema(log: ResearchLog) {
       "name": "Vinay Krishna",
       "url": SITE_URL
     },
-    "datePublished": log.date,
+    "datePublished": log.publishedAt,
     "keywords": [log.category, ...log.tags].join(', ')
   };
 }

@@ -1,7 +1,8 @@
-import type { ResearchLog } from "@/types";
+import { createResearchLog } from "../factories";
 
-export const monospacefontsformetadataindexing: ResearchLog = {
-  "id": "rl-008",
+export const monospaceFontsForMetadataIndexing = createResearchLog({
+  id: "monospace-fonts-for-metadata-indexing",
+  publishedAt: "2026-06-12",
   "title": "Monospace fonts for metadata indexing",
   "date": "2026.03.18",
   "category": "Discovery",
@@ -12,5 +13,5 @@ export const monospacefontsformetadataindexing: ResearchLog = {
     "typography",
     "ui"
   ],
-  "slug": "monospace-fonts-for-metadata-indexing"
-};
+
+});
