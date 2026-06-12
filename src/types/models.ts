@@ -3,6 +3,25 @@ import type { ContentSections, TimelineStage } from "./content";
 
 export type ContentVisibility = "public" | "unlisted" | "draft";
 
+export interface AlternativeConsidered {
+  name: string;
+  pros: string[];
+  cons: string[];
+}
+
+export interface EvidenceBlock {
+  problem: string;
+  constraints: string[];
+  alternatives: AlternativeConsidered[];
+  finalDecision: string;
+  tradeoffs: string[];
+  outcome: {
+    description: string;
+    metrics: string[];
+  };
+  engineeringSignals: string[];
+}
+
 export interface BaseContent {
   id: string;
   slug: string;
@@ -56,6 +75,7 @@ export interface Experiment extends BaseContent {
   relatedIds?: string[];
   ogImage?: string;
   bottle: BottleConfig;
+  evidence?: EvidenceBlock;
 }
 
 // ─── Blueprint Types ──────────────────────────────────────────────────────────
@@ -81,6 +101,7 @@ export interface Blueprint extends BaseContent {
   discoveries: Discovery[];
   lessons: string[];
   status: BlueprintStatus;
+  evidence?: EvidenceBlock;
 }
 
 // ─── Research Types ───────────────────────────────────────────────────────────

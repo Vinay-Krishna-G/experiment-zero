@@ -1,4 +1,4 @@
-import type { ContentVisibility } from "@/types";
+import type { ContentVisibility, EvidenceBlock } from "@/types";
 
 export type NodeType = "experiment" | "blueprint" | "research" | "field_note";
 
@@ -83,6 +83,7 @@ export interface KnowledgeArtifact {
     embeddingModel?: string;
   };
   metrics: ArtifactMetrics;
+  evidence?: EvidenceBlock;
 }
 
 // ─── Cluster Mappings ────────────────────────────────────────────────────────

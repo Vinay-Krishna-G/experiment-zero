@@ -3,6 +3,7 @@ import EnterLaboratoryCTA from './EnterLaboratoryCTA';
 import RelatedContentGrid from './RelatedContentGrid';
 import { getExperimentJourney } from '@/narrative/queries/journey';
 import ExperimentJourneyView from '@/components/narrative/ExperimentJourneyView';
+import { ImpactPanel } from '@/components/narrative';
 
 export default function DocumentArticle({ experiment }: { experiment: Experiment }) {
   const journeyData = getExperimentJourney(experiment.id);
@@ -56,6 +57,8 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
         </section>
 
         {journeyData && <ExperimentJourneyView data={journeyData} />}
+
+        {experiment.evidence && <ImpactPanel evidence={experiment.evidence} />}
 
         <EnterLaboratoryCTA expId={experiment.id} />
         <RelatedContentGrid experiment={experiment} />

@@ -38,6 +38,38 @@ export const KNOWLEDGE_ARTIFACTS: KnowledgeArtifact[] = [
       viewsCount: 145,
       complexityRank: 4,
     },
+    evidence: {
+      problem: "Content additions (draft settings, slugs, relationships) were frequently committed with missing attributes or duplicate values, causing build breaks on Vercel deployment.",
+      constraints: [
+        "Must run within the standard prebuild step without network latency.",
+        "Must enforce strict TypeScript compilation safety across all content objects."
+      ],
+      alternatives: [
+        {
+          name: "Runtime Error Boundaries",
+          pros: ["Prevents complete page crashes during render"],
+          cons: ["Shows broken content cards to active site visitors", "Leaves underlying data corrupt"]
+        },
+        {
+          name: "Manual QA Reviews",
+          pros: ["No initial code setup required"],
+          cons: ["High human error rate", "Does not scale with rapid additions"]
+        }
+      ],
+      finalDecision: "Implemented a static validation runner script executing as a prebuild hook, asserting schemas via compiler constraints.",
+      tradeoffs: [
+        "Slightly increased local build execution times (+400ms) to guarantee production stability."
+      ],
+      outcome: {
+        description: "Enforced 100% type safety and integrity for all dynamic routes before deployment.",
+        metrics: [
+          "Zero dynamic routing crashes in production",
+          "Blocked 3 invalid builds due to slug collisions",
+          "Build time overhead limited to under 0.5s"
+        ]
+      },
+      engineeringSignals: ["Build Tooling", "Type Safety", "Testing Strategy"]
+    }
   },
   {
     id: "decouple-specimen-state",

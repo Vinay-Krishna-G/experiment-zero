@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { InsightArticleViewData } from "@/insights/types";
 import RecruiterPanel from "./RecruiterPanel";
 import RelatedGraphPanel from "./RelatedGraphPanel";
+import { ImpactPanel } from "@/components/narrative";
 
 interface InsightArticleProps {
   data: InsightArticleViewData;
@@ -296,6 +297,7 @@ export default function InsightArticle({ data }: InsightArticleProps) {
             {artifact.impactContext}
           </p>
         </section>
+        {artifact.evidence && <ImpactPanel evidence={artifact.evidence} />}
       </div>
 
       {/* Sidebar block */}

@@ -81,6 +81,46 @@ function runInsightsTests() {
         failures++;
       }
     });
+
+    // Validate evidence block if present
+    if (art.evidence) {
+      const ev = art.evidence;
+      if (typeof ev.problem !== "string" || !ev.problem.trim()) {
+        console.error(`[FAIL] Artifact (${art.id}) has invalid evidence problem.`);
+        failures++;
+      }
+      if (typeof ev.finalDecision !== "string" || !ev.finalDecision.trim()) {
+        console.error(`[FAIL] Artifact (${art.id}) has invalid evidence finalDecision.`);
+        failures++;
+      }
+      if (!Array.isArray(ev.constraints)) {
+        console.error(`[FAIL] Artifact (${art.id}) evidence constraints is not an array.`);
+        failures++;
+      }
+      if (!Array.isArray(ev.tradeoffs)) {
+        console.error(`[FAIL] Artifact (${art.id}) evidence tradeoffs is not an array.`);
+        failures++;
+      }
+      if (!Array.isArray(ev.engineeringSignals) || ev.engineeringSignals.length === 0) {
+        console.error(`[FAIL] Artifact (${art.id}) evidence engineeringSignals is not a non-empty array.`);
+        failures++;
+      }
+      if (!ev.outcome || typeof ev.outcome.description !== "string" || !ev.outcome.description.trim() || !Array.isArray(ev.outcome.metrics)) {
+        console.error(`[FAIL] Artifact (${art.id}) evidence outcome is malformed.`);
+        failures++;
+      }
+      if (Array.isArray(ev.alternatives)) {
+        ev.alternatives.forEach((alt, idx) => {
+          if (typeof alt.name !== "string" || !alt.name.trim() || !Array.isArray(alt.pros) || !Array.isArray(alt.cons)) {
+            console.error(`[FAIL] Artifact (${art.id}) evidence alternative at index ${idx} is malformed.`);
+            failures++;
+          }
+        });
+      } else {
+        console.error(`[FAIL] Artifact (${art.id}) evidence alternatives is not an array.`);
+        failures++;
+      }
+    }
   });
 
   // 2. Verify all Knowledge Clusters

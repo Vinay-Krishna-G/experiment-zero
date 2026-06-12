@@ -14,6 +14,56 @@ function isValidISODate(dateStr: string): boolean {
   );
 }
 
+function validateEvidence(item: { id: string; evidence?: import("@/types").EvidenceBlock }): number {
+  if (!item.evidence) return 0;
+  const ev = item.evidence;
+  let itemErrors = 0;
+  
+  if (typeof ev.problem !== "string" || !ev.problem.trim()) {
+    console.error(`[ERROR] Evidence problem must be a non-empty string for item ${item.id}`);
+    itemErrors++;
+  }
+  
+  if (typeof ev.finalDecision !== "string" || !ev.finalDecision.trim()) {
+    console.error(`[ERROR] Evidence finalDecision must be a non-empty string for item ${item.id}`);
+    itemErrors++;
+  }
+  
+  if (!Array.isArray(ev.constraints)) {
+    console.error(`[ERROR] Evidence constraints must be an array for item ${item.id}`);
+    itemErrors++;
+  }
+  
+  if (!Array.isArray(ev.tradeoffs)) {
+    console.error(`[ERROR] Evidence tradeoffs must be an array for item ${item.id}`);
+    itemErrors++;
+  }
+  
+  if (!Array.isArray(ev.engineeringSignals) || ev.engineeringSignals.length === 0) {
+    console.error(`[ERROR] Evidence engineeringSignals must be a non-empty array for item ${item.id}`);
+    itemErrors++;
+  }
+  
+  if (!ev.outcome || typeof ev.outcome.description !== "string" || !ev.outcome.description.trim() || !Array.isArray(ev.outcome.metrics)) {
+    console.error(`[ERROR] Evidence outcome must contain description and metrics array for item ${item.id}`);
+    itemErrors++;
+  }
+  
+  if (Array.isArray(ev.alternatives)) {
+    ev.alternatives.forEach((alt, idx) => {
+      if (typeof alt.name !== "string" || !alt.name.trim() || !Array.isArray(alt.pros) || !Array.isArray(alt.cons)) {
+        console.error(`[ERROR] Evidence alternative at index ${idx} is malformed for item ${item.id}`);
+        itemErrors++;
+      }
+    });
+  } else {
+    console.error(`[ERROR] Evidence alternatives must be an array for item ${item.id}`);
+    itemErrors++;
+  }
+  
+  return itemErrors;
+}
+
 function validateContent() {
   let errors = 0;
   const warnings = 0;
@@ -62,6 +112,8 @@ function validateContent() {
       console.error(`[ERROR] Invalid updatedAt date for Experiment (${exp.id}): ${exp.updatedAt}`);
       errors++;
     }
+
+    errors += validateEvidence(exp);
   });
 
   ALL_BLUEPRINTS.forEach((bp) => {
@@ -90,6 +142,8 @@ function validateContent() {
       console.error(`[ERROR] Invalid updatedAt date for Blueprint (${bp.id}): ${bp.updatedAt}`);
       errors++;
     }
+
+    errors += validateEvidence(bp);
   });
 
   ALL_RESEARCH_LOGS.forEach((log) => {
