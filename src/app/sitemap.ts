@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 import { EXPERIMENTS, BLUEPRINTS, RESEARCH_LOGS } from '@/content';
+import { getKnowledgeArtifacts } from '@/insights/resolvers/artifacts';
+import { getKnowledgeClusters } from '@/insights/resolvers/clusters';
 
 const SITE_URL = 'https://vinaykrishna.dev';
 
@@ -10,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
+    },
+    {
+      url: `${SITE_URL}/insights`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
   ];
 
@@ -34,5 +42,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...baseRoutes, ...experimentRoutes, ...blueprintRoutes, ...researchRoutes];
+  const insightRoutes: MetadataRoute.Sitemap = getKnowledgeArtifacts().map(art => ({
+    url: `${SITE_URL}/insights/${art.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }));
+
+  const clusterRoutes: MetadataRoute.Sitemap = getKnowledgeClusters().map(cluster => ({
+    url: `${SITE_URL}/insights/category/${cluster.category}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
+
+  return [
+    ...baseRoutes,
+    ...experimentRoutes,
+    ...blueprintRoutes,
+    ...researchRoutes,
+    ...insightRoutes,
+    ...clusterRoutes,
+  ];
 }
+

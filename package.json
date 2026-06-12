@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "prebuild": "npm run content:validate",
-    "content:validate": "npx tsx src/content/validate.ts && npx tsx src/visuals/__tests__/snapshot.test.ts && npx tsx src/narrative/__tests__/graph.test.ts",
+    "content:validate": "npx tsx src/content/validate.ts && npx tsx src/visuals/__tests__/snapshot.test.ts && npx tsx src/narrative/__tests__/graph.test.ts && npx tsx src/narrative/__tests__/ledger.test.ts && npx tsx src/insights/__tests__/insights.test.ts",
     "start": "next start",
     "lint": "eslint"
   },
