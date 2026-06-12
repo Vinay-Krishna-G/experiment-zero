@@ -1,8 +1,11 @@
 import { type Experiment } from '@/content';
 import EnterLaboratoryCTA from './EnterLaboratoryCTA';
 import RelatedContentGrid from './RelatedContentGrid';
+import { getExperimentJourney } from '@/narrative/queries/journey';
+import ExperimentJourneyView from '@/components/narrative/ExperimentJourneyView';
 
 export default function DocumentArticle({ experiment }: { experiment: Experiment }) {
+  const journeyData = getExperimentJourney(experiment.id);
   return (
     <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-emerald-500/30">
       <article>
@@ -51,6 +54,8 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
             ))}
           </div>
         </section>
+
+        {journeyData && <ExperimentJourneyView data={journeyData} />}
 
         <EnterLaboratoryCTA expId={experiment.id} />
         <RelatedContentGrid experiment={experiment} />

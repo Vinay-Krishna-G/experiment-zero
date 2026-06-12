@@ -1,7 +1,10 @@
 import { type Blueprint } from '@/content';
 import EnterLaboratoryCTA from './EnterLaboratoryCTA';
+import { getBlueprintLineage } from '@/narrative/queries/lineage';
+import BlueprintLineageView from '@/components/narrative/BlueprintLineageView';
 
 export default function BlueprintArticle({ blueprint }: { blueprint: Blueprint }) {
+  const lineageData = getBlueprintLineage(blueprint.id);
   return (
     <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-emerald-500/30">
       <article>
@@ -49,6 +52,8 @@ export default function BlueprintArticle({ blueprint }: { blueprint: Blueprint }
             </ul>
           </section>
         )}
+
+        {lineageData && <BlueprintLineageView data={lineageData} />}
 
         <EnterLaboratoryCTA expId={blueprint.id} />
       </article>

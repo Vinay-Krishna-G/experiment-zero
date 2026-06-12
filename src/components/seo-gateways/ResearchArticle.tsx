@@ -1,7 +1,10 @@
 import { type ResearchLog } from '@/content';
 import EnterLaboratoryCTA from './EnterLaboratoryCTA';
+import { getDiscoveryNavigator } from '@/narrative/queries/discovery';
+import DiscoveryNavigator from '@/components/narrative/DiscoveryNavigator';
 
 export default function ResearchArticle({ log }: { log: ResearchLog }) {
+  const navigatorData = getDiscoveryNavigator(log.id);
   return (
     <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-emerald-500/30">
       <article>
@@ -42,6 +45,8 @@ export default function ResearchArticle({ log }: { log: ResearchLog }) {
         {log.relatedExperimentId && (
           <EnterLaboratoryCTA expId={log.relatedExperimentId} />
         )}
+
+        {navigatorData && <DiscoveryNavigator data={navigatorData} />}
       </article>
     </main>
   );
