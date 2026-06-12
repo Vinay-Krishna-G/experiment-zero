@@ -2,31 +2,36 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Experiment } from "@/data/experiments";
+import type { Experiment, GlowPreset } from "@/types";
 
 const LIQUID_COLORS: Record<
-  Experiment["liquidColor"],
+  GlowPreset,
   { base: string; highlight: string; glow: string }
 > = {
-  emerald: {
+  green: {
     base: "rgba(45, 106, 79, 0.72)",
     highlight: "rgba(64, 145, 108, 0.45)",
     glow: "rgba(45, 106, 79, 0.25)",
   },
-  amber: {
+  gold: {
     base: "rgba(146, 100, 14, 0.72)",
     highlight: "rgba(180, 130, 40, 0.45)",
     glow: "rgba(146, 100, 14, 0.2)",
   },
-  copper: {
-    base: "rgba(146, 64, 14, 0.72)",
-    highlight: "rgba(180, 90, 30, 0.45)",
-    glow: "rgba(146, 64, 14, 0.2)",
+  blue: {
+    base: "rgba(30, 64, 175, 0.72)",
+    highlight: "rgba(59, 130, 246, 0.45)",
+    glow: "rgba(30, 64, 175, 0.2)",
   },
-  slate: {
-    base: "rgba(120, 113, 108, 0.45)",
-    highlight: "rgba(168, 162, 158, 0.3)",
-    glow: "rgba(120, 113, 108, 0.12)",
+  crimson: {
+    base: "rgba(153, 27, 27, 0.72)",
+    highlight: "rgba(220, 38, 38, 0.45)",
+    glow: "rgba(153, 27, 27, 0.2)",
+  },
+  none: {
+    base: "rgba(0, 0, 0, 0)",
+    highlight: "rgba(0, 0, 0, 0)",
+    glow: "rgba(0, 0, 0, 0)",
   },
 };
 
@@ -45,8 +50,8 @@ export default function ExperimentBottle({
   onClick,
 }: ExperimentBottleProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const colors = LIQUID_COLORS[experiment.liquidColor];
-  const liquidHeight = `${Math.round(experiment.fillLevel * 78)}%`;
+  const colors = LIQUID_COLORS[experiment.bottle.glow] || LIQUID_COLORS.none;
+  const liquidHeight = `${Math.round(experiment.bottle.fillLevel * 78)}%`;
   const isPlanned = experiment.status === "Planned";
 
   return (

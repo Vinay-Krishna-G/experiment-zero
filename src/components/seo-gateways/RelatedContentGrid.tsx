@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { EXPERIMENTS, type Experiment } from '@/data/experiments';
+import { EXPERIMENTS, type Experiment } from '@/content';
 
 export default function RelatedContentGrid({ experiment }: { experiment: Experiment }) {
   // Hybrid algorithm: explicitly defined IDs first, then match by category, then stack intersection

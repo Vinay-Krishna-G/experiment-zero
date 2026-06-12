@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { EXPERIMENTS } from '@/data/experiments';
+import { EXPERIMENTS, BLUEPRINTS, RESEARCH_LOGS } from '@/content';
 
 const SITE_URL = 'https://vinaykrishna.dev';
 
@@ -20,15 +20,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const blueprintRoutes: MetadataRoute.Sitemap = EXPERIMENTS.filter(e => e.blueprintId).map(exp => ({
-    url: `${SITE_URL}/blueprints/${exp.blueprintId}`,
+  const blueprintRoutes: MetadataRoute.Sitemap = BLUEPRINTS.map(bp => ({
+    url: `${SITE_URL}/blueprints/${bp.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.7,
   }));
 
-  const researchRoutes: MetadataRoute.Sitemap = EXPERIMENTS.slice(0, 2).map(exp => ({
-    url: `${SITE_URL}/research/log-${exp.id}`,
+  const researchRoutes: MetadataRoute.Sitemap = RESEARCH_LOGS.map(log => ({
+    url: `${SITE_URL}/research/${log.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.6,

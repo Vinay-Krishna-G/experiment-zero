@@ -1,4 +1,4 @@
-import type { Experiment } from "@/data/experiments";
+import type { Experiment } from "@/content";
 
 export interface BottleRendererProps {
   experiment: Experiment;

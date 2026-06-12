@@ -1,7 +1,7 @@
 import { Center, useGLTF } from "@react-three/drei";
 import { useEffect } from "react";
 import * as THREE from "three";
-import { EXPERIMENTS, type Experiment } from "@/data/experiments";
+import { EXPERIMENTS, type Experiment } from "@/content";
 import type { LaboratoryTheme } from "../../lighting";
 import { useDeviceTier } from "../../theme/DeviceTierContext";
 

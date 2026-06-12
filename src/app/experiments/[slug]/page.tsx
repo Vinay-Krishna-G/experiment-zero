@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { EXPERIMENTS, getExperimentById } from '@/data/experiments';
+import { EXPERIMENTS, getExperimentById } from '@/content';
 import { buildExperimentMetadata } from '@/lib/seo/builders/metadata';
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonld/breadcrumbs';
 import { buildCreativeWorkSchema } from '@/lib/seo/jsonld/schemas';

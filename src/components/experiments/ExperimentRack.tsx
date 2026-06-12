@@ -13,7 +13,7 @@ import {
   getInventoryCounts,
   type Experiment,
   type RackSlot,
-} from "@/data/experiments";
+} from "@/content";
 import { LaboratoryThemeProvider } from "./renderers/theme/ThemeContext";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];

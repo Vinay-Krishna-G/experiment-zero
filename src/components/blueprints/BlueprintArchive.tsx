@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 import BlueprintCard from "./BlueprintCard";
-import { BLUEPRINTS, type Blueprint } from "@/data/blueprints";
+import { BLUEPRINTS, type Blueprint } from "@/content";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 

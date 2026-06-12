@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import type { Experiment } from "@/data/experiments";
-import { BLUEPRINTS } from "@/data/blueprints";
-import { RESEARCH_LOGS } from "@/data/researchLogs";
+import type { Experiment } from "@/content";
+import { BLUEPRINTS } from "@/content";
+import { RESEARCH_LOGS } from "@/content";
 import ArchiveReference from "@/components/ui/ArchiveReference";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];

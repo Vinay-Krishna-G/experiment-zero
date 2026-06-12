@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { ResearchLog } from "@/data/researchLogs";
-import { EXPERIMENTS } from "@/data/experiments";
-import { BLUEPRINTS } from "@/data/blueprints";
+import type { ResearchLog } from "@/content";
+import { EXPERIMENTS } from "@/content";
+import { BLUEPRINTS } from "@/content";
 import ArchiveReference from "@/components/ui/ArchiveReference";
 
 interface ResearchEntryProps {

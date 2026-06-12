@@ -1,47 +1,46 @@
 import { notFound } from 'next/navigation';
-import { EXPERIMENTS, getExperimentById } from '@/data/experiments'; // Using experiments as mock data for now
-import { buildExperimentMetadata } from '@/lib/seo/builders/metadata';
+import { BLUEPRINTS, getBlueprintBySlug } from '@/content';
+import { buildBlueprintMetadata } from '@/lib/seo/builders/metadata';
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonld/breadcrumbs';
-import { buildCreativeWorkSchema } from '@/lib/seo/jsonld/schemas';
-import DocumentArticle from '@/components/seo-gateways/DocumentArticle';
+import { buildBlueprintSchema } from '@/lib/seo/jsonld/schemas';
+import BlueprintArticle from '@/components/seo-gateways/BlueprintArticle';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return EXPERIMENTS.filter(e => e.blueprintId).map(exp => ({
-    slug: exp.blueprintId
+  return BLUEPRINTS.map(bp => ({
+    slug: bp.slug
   }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  // Find experiment matching blueprintId
-  const experiment = EXPERIMENTS.find(e => e.blueprintId === slug);
+  const blueprint = getBlueprintBySlug(slug);
   
-  if (!experiment) {
+  if (!blueprint) {
     return { title: 'Not Found' };
   }
 
-  return buildExperimentMetadata(experiment);
+  return buildBlueprintMetadata(blueprint);
 }
 
 export default async function BlueprintSeoPage({ params }: PageProps) {
   const { slug } = await params;
-  const experiment = EXPERIMENTS.find(e => e.blueprintId === slug);
+  const blueprint = getBlueprintBySlug(slug);
 
-  if (!experiment) {
+  if (!blueprint) {
     notFound();
   }
 
   const breadcrumbs = buildBreadcrumbSchema([
     { name: 'Laboratory', item: '/' },
     { name: 'Blueprints', item: '/blueprints' },
-    { name: experiment.title, item: `/blueprints/${slug}` }
+    { name: blueprint.title, item: `/blueprints/${slug}` }
   ]);
 
-  const creativeWork = buildCreativeWorkSchema(experiment);
+  const creativeWork = buildBlueprintSchema(blueprint);
 
   return (
     <>
@@ -53,7 +52,7 @@ export default async function BlueprintSeoPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWork) }}
       />
-      <DocumentArticle experiment={experiment} />
+      <BlueprintArticle blueprint={blueprint} />
     </>
   );
 }

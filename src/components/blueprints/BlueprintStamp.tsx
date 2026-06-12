@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { BlueprintStatus } from "@/data/blueprints";
+import type { BlueprintStatus } from "@/content";
 
 interface BlueprintStampProps {
   status: BlueprintStatus;

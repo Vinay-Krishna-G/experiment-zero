@@ -4,9 +4,9 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import TitleCycler from "./TitleCycler";
 import LabCoordinates from "./LabCoordinates";
-import { EXPERIMENTS } from "@/data/experiments";
-import { BLUEPRINTS } from "@/data/blueprints";
-import { RESEARCH_LOGS } from "@/data/researchLogs";
+import { EXPERIMENTS } from "@/content";
+import { BLUEPRINTS } from "@/content";
+import { RESEARCH_LOGS } from "@/content";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 

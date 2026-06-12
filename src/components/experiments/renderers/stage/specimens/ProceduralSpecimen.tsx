@@ -3,18 +3,9 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import SpecimenFireflies from "../effects/SpecimenFireflies";
 import { useDeviceTier } from "../../theme/DeviceTierContext";
-import type { Experiment } from "@/data/experiments";
+import type { Experiment } from "@/types";
 import type { LaboratoryTheme } from "../../lighting";
-
-const LIQUID_HEX_COLORS: Record<string, string> = {
-  emerald: "#10b981", 
-  amber: "#f59e0b",   
-  ruby: "#ef4444",    
-  cobalt: "#3b82f6",  
-  void: "#78716c",    
-  amethyst: "#8b5cf6",
-  silver: "#cbd5e1"   
-};
+import { GLASS_PRESETS, GLOW_PRESETS } from "../../presets";
 
 export default function ProceduralSpecimen({ 
   experiment, 
@@ -27,7 +18,12 @@ export default function ProceduralSpecimen({
 }) {
   const tier = useDeviceTier();
   const liquidRef = useRef<THREE.Mesh>(null);
-  const baseColor = LIQUID_HEX_COLORS[experiment.liquidColor] || "#10b981";
+  const bottle = experiment.bottle;
+  const glowColor = GLOW_PRESETS[bottle.glow] || GLOW_PRESETS.green;
+  const glassConfig = GLASS_PRESETS[bottle.glass] || GLASS_PRESETS.emerald;
+
+  const sizeScales = { small: 0.8, medium: 1.0, large: 1.2 };
+  const scale = sizeScales[bottle.size] || 1.0;
 
   useFrame((state) => {
     const time = state.clock.elapsedTime;
@@ -48,7 +44,7 @@ export default function ProceduralSpecimen({
   const particleOpacity = theme.particleBrightness * (isSelected ? 1.0 : 0.5);
 
   return (
-    <group>
+    <group scale={scale}>
       <mesh castShadow={tier !== "low"} receiveShadow={tier !== "low"}>
         <capsuleGeometry args={[0.45, 0.9, 16, 32]} />
         {tier === "low" ? (
@@ -61,25 +57,19 @@ export default function ProceduralSpecimen({
           />
         ) : (
           <meshPhysicalMaterial 
-            color="#ffffff"
-            transmission={theme.glassTransmission}
-            opacity={theme.glassOpacity}
             transparent
-            roughness={0.05}
-            metalness={0.1}
-            thickness={0.5}
-            ior={1.5}
-            clearcoat={0.3}
-            clearcoatRoughness={0.1}
+            {...glassConfig}
+            transmission={theme.glassTransmission} // Dynamic override based on environment
+            opacity={theme.glassOpacity}
           />
         )}
       </mesh>
 
       <mesh ref={liquidRef}>
-        <capsuleGeometry args={[0.35, 0.7, 16, 32]} />
+        <capsuleGeometry args={[0.35, 0.7 * bottle.fillLevel, 16, 32]} />
         <meshStandardMaterial 
-          color={baseColor} 
-          emissive={baseColor}
+          color={glowColor} 
+          emissive={glowColor}
           emissiveIntensity={emissiveIntensity}
           transparent
           opacity={0.85}
@@ -88,7 +78,7 @@ export default function ProceduralSpecimen({
       </mesh>
 
       <SpecimenFireflies 
-        baseColor={baseColor}
+        baseColor={glowColor}
         isSelected={isSelected}
         particleOpacity={particleOpacity}
       />

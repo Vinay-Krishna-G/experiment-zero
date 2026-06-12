@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { RESEARCH_LOGS, getResearchLogById } from "@/data/researchLogs";
+import { RESEARCH_LOGS, getResearchLogById } from "@/content";
 import ResearchEntry from "./ResearchEntry";
 import SectionHeader from "@/components/ui/SectionHeader";
 

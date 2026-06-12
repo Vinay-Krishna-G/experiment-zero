@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import type { Blueprint } from "@/data/blueprints";
+import type { Blueprint } from "@/content";
 import BlueprintMap from "./BlueprintMap";
 import BlueprintStamp from "./BlueprintStamp";
 import ArchiveReference from "@/components/ui/ArchiveReference";
-import { RESEARCH_LOGS } from "@/data/researchLogs";
+import { RESEARCH_LOGS } from "@/content";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 

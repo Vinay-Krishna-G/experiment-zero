@@ -4,7 +4,7 @@ import ProceduralSpecimen from "./specimens/ProceduralSpecimen";
 import GLBSpecimen from "./specimens/GLBSpecimen";
 import AspectAwareCamera from "./AspectAwareCamera";
 import { ErrorBoundary } from "./ErrorBoundary";
-import type { Experiment } from "@/data/experiments";
+import type { Experiment } from "@/content";
 import type { LaboratoryTheme } from "../lighting";
 
 const ENABLE_GLB = true;

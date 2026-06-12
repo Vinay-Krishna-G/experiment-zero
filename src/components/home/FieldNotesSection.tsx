@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 import FieldNoteCard from "./FieldNoteCard";
-import { FIELD_NOTES } from "@/data/fieldNotes";
+import { FIELD_NOTES } from "@/content";
 
 export default function FieldNotesSection() {
   return (

@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { LAB_STATUS } from "@/data/labStatus";
+import { LAB_STATUS } from "@/content";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
