@@ -1,6 +1,7 @@
 import { Environment } from "@react-three/drei";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useDeviceTier } from "../theme/DeviceTierContext";
 import type { LaboratoryTheme } from "../lighting";
 import type * as THREE from "three";
 
@@ -11,6 +12,7 @@ export default function LaboratoryLighting({
   theme: LaboratoryTheme;
   isSelected: boolean;
 }) {
+  const tier = useDeviceTier();
   const rimLightRef = useRef<THREE.DirectionalLight>(null);
 
   useFrame((state) => {
@@ -32,7 +34,9 @@ export default function LaboratoryLighting({
         penumbra={1} 
         intensity={theme.keyIntensity * 1.5} 
         color="#fffcf5" 
-        castShadow 
+        castShadow={tier !== "low"} 
+        shadow-mapSize-width={tier === "medium" ? 512 : 1024}
+        shadow-mapSize-height={tier === "medium" ? 512 : 1024}
       />
       <directionalLight 
         position={[5, 10, 8]} 
@@ -45,7 +49,7 @@ export default function LaboratoryLighting({
         intensity={theme.rimIntensity} 
         color={theme.rimColor} 
       />
-      <Environment preset="warehouse" />
+      <Environment preset="warehouse" resolution={tier === "low" ? 256 : tier === "medium" ? 512 : 1024} />
     </group>
   );
 }

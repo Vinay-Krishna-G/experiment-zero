@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import SpecimenFireflies from "../effects/SpecimenFireflies";
+import { useDeviceTier } from "../../theme/DeviceTierContext";
 import type { Experiment } from "@/data/experiments";
 import type { LaboratoryTheme } from "../../lighting";
 
@@ -24,6 +25,7 @@ export default function ProceduralSpecimen({
   isSelected: boolean;
   theme: LaboratoryTheme;
 }) {
+  const tier = useDeviceTier();
   const liquidRef = useRef<THREE.Mesh>(null);
   const baseColor = LIQUID_HEX_COLORS[experiment.liquidColor] || "#10b981";
 
@@ -47,20 +49,30 @@ export default function ProceduralSpecimen({
 
   return (
     <group>
-      <mesh castShadow receiveShadow>
+      <mesh castShadow={tier !== "low"} receiveShadow={tier !== "low"}>
         <capsuleGeometry args={[0.45, 0.9, 16, 32]} />
-        <meshPhysicalMaterial 
-          color="#ffffff"
-          transmission={theme.glassTransmission}
-          opacity={theme.glassOpacity}
-          transparent
-          roughness={0.05}
-          metalness={0.1}
-          thickness={0.5}
-          ior={1.5}
-          clearcoat={0.3}
-          clearcoatRoughness={0.1}
-        />
+        {tier === "low" ? (
+          <meshStandardMaterial 
+            color="#ffffff"
+            transparent
+            opacity={0.3}
+            roughness={0.1}
+            metalness={0.1}
+          />
+        ) : (
+          <meshPhysicalMaterial 
+            color="#ffffff"
+            transmission={theme.glassTransmission}
+            opacity={theme.glassOpacity}
+            transparent
+            roughness={0.05}
+            metalness={0.1}
+            thickness={0.5}
+            ior={1.5}
+            clearcoat={0.3}
+            clearcoatRoughness={0.1}
+          />
+        )}
       </mesh>
 
       <mesh ref={liquidRef}>

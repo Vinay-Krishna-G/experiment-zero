@@ -1,12 +1,15 @@
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { ContactShadows } from "@react-three/drei";
+import { useDeviceTier } from "../theme/DeviceTierContext";
 
 export default function ArchivalEnvironment({
   isSelected
 }: {
   isSelected: boolean;
 }) {
+  const tier = useDeviceTier();
   const dustRef = useRef<THREE.Points>(null);
 
   const [[dustBasePositions, dustCurrentPositions, dustPhases]] = useState(() => {
@@ -65,7 +68,7 @@ export default function ArchivalEnvironment({
         />
       </points>
 
-      <mesh position={[0, -0.975, 0]} castShadow receiveShadow>
+      <mesh position={[0, -0.975, 0]} castShadow={tier !== "low"} receiveShadow={tier !== "low"}>
         <cylinderGeometry args={[0.55, 0.6, 0.15, 32]} />
         <meshStandardMaterial 
           color="#3d2b1f" 
@@ -76,10 +79,14 @@ export default function ArchivalEnvironment({
         />
       </mesh>
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.05, 0]} receiveShadow>
-        <circleGeometry args={[2.0, 32]} />
-        <shadowMaterial opacity={0.4} />
-      </mesh>
+      {tier === "low" ? (
+        <ContactShadows position={[0, -1.04, 0]} opacity={0.4} scale={2} blur={2} frames={1} />
+      ) : (
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.05, 0]} receiveShadow>
+          <circleGeometry args={[2.0, 32]} />
+          <shadowMaterial opacity={0.4} />
+        </mesh>
+      )}
     </group>
   );
 }

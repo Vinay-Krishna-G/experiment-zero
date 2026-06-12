@@ -26,6 +26,14 @@ export interface TimelineStage {
   status: "done" | "current" | "pending";
 }
 
+export interface ExperimentContent {
+  problem?: string;
+  solution?: string;
+  architecture?: string;
+  challenges?: string;
+  results?: string;
+}
+
 export interface Experiment {
   id: string;
   title: string;
@@ -42,6 +50,9 @@ export interface Experiment {
   demo?: string;
   /** Link to corresponding Blueprint document */
   blueprintId?: string;
+  content?: ExperimentContent;
+  relatedIds?: string[];
+  ogImage?: string;
   /** Liquid fill level 0–1 — represents project completion */
   fillLevel: number;
   /** Liquid color — maps to CSS token in ExperimentBottle */
