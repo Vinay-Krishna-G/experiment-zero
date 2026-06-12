@@ -23,18 +23,24 @@ export default function LaboratoryStage({
   return (
     <group>
       <AspectAwareCamera />
-      <LaboratoryLighting theme={theme} isSelected={isSelected} />
+      <LaboratoryLighting 
+        experiment={experiment}
+        theme={theme} 
+        isSelected={isSelected} 
+      />
       <ArchivalEnvironment isSelected={isSelected} />
       
       {isGLBTarget ? (
         <ErrorBoundary fallback={
           <ProceduralSpecimen 
+            key={experiment.id}
             experiment={experiment} 
             isSelected={isSelected} 
             theme={theme} 
           />
         }>
           <GLBSpecimen 
+            key={experiment.id}
             experiment={experiment} 
             isSelected={isSelected} 
             theme={theme} 
@@ -42,6 +48,7 @@ export default function LaboratoryStage({
         </ErrorBoundary>
       ) : (
         <ProceduralSpecimen 
+          key={experiment.id}
           experiment={experiment} 
           isSelected={isSelected} 
           theme={theme} 

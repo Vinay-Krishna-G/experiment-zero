@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "prebuild": "npm run content:validate",
-    "content:validate": "npx tsx src/content/validate.ts",
+    "content:validate": "npx tsx src/content/validate.ts && npx tsx src/visuals/__tests__/snapshot.test.ts",
     "start": "next start",
     "lint": "eslint"
   },

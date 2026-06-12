@@ -5,7 +5,8 @@ import SpecimenFireflies from "../effects/SpecimenFireflies";
 import { useDeviceTier } from "../../theme/DeviceTierContext";
 import type { Experiment } from "@/types";
 import type { LaboratoryTheme } from "../../lighting";
-import { GLASS_PRESETS, GLOW_PRESETS } from "../../presets";
+import { getVisualProfile } from "@/visuals/getVisualProfile";
+import { COLORS } from "@/visuals/colors";
 
 export default function ProceduralSpecimen({ 
   experiment, 
@@ -19,29 +20,50 @@ export default function ProceduralSpecimen({
   const tier = useDeviceTier();
   const liquidRef = useRef<THREE.Mesh>(null);
   const bottle = experiment.bottle;
-  const glowColor = GLOW_PRESETS[bottle.glow] || GLOW_PRESETS.green;
-  const glassConfig = GLASS_PRESETS[bottle.glass] || GLASS_PRESETS.emerald;
+
+  const profile = getVisualProfile(
+    experiment.primaryCategory,
+    experiment.status,
+    experiment.archived,
+    tier
+  );
+
+  const glassMat = profile.material;
+  const motion = profile.motion;
+  const glassColorHex = COLORS[glassMat.glassColor].hex;
+  const glassSpecularHex = COLORS[glassMat.glassSpecularColor].hex;
+  const liquidColorHex = COLORS[glassMat.liquidColor].hex;
+  const liquidEmissiveHex = COLORS[glassMat.liquidEmissive].hex;
 
   const sizeScales = { small: 0.8, medium: 1.0, large: 1.2 };
   const scale = sizeScales[bottle.size] || 1.0;
 
   useFrame((state) => {
-    const time = state.clock.elapsedTime;
+    const time = state.clock.elapsedTime * motion.baseSpeed;
     const speedMultiplier = isSelected ? 2.0 : 1.0;
 
     if (liquidRef.current) {
-      liquidRef.current.position.y = Math.sin(time * 0.6 * speedMultiplier) * 0.04;
+      // Bobbing
+      const noise = motion.noiseIntensity > 0 
+        ? (Math.sin(time * 1.7) * Math.cos(time * 1.3) * 0.5) 
+        : 0;
+      liquidRef.current.position.y = (Math.sin(time * motion.bobbingFrequency * speedMultiplier) + noise) * motion.bobbingAmplitude;
       
-      const breathingCycle = isSelected ? Math.sin(time * (Math.PI * 2 / 10)) : 0;
-      const livingScale = 0.975 + breathingCycle * 0.025;
+      if (motion.rotationScale > 0) {
+        liquidRef.current.rotation.y = time * motion.rotationScale * speedMultiplier;
+      }
+
+      // Breathing Emissive Pulse
+      const breathingCycle = isSelected ? Math.sin(time * motion.breathingSpeed * (Math.PI * 2)) : 0;
+      const livingScale = (1.0 - motion.breathingAmplitude) + breathingCycle * motion.breathingAmplitude;
       const material = liquidRef.current.material as THREE.MeshStandardMaterial;
-      const baseEmissive = (isSelected ? 1.5 : 0.6) * theme.liquidEmissiveMultiplier;
+      const baseEmissive = (isSelected ? 1.5 : 0.6) * theme.liquidEmissiveMultiplier * glassMat.liquidEmissiveIntensity;
       material.emissiveIntensity = baseEmissive * (isSelected ? livingScale : 1.0);
     }
   });
 
-  const emissiveIntensity = (isSelected ? 1.5 : 0.6) * theme.liquidEmissiveMultiplier;
-  const particleOpacity = theme.particleBrightness * (isSelected ? 1.0 : 0.5);
+  const baseEmissiveIntensity = (isSelected ? 1.5 : 0.6) * theme.liquidEmissiveMultiplier * glassMat.liquidEmissiveIntensity;
+  const particleOpacity = theme.particleBrightness * (isSelected ? 1.0 : 0.5) * profile.particles.opacity;
 
   return (
     <group scale={scale}>
@@ -49,7 +71,7 @@ export default function ProceduralSpecimen({
         <capsuleGeometry args={[0.45, 0.9, 16, 32]} />
         {tier === "low" ? (
           <meshStandardMaterial 
-            color="#ffffff"
+            color={glassColorHex}
             transparent
             opacity={0.3}
             roughness={0.1}
@@ -58,9 +80,17 @@ export default function ProceduralSpecimen({
         ) : (
           <meshPhysicalMaterial 
             transparent
-            {...glassConfig}
-            transmission={theme.glassTransmission} // Dynamic override based on environment
-            opacity={theme.glassOpacity}
+            color={glassColorHex}
+            transmission={glassMat.glassTransmission * theme.glassTransmission}
+            opacity={glassMat.glassOpacity * theme.glassOpacity}
+            roughness={glassMat.glassRoughness}
+            metalness={glassMat.glassMetalness}
+            ior={glassMat.glassIor}
+            thickness={glassMat.glassThickness}
+            clearcoat={glassMat.glassClearcoat}
+            clearcoatRoughness={glassMat.glassClearcoatRoughness}
+            specularIntensity={glassMat.glassSpecularIntensity}
+            specularColor={new THREE.Color(glassSpecularHex)}
           />
         )}
       </mesh>
@@ -68,19 +98,20 @@ export default function ProceduralSpecimen({
       <mesh ref={liquidRef}>
         <capsuleGeometry args={[0.35, 0.7 * bottle.fillLevel, 16, 32]} />
         <meshStandardMaterial 
-          color={glowColor} 
-          emissive={glowColor}
-          emissiveIntensity={emissiveIntensity}
+          color={liquidColorHex} 
+          emissive={liquidEmissiveHex}
+          emissiveIntensity={baseEmissiveIntensity}
           transparent
-          opacity={0.85}
-          roughness={0.4}
+          opacity={glassMat.liquidOpacity}
+          roughness={glassMat.liquidRoughness}
         />
       </mesh>
 
       <SpecimenFireflies 
-        baseColor={glowColor}
+        baseColor={liquidColorHex}
         isSelected={isSelected}
         particleOpacity={particleOpacity}
+        particlePreset={profile.particles}
       />
     </group>
   );
