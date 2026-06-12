@@ -23,11 +23,16 @@
  */
 
 import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import { Html } from "@react-three/drei";
 import CSSBottleRenderer from "./CSSBottleRenderer";
-import { ENABLE_DEBUG_MESH } from "./constants";
+import LaboratoryStage from "./stage/LaboratoryStage";
+import { useLaboratoryTheme } from "./theme/ThemeContext";
 import type { BottleRendererProps } from "./types";
 
 export default function GLBBottleRenderer(props: BottleRendererProps) {
+  const { theme } = useLaboratoryTheme();
+
   // Only mount active bottles as WebGL.
   // Inactive bottles fallback to CSS renderer to avoid WebGL context limits.
   if (!props.isSelected) {
@@ -49,22 +54,25 @@ export default function GLBBottleRenderer(props: BottleRendererProps) {
       role="button"
     >
       <Canvas 
-        camera={{ position: [0, 0, 5], fov: 45 }}
+        shadows
+        camera={{ position: [0, 0, 5.5], fov: 45 }}
         gl={{ alpha: true, antialias: true }}
       >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        
-        {/* Temporary primitive geometry if no model exists yet */}
-        <mesh>
-          <cylinderGeometry args={[0.8, 0.8, 2.5, 32]} />
-          <meshStandardMaterial 
-            color="#10b981" 
-            wireframe={ENABLE_DEBUG_MESH}
-            transparent
-            opacity={0.8}
+        <Suspense fallback={
+          <Html center>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", textAlign: "center", color: "var(--fg-subtle)", whiteSpace: "nowrap", letterSpacing: "0.15em" }}>
+              <div style={{ marginBottom: "0.5rem" }}>ARCHIVE RECOVERY IN PROGRESS</div>
+              <div style={{ opacity: 0.7, fontSize: "0.45rem" }}>ARCHIVE REF: EXP-{props.experiment.id.toUpperCase()}</div>
+              <div style={{ opacity: 0.7, fontSize: "0.45rem" }}>STATUS: INITIALIZING</div>
+            </div>
+          </Html>
+        }>
+          <LaboratoryStage 
+            experiment={props.experiment}
+            isSelected={props.isSelected}
+            theme={theme}
           />
-        </mesh>
+        </Suspense>
       </Canvas>
     </div>
   );

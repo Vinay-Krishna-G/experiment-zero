@@ -14,6 +14,7 @@ import {
   type Experiment,
   type RackSlot,
 } from "@/data/experiments";
+import { LaboratoryThemeProvider } from "./renderers/theme/ThemeContext";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -80,11 +81,12 @@ export default function ExperimentRack() {
   };
 
   return (
-    <section
-      id="experiments"
-      aria-label="Experiments"
-      style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)", position: "relative" }}
-    >
+    <LaboratoryThemeProvider>
+      <section
+        id="experiments"
+        aria-label="Experiments"
+        style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)", position: "relative" }}
+      >
       <Suspense fallback={null}><URLSync onSync={setSelectedId} /></Suspense>
       <div className="container-lab">
         {/* ── Section header ── */}
@@ -240,5 +242,6 @@ export default function ExperimentRack() {
         </AnimatePresence>
       </div>
     </section>
+    </LaboratoryThemeProvider>
   );
 }
