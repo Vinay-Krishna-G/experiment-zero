@@ -6,7 +6,7 @@ import DiscoveryNavigator from '@/components/narrative/DiscoveryNavigator';
 export default function ResearchArticle({ log }: { log: ResearchLog }) {
   const navigatorData = getDiscoveryNavigator(log.id);
   return (
-    <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-emerald-dim)] selection:text-[var(--fg-primary)]">
+    <main id="main-content" className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-emerald-dim)] selection:text-[var(--fg-primary)]">
       <article>
         <header className="mb-16 border-b border-[var(--border-subtle)] pb-8">
           <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-emerald-400 mb-6">

@@ -19,7 +19,7 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
   const recentEvents = events.slice(0, 5);
 
   return (
-    <main className="max-w-5xl mx-auto px-6 py-24 min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-emerald-dim)] selection:text-[var(--fg-primary)]">
+    <main id="main-content" className="max-w-5xl mx-auto px-6 py-24 min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-emerald-dim)] selection:text-[var(--fg-primary)]">
       
       {/* Header section */}
       <header className="mb-16 border-b border-[var(--border-subtle)] pb-8">

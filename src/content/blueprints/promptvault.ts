@@ -51,9 +51,9 @@ export const promptvault = createBlueprint({
     }
   ],
   "lessons": [
-    "Build the core interaction first, then add organization features.",
-    "Data model changes are expensive — design the schema carefully upfront.",
-    "User authentication should be treated as infrastructure, not a feature."
+    "Building the core interaction first revealed that instant copying was more important than complex tagging.",
+    "Changing MongoDB schemas mid-project required annoying data migrations; design schemas upfront.",
+    "Integrating NextAuth early saved days of refactoring later."
   ],
   "status": "Verified",
   evidence: {

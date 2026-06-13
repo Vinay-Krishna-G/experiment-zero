@@ -4,7 +4,7 @@ export const promptvault = createExperiment({
   id: "promptvault",
   publishedAt: "2026-06-12",
   title: "PromptVault",
-  tagline: "A curated library for your best prompts.",
+  tagline: "A full-stack productivity tool for organizing and retrieving AI prompts.",
   description:
     "A productivity tool for storing, organizing, and quickly retrieving AI prompts. Built to solve the problem of losing great prompts in chat history. Features tagging, search, and one-click copy.",
   status: "Completed",
@@ -41,13 +41,13 @@ export const promptvault = createExperiment({
     ],
     finalDecision: "Built a Next.js static productivity hub optimized with client-side clipboard copy bindings and fast fuzzy search indexing.",
     tradeoffs: [
-      "Traded visual canvas density for instant text alignment and clean keyboard shortcuts accessibility."
+      "Chose MongoDB over Postgres to allow rapid iteration of prompt schemas without dealing with strict relational migrations."
     ],
     outcome: {
       description: "Successfully decoupled prompt creation from the clipboard extraction path, reducing retrieval friction to zero.",
       metrics: [
         "120ms first content paint load",
-        "Clipboard copy retention raised by 45%",
+        "Successfully implemented zero-latency client-side search",
         "Zero external database dependencies"
       ]
     },

@@ -55,9 +55,9 @@ export const aiCodebaseAnalyzer = createBlueprint({
     }
   ],
   lessons: [
-    "Retrieval quality is the bottleneck — optimize chunk size and metadata before tuning LLM.",
-    "FastAPI was the right choice for the Python backend; Next.js handled the UI layer well.",
-    "Build an evaluation harness early — otherwise you are guessing at quality."
+    "Optimizing how the code is split into chunks mattered far more than which LLM I used.",
+    "Decoupling the Python backend (FastAPI) from the frontend (Next.js) made scaling the system much easier.",
+    "Building a simple script to test retrieval accuracy saved hours of manual testing."
   ],
   status: "In Development",
   evidence: {

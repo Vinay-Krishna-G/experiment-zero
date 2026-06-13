@@ -24,7 +24,7 @@ export const aiCodebaseAnalyzer = createExperiment({
     problem: "Parsing raw directory trees and passing raw file dumps into LLMs exceeded context limits, leading to hallucinated explanations of repository architecture.",
     constraints: [
       "Must answer user query under 5 seconds.",
-      "Pinecone index retrieval must yield > 85% precision.",
+      "Pinecone index retrieval must reliably surface architecture context.",
       "Must support large multi-lingual files."
     ],
     alternatives: [
@@ -44,7 +44,7 @@ export const aiCodebaseAnalyzer = createExperiment({
       "Traded initial chunk indexing speeds (+30s ingestion) in exchange for 3x faster runtime responses and zero model crashes."
     ],
     outcome: {
-      description: "Decoupled document indexing from user query execution, creating context-safe RAG inputs.",
+      description: "Moved heavy file indexing to a background Python job to keep the Next.js UI responsive.",
       metrics: [
         "Ingestion latency under 30s",
         "LLM retrieval context payload size limited to 4k tokens",

@@ -4,9 +4,9 @@ export const experimentZero = createExperiment({
   id: "experiment-zero",
   publishedAt: "2026-06-12",
   title: "Static Developer Portfolio: Build Integrity Engine",
-  tagline: "The laboratory portfolio itself.",
+  tagline: "A statically generated portfolio built to ensure 100% type safety and zero runtime errors.",
   description:
-    "Next.js static developer portfolio built with prebuild schema validation tests. Enforcing type safety.",
+    "A Next.js static site generator (SSG) portfolio utilizing strict CI/CD prebuild validation hooks to enforce content schemas before deployment.",
   status: "In Progress",
   primaryCategory: "Developer Tool",
   tags: ["Portfolio"],
@@ -41,7 +41,7 @@ export const experimentZero = createExperiment({
     ],
     finalDecision: "Next.js App Router static site generation (SSG) utilizing custom prebuild integrity tests.",
     tradeoffs: [
-      "Traded convenience of writing arbitrary content at runtime for compiler-enforced schema verification."
+      "Chose to manage content in local TypeScript files instead of a CMS. This removed the ability to edit via a UI, but guaranteed that broken links would fail the build before deploying."
     ],
     outcome: {
       description: "Static portfolio achieving 100/100 Lighthouse performance metrics with zero runtime data crashes.",

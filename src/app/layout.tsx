@@ -91,6 +91,12 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${jetbrainsMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[9999] focus:p-4 focus:bg-[var(--fg-primary)] focus:text-[var(--bg-primary)] focus:font-bold focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

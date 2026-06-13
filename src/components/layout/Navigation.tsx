@@ -9,14 +9,17 @@ const ARCHIVE_INDEX = [
   { number: "01", label: "Projects", href: "#experiments" },
   { number: "02", label: "Architecture", href: "#blueprints" },
   { number: "03", label: "Notes", href: "#research-log" },
-  { number: "04", label: "Contact", href: "#contact" },
+  { number: "04", label: "Insights", href: "/insights" },
+  { number: "05", label: "Skill Matrix", href: "/evidence" },
+  { number: "06", label: "Contact", href: "#contact" },
 ];
 
 const NAV_ITEMS = [
   { label: "Projects", href: "#experiments" },
   { label: "Architecture", href: "#blueprints" },
+  { label: "Insights", href: "/insights" },
+  { label: "Skill Matrix", href: "/evidence" },
   { label: "Notes", href: "#research-log" },
-  { label: "Contact", href: "#contact" },
 ];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -78,10 +81,14 @@ export default function Navigation() {
 
   const handleNavClick = (href: string) => {
     setIsDrawerOpen(false);
-    setTimeout(() => {
-      const id = href.replace("#", "");
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    }, 200);
+    if (href.startsWith("#")) {
+      setTimeout(() => {
+        const id = href.replace("#", "");
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }, 200);
+    } else {
+      window.location.href = href;
+    }
   };
 
   return (

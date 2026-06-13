@@ -51,9 +51,9 @@ export const experimentZero = createBlueprint({
     }
   ],
   lessons: [
-    "Establish a strong design language first — it makes every subsequent decision easier.",
-    "Separate data from presentation from the beginning, even if it feels like over-engineering.",
-    "Animated motion should feel earned, not decorative. Every animation should serve the narrative."
+    "Establishing a centralized CSS variable system first made building components 10x faster.",
+    "Separating data (TypeScript files) from presentation (React components) kept the codebase clean.",
+    "Framer motion is great, but overuse causes performance drops. Only animate state changes."
   ],
   status: "In Development",
   evidence: {
