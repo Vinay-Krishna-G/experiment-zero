@@ -81,22 +81,11 @@ export default function LaboratoryShelf({ children, label }: LaboratoryShelfProp
             position: "absolute",
             inset: 0,
             backgroundImage: `
-              repeating-linear-gradient(
-                to right,
-                transparent 0px,
-                transparent 12px,
-                rgba(255,255,255,0.025) 12px,
-                rgba(255,255,255,0.025) 13px
-              ),
-              repeating-linear-gradient(
-                to right,
-                transparent 0px,
-                transparent 28px,
-                rgba(0,0,0,0.05) 28px,
-                rgba(0,0,0,0.05) 30px
-              )
+              url("data:image/svg+xml,%3Csvg viewBox='0 0 400 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='wood'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.01 0.4' numOctaves='3' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0' in='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23wood)'/%3E%3C/svg%3E"),
+              linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.3) 100%)
             `,
             borderRadius: "2px",
+            mixBlendMode: "overlay",
           }}
         />
 

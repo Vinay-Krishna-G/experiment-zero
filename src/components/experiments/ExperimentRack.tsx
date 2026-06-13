@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 import LaboratoryShelf from "./LaboratoryShelf";
 import BottleRenderer from "./BottleRenderer";
-import ExperimentPreview from "./ExperimentPreview";
+import ExperimentModal from "./ExperimentModal";
 import {
   EXPERIMENTS,
   groupByRack,
@@ -167,28 +167,28 @@ export default function ExperimentRack() {
           ↑ Select a bottle to open its journal
         </motion.p>
 
-        {/* ── Multi-Rack Cabinet ── */}
+        {/* ── Multi-Rack Cabinet (Full Width Vault) ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.8, ease: EASE }}
+          style={{
+            width: "100vw",
+            marginLeft: "calc(-50vw + 50%)",
+            position: "relative",
+            background: "linear-gradient(to bottom, var(--bg-primary) 0%, #16120f 15%, #0a0806 100%)",
+            padding: "8rem 0 4rem",
+            marginTop: "2rem",
+          }}
         >
-          <div
-            style={{
-              backgroundColor: "var(--bg-secondary)",
-              border: "1px solid var(--border-subtle)",
-              borderRadius: "4px 4px 0 0",
-              padding: "2rem 2rem 0",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            {/* Back panel grain */}
-            <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(to bottom, transparent 0px, transparent 18px, rgba(28,20,8,0.025) 18px, rgba(28,20,8,0.025) 19px)", pointerEvents: "none" }} />
-            {/* Brass top edge */}
-            <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(to right, #B8860B44, #8B691422, #B8860B44)" }} />
+          {/* Back panel grain - Darker for archive feel */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(to bottom, transparent 0px, transparent 18px, rgba(0,0,0,0.15) 18px, rgba(0,0,0,0.15) 19px)", pointerEvents: "none" }} />
+          
+          {/* Ambient dust particles */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, opacity: 0.4, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")", mixBlendMode: "overlay", pointerEvents: "none" }} />
 
+          <div className="container-lab" style={{ position: "relative", zIndex: 1 }}>
             {/* Render each rack only if it has experiments */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               {RACK_ORDER.map((slot) => {
@@ -212,20 +212,22 @@ export default function ExperimentRack() {
               })}
             </div>
           </div>
-
+          
           {/* Cabinet base with metadata stamp */}
-          <div style={{ borderRadius: "0 0 4px 4px", background: "linear-gradient(to bottom, #3D2710, #2D1C08)", boxShadow: "0 6px 24px rgba(28,20,8,0.35), 0 12px 40px rgba(28,20,8,0.15)", padding: "0.55rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span aria-hidden="true" style={{ fontFamily: "var(--font-mono)", fontSize: "0.42rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(184, 134, 11, 0.4)" }}>
-              Lab Cabinet No. 1
-            </span>
-            <span aria-hidden="true" style={{ fontFamily: "var(--font-mono)", fontSize: "0.42rem", letterSpacing: "0.18em", color: "rgba(184, 134, 11, 0.3)" }}>
-              {EXPERIMENTS.length} specimens catalogued
-            </span>
+          <div className="container-lab" style={{ position: "relative", zIndex: 1 }}>
+            <div style={{ background: "#060403", padding: "0.55rem 3.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "4rem" }}>
+              <span aria-hidden="true" style={{ fontFamily: "var(--font-mono)", fontSize: "0.42rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(184, 134, 11, 0.4)" }}>
+                Lab Cabinet No. 1
+              </span>
+              <span aria-hidden="true" style={{ fontFamily: "var(--font-mono)", fontSize: "0.42rem", letterSpacing: "0.18em", color: "rgba(184, 134, 11, 0.3)" }}>
+                {EXPERIMENTS.length} specimens catalogued
+              </span>
+            </div>
           </div>
         </motion.div>
 
-        {/* ── Preview panel ── */}
-        <ExperimentPreview
+        {/* ── Preview modal ── */}
+        <ExperimentModal
           experiment={selectedExperiment}
           onClose={() => handleBottleClick(selectedId!)}
         />

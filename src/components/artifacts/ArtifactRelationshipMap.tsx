@@ -5,20 +5,20 @@ import { motion } from "framer-motion";
 interface ArtifactRelationshipMapProps {
   experimentTitle: string;
   blueprintTitle?: string;
-  insightsCount?: number;
+  logs?: { title: string }[];
   hasEvidence?: boolean;
 }
 
 export default function ArtifactRelationshipMap({
   experimentTitle,
-  blueprintTitle = "Architecture Blueprint",
-  insightsCount = 2,
+  blueprintTitle,
+  logs = [],
   hasEvidence = true
 }: ArtifactRelationshipMapProps) {
   const children = [];
   if (blueprintTitle) children.push({ type: "blueprint", label: blueprintTitle });
-  for (let i = 1; i <= insightsCount; i++) {
-    children.push({ type: "insight", label: `Research Insight #${i}` });
+  for (const log of logs) {
+    children.push({ type: "insight", label: log.title });
   }
   if (hasEvidence) children.push({ type: "evidence", label: "Impact & Evidence Panel" });
 

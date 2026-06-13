@@ -65,11 +65,11 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
         )}
         
         {/* Relationship Map for all Flagship projects */}
-        {(experiment.id === 'experiment-zero' || experiment.id === 'ai-codebase-analyzer' || experiment.id === 'promptvault') && (
+        {(experiment.id === 'experiment-zero' || experiment.id === 'ai-codebase-analyzer' || experiment.id === 'promptvault') && journeyData && (
           <ArtifactRelationshipMap 
             experimentTitle={experiment.title}
-            blueprintTitle={`${experiment.title} Architecture Blueprint`}
-            insightsCount={experiment.id === 'experiment-zero' ? 3 : 2}
+            blueprintTitle={journeyData.blueprintTitle}
+            logs={journeyData.logs}
             hasEvidence={!!experiment.evidence}
           />
         )}

@@ -32,22 +32,23 @@ export default function ExperimentBottle({
   let modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire default
   let glowColor = "rgba(59, 130, 246, 0.4)";
   
-  if (experiment.id === "experiment-zero") {
+  if (experiment.status === "Planned" || experiment.status === "On Hold") {
     mode = "energy";
+    modeColor = "rgba(139, 92, 246, 0.6)"; // Violet
+    glowColor = "rgba(139, 92, 246, 0.4)";
+  } else if (experiment.status === "Research") {
+    mode = "smoke";
     modeColor = "rgba(245, 158, 11, 0.6)"; // Amber
     glowColor = "rgba(245, 158, 11, 0.4)";
-  } else if (experiment.id === "promptvault" || experiment.primaryCategory?.toLowerCase().includes("ux")) {
-    mode = "firefly";
-    modeColor = "rgba(16, 185, 129, 0.6)"; // Emerald
-    glowColor = "rgba(16, 185, 129, 0.4)";
-  } else if (experiment.primaryCategory?.toLowerCase().includes("research") || experiment.status === "Planned") {
-    mode = "smoke";
-    modeColor = "rgba(139, 92, 246, 0.5)"; // Violet
-    glowColor = "rgba(139, 92, 246, 0.4)";
-  } else {
+  } else if (experiment.status === "Completed") {
     mode = "liquid";
     modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire
     glowColor = "rgba(59, 130, 246, 0.4)";
+  } else {
+    // Active / In Progress / Beta
+    mode = "firefly";
+    modeColor = "rgba(16, 185, 129, 0.6)"; // Emerald
+    glowColor = "rgba(16, 185, 129, 0.4)";
   }
 
   const liquidHeight = `${Math.round(experiment.bottle.fillLevel * 78)}%`;
@@ -70,66 +71,41 @@ export default function ExperimentBottle({
             aria-hidden="true"
             style={{
               position: "absolute",
-              left: "calc(100% + 1rem)",
-              top: "10%",
-              zIndex: 10,
-              backgroundColor: "var(--bg-card)",
-              border: "1px solid var(--border-medium)",
-              borderRadius: "2px",
-              padding: "0.6rem 0.75rem",
+              left: "calc(100% + 1.5rem)",
+              top: "20%",
+              zIndex: 50,
+              backgroundColor: "rgba(18, 13, 11, 0.8)",
+              backdropFilter: "blur(12px)",
+              border: `1px solid ${glowColor}`,
+              borderRadius: "4px",
+              padding: "1rem 1.25rem",
               whiteSpace: "nowrap",
-              boxShadow: "0 4px 16px rgba(28,25,23,0.1)",
+              boxShadow: `0 8px 32px rgba(0,0,0,0.4), 0 0 20px ${glowColor}`,
               pointerEvents: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.4rem",
+              minWidth: "220px",
             }}
           >
-            {/* Label top rule */}
-            <div
-              style={{
-                height: 1,
-                backgroundColor: glowColor,
-                marginBottom: "0.5rem",
-                opacity: 0.8,
-              }}
-            />
-            {[
-              { k: "Specimen", v: `#${experiment.id}` },
-              { k: "Status", v: experiment.status },
-              { k: "Category", v: experiment.primaryCategory },
-            ].map(({ k, v }) => (
-              <div
-                key={k}
-                style={{
-                  display: "flex",
-                  gap: "0.8rem",
-                  alignItems: "baseline",
-                  marginBottom: "0.3rem",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.55rem",
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "var(--fg-subtle)",
-                    minWidth: 60,
-                  }}
-                >
-                  {k}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.1em",
-                    color: "var(--fg-secondary)",
-                    fontWeight: 600,
-                  }}
-                >
-                  {k === "Category" ? <EquipmentTag label={v} /> : v}
-                </span>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg-subtle)", marginBottom: "0.6rem" }}>
+              #{experiment.id.toUpperCase()}
+            </div>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: modeColor, fontWeight: 600 }}>
+              {experiment.status}
+            </div>
+            {experiment.stack.length > 0 && (
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "var(--fg-muted)", marginTop: "0.4rem" }}>
+                {experiment.stack.join(" • ")}
               </div>
-            ))}
+            )}
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "var(--fg-subtle)", marginTop: "0.2rem" }}>
+              {experiment.year}
+            </div>
+            
+            <div style={{ marginTop: "1rem", paddingTop: "0.5rem", borderTop: "1px solid rgba(255,255,255,0.1)", fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.2em", color: "var(--fg-primary)", textAlign: "center" }}>
+              [OPEN ARCHIVE]
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -177,8 +153,8 @@ export default function ExperimentBottle({
         <div
           style={{
             position: "relative",
-            width: 76,
-            height: 160,
+            width: 95,
+            height: 250,
             filter: isSelected
               ? `drop-shadow(0 0 20px ${glowColor}) drop-shadow(0 12px 30px rgba(28,25,23,0.3))`
               : isHovered
@@ -191,15 +167,15 @@ export default function ExperimentBottle({
           {/* Cork */}
           <motion.div
             aria-hidden="true"
-            animate={{ rotate: isHovered ? 4 : 0, y: isHovered ? -2 : 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            animate={{ rotate: isHovered ? 6 : 0, y: isHovered ? -12 : 0, x: isHovered ? "-45%" : "-50%" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             style={{
               position: "absolute",
               top: 0,
               left: "50%",
               x: "-50%",
-              width: 22,
-              height: 16,
+              width: 32,
+              height: 24,
               background: "linear-gradient(to bottom, #8f6e2b 0%, #594418 100%)",
               borderRadius: "4px 4px 1px 1px",
               boxShadow: "inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 6px rgba(0,0,0,0.4)",
@@ -209,16 +185,44 @@ export default function ExperimentBottle({
             }}
           />
 
+          {/* Escaping Firefly (only for Active mode) */}
+          {mode === "firefly" && isHovered && (
+            <motion.div
+              initial={{ y: 20, x: 0, opacity: 0 }}
+              animate={{
+                y: [20, -60, -50, -70, -40],
+                x: [0, 15, -10, 5, 20],
+                opacity: [0, 1, 1, 1, 0]
+              }}
+              transition={{
+                duration: 6,
+                ease: "easeInOut",
+              }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: "50%",
+                width: 4,
+                height: 4,
+                backgroundColor: "#fff",
+                borderRadius: "50%",
+                boxShadow: `0 0 10px 4px ${modeColor}`,
+                zIndex: 10,
+                pointerEvents: "none"
+              }}
+            />
+          )}
+
           {/* Neck */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
-              top: 14,
+              top: 22,
               left: "50%",
               transform: "translateX(-50%)",
-              width: 24,
-              height: 28,
+              width: 36,
+              height: 42,
               background: "linear-gradient(to right, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.3) 100%)",
               border: "1px solid rgba(255,255,255,0.4)",
               borderBottom: "none",
@@ -247,7 +251,7 @@ export default function ExperimentBottle({
             aria-hidden="true"
             style={{
               position: "absolute",
-              top: 38,
+              top: 58,
               left: 0,
               right: 0,
               bottom: 0,
@@ -266,32 +270,32 @@ export default function ExperimentBottle({
             {/* SPECIMEN RENDERERS */}
             <div style={{ position: "absolute", inset: 4, borderRadius: "4px 4px 8px 8px", overflow: "hidden" }}>
               
-              {/* CATEGORY A: Firefly (PromptVault) */}
+              {/* CATEGORY A: Firefly (Active) */}
               {mode === "firefly" && (
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${glowColor}, transparent 60%)` }}>
-                  {Array.from({ length: 6 }).map((_, i) => (
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${glowColor}, transparent 80%)` }}>
+                  {Array.from({ length: 5 }).map((_, i) => (
                     <motion.div
                       key={i}
                       animate={{
-                        y: [0, -40 - Math.random() * 40, 0],
-                        x: [0, (Math.random() - 0.5) * 30, 0],
+                        y: [0, -60 - Math.random() * 40, 0],
+                        x: [0, (Math.random() - 0.5) * 40, 0],
                         opacity: [0.2, 1, 0.2]
                       }}
                       transition={{
-                        duration: 3 + Math.random() * 4,
+                        duration: 4 + Math.random() * 5,
                         repeat: Infinity,
                         ease: "easeInOut",
-                        delay: Math.random() * 2
+                        delay: Math.random() * 3
                       }}
                       style={{
                         position: "absolute",
-                        bottom: 20 + Math.random() * 20,
-                        left: 20 + Math.random() * 30,
+                        bottom: 30 + Math.random() * 30,
+                        left: 20 + Math.random() * 50,
                         width: 4,
                         height: 4,
                         backgroundColor: "#fff",
                         borderRadius: "50%",
-                        boxShadow: `0 0 8px 3px ${modeColor}`
+                        boxShadow: `0 0 10px 4px ${modeColor}`
                       }}
                     />
                   ))}
@@ -311,18 +315,28 @@ export default function ExperimentBottle({
                     right: 0,
                     background: `linear-gradient(to top, ${modeColor} 0%, transparent 100%)`,
                     filter: "blur(2px)",
+                    overflow: "hidden"
                   }}
                 >
+                  {/* Wavy surface layer */}
+                  <div style={{
+                    position: "absolute",
+                    top: -10, left: "-50%", width: "200%", height: 30,
+                    background: `linear-gradient(to bottom, rgba(255,255,255,0.4), transparent)`,
+                    borderRadius: "50%",
+                    animation: isHovered ? "liquid-wave 3s ease-in-out infinite" : "liquid-wave 6s ease-in-out infinite",
+                    opacity: 0.6
+                  }} />
                   <motion.div
                     animate={{ opacity: isHovered ? 1 : 0.6 }}
                     style={{
                       position: "absolute",
-                      top: 0,
+                      top: 10,
                       left: -20,
                       right: -20,
                       height: 8,
                       background: `linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent)`,
-                      animation: "liquid-shimmer 4s ease-in-out infinite",
+                      animation: isHovered ? "liquid-shimmer 2s ease-in-out infinite" : "liquid-shimmer 5s ease-in-out infinite",
                     }}
                   />
                 </motion.div>
@@ -330,48 +344,58 @@ export default function ExperimentBottle({
 
               {/* CATEGORY C: Smoke / Mist Specimen */}
               {mode === "smoke" && (
-                <motion.div
-                  animate={{ rotate: 360, scale: [1, 1.2, 1], opacity: isHovered ? 0.8 : 0.5 }}
-                  transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, scale: { duration: 8, repeat: Infinity, ease: "easeInOut" } }}
-                  style={{
-                    position: "absolute",
-                    bottom: -20,
-                    left: -20,
-                    right: -20,
-                    height: "120%",
-                    background: `radial-gradient(circle at center, ${modeColor} 0%, transparent 60%)`,
-                    filter: "blur(12px)",
-                    transformOrigin: "center center",
-                  }}
-                />
+                <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{
+                        y: ["100%", "-100%"],
+                        x: [0, (i % 2 === 0 ? 10 : -10), 0],
+                        opacity: [0, isHovered ? 0.6 : 0.3, 0]
+                      }}
+                      transition={{
+                        y: { duration: 15 + i * 5, repeat: Infinity, ease: "linear", delay: i * 2 },
+                        x: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 15 + i * 5, repeat: Infinity, ease: "linear", delay: i * 2 }
+                      }}
+                      style={{
+                        position: "absolute",
+                        left: -20, right: -20, height: "150%",
+                        background: `radial-gradient(ellipse at center, ${modeColor} 0%, transparent 60%)`,
+                        filter: "blur(16px)",
+                        mixBlendMode: "screen"
+                      }}
+                    />
+                  ))}
+                </div>
               )}
 
-              {/* CATEGORY D: Energy Core */}
+              {/* CATEGORY D: Energy Core (Classified) */}
               {mode === "energy" && (
                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <motion.div
-                    animate={{ scale: [1, 1.15, 1], opacity: isHovered ? [0.8, 1, 0.8] : [0.5, 0.8, 0.5] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{ opacity: isHovered ? [0.4, 0.9, 0.4] : [0.2, 0.5, 0.2] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     style={{
-                      width: 24,
-                      height: 24,
+                      width: 18,
+                      height: 18,
                       borderRadius: "50%",
-                      backgroundColor: "#fff",
-                      boxShadow: `0 0 20px 10px ${modeColor}, inset 0 0 10px #fff`,
-                      filter: "blur(2px)"
+                      backgroundColor: "transparent",
+                      boxShadow: `0 0 30px 15px ${modeColor}`,
+                      filter: "blur(4px)"
                     }}
                   />
-                  {/* Energy rings */}
+                  {/* Occasional Crackle */}
                   <motion.div
-                    animate={{ rotate: 360, scale: isHovered ? [1, 1.2, 1] : 1 }}
-                    transition={{ rotate: { duration: 4, repeat: Infinity, ease: "linear" } }}
+                    animate={{ opacity: isHovered ? [0, 0.8, 0, 0, 0.4, 0] : [0, 0.3, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, times: [0, 0.05, 0.1, 0.5, 0.55, 0.6] }}
                     style={{
                       position: "absolute",
-                      width: 40,
-                      height: 40,
-                      borderRadius: "50%",
-                      border: `2px dashed ${modeColor}`,
-                      opacity: 0.6
+                      width: 2, height: 40,
+                      background: "#fff",
+                      filter: "blur(1px)",
+                      transform: "rotate(45deg)",
+                      mixBlendMode: "overlay"
                     }}
                   />
                 </div>
@@ -405,35 +429,6 @@ export default function ExperimentBottle({
             />
           </div>
 
-        </div>
-
-        {/* Label beneath bottle */}
-        <div style={{ textAlign: "center", maxWidth: 100 }}>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.55rem",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "var(--fg-subtle)",
-              marginBottom: "0.3rem",
-            }}
-          >
-            #{experiment.id}
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "0.9rem",
-              fontWeight: 800,
-              color: isSelected ? "var(--fg-primary)" : "var(--fg-secondary)",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.2,
-              transition: "color 0.2s ease",
-            }}
-          >
-            {experiment.title}
-          </div>
         </div>
       </motion.button>
 

@@ -2,30 +2,33 @@
 
 /* ─── Design Tokens ─────────────────────────────────────────────────── */
 :root {
-  /* Backgrounds — warm paper / stone */
-  --bg-primary:     #eadecc;   /* aged paper warm darker off-white */
-  --bg-secondary:   #e0d4c1;   /* slightly deeper parchment */
-  --bg-card:        #ece0ce;   /* notebook page */
-  --bg-card-hover:  #e2d5c1;
+  /* Base Mapping to support existing codebase components seamlessly */
+  --bg-primary: var(--pal-bg-primary);
+  --bg-secondary: var(--pal-bg-secondary);
+  --bg-card: var(--pal-bg-card);
+  --bg-card-hover: color-mix(in srgb, var(--pal-bg-card) 90%, var(--pal-fg-primary) 10%);
 
-  /* Foreground — charcoal / iron */
-  --fg-primary:     #1c1917;   /* iron black */
-  --fg-secondary:   #292524;   /* charcoal darker */
-  --fg-muted:       #57534e;   /* stone darker */
-  --fg-subtle:      #78716c;   /* very muted but readable */
+  --fg-primary: var(--pal-fg-primary);
+  --fg-secondary: var(--pal-fg-secondary);
+  --fg-muted: var(--pal-fg-muted);
+  --fg-subtle: color-mix(in srgb, var(--pal-fg-muted) 60%, transparent 40%);
 
-  /* Accent — muted emerald */
-  --accent-emerald:        #2d6a4f;
-  --accent-emerald-light:  #40916c;
-  --accent-emerald-dim:    rgba(45, 106, 79, 0.12);
+  --accent-emerald: var(--pal-accent-primary);
+  --accent-emerald-light: color-mix(in srgb, var(--pal-accent-primary) 80%, white 20%);
+  --accent-emerald-dim: color-mix(in srgb, var(--pal-accent-primary) 15%, transparent 85%);
 
-  /* Accent — copper / brass */
-  --accent-copper:  #92400e;
-  --accent-copper-dim: rgba(146, 64, 14, 0.1);
+  --accent-copper: var(--pal-accent-secondary);
+  --accent-copper-dim: color-mix(in srgb, var(--pal-accent-secondary) 15%, transparent 85%);
 
-  /* Borders */
-  --border-subtle:  rgba(28, 25, 23, 0.1);
-  --border-medium:  rgba(28, 25, 23, 0.18);
+  --rack-bg: #120e0c;
+  --rack-surface: #1a1411;
+  --rack-border: #2d221d;
+
+  --border-subtle: var(--pal-border-subtle);
+  --border-medium: color-mix(in srgb, var(--pal-border-subtle) 60%, var(--pal-fg-primary) 40%);
+
+  /* Grid Color for background textures */
+  --grid-color: var(--pal-grid-color, rgba(0,0,0,0.05));
 
   /* Typography */
   --font-display:  var(--font-playfair), Georgia, serif;
@@ -34,6 +37,144 @@
 
   /* Spacing */
   --nav-height: 64px;
+}
+
+/* ─── Palette Laboratory ────────────────────────────────────────────── */
+
+.palette-archive-paper {
+  --pal-bg-primary: #eadecc;
+  --pal-bg-secondary: #e0d4c1;
+  --pal-bg-card: #ece0ce;
+  --pal-fg-primary: #1c1917;
+  --pal-fg-secondary: #292524;
+  --pal-fg-muted: #57534e;
+  --pal-border-subtle: rgba(28, 25, 23, 0.1);
+  --pal-accent-primary: #2d6a4f;
+  --pal-accent-secondary: #92400e;
+  --pal-grid-color: rgba(0,0,0,0.04);
+}
+
+.palette-midnight-laboratory {
+  --pal-bg-primary: #0f1115;
+  --pal-bg-secondary: #14171c;
+  --pal-bg-card: #1a1d24;
+  --pal-fg-primary: #f8fafc;
+  --pal-fg-secondary: #e2e8f0;
+  --pal-fg-muted: #94a3b8;
+  --pal-border-subtle: rgba(255, 255, 255, 0.08);
+  --pal-accent-primary: #10b981;
+  --pal-accent-secondary: #64748b;
+  --pal-grid-color: rgba(255,255,255,0.03);
+}
+
+.palette-emerald-vault {
+  --pal-bg-primary: #06120b;
+  --pal-bg-secondary: #0a1c12;
+  --pal-bg-card: #0d2618;
+  --pal-fg-primary: #e8f5e9;
+  --pal-fg-secondary: #c8e6c9;
+  --pal-fg-muted: #81c784;
+  --pal-border-subtle: rgba(129, 199, 132, 0.15);
+  --pal-accent-primary: #4caf50;
+  --pal-accent-secondary: #ffb300;
+  --pal-grid-color: rgba(76,175,80,0.05);
+}
+
+.palette-navy-blueprint {
+  --pal-bg-primary: #0a1128;
+  --pal-bg-secondary: #101c42;
+  --pal-bg-card: #152456;
+  --pal-fg-primary: #e0e7ff;
+  --pal-fg-secondary: #a5b4fc;
+  --pal-fg-muted: #6366f1;
+  --pal-border-subtle: rgba(99, 102, 241, 0.2);
+  --pal-accent-primary: #38bdf8;
+  --pal-accent-secondary: #f472b6;
+  --pal-grid-color: rgba(99, 102, 241, 0.1);
+}
+
+.palette-obsidian-gold {
+  --pal-bg-primary: #0a0a0a;
+  --pal-bg-secondary: #121212;
+  --pal-bg-card: #1a1a1a;
+  --pal-fg-primary: #fdfbf7;
+  --pal-fg-secondary: #d4cfc3;
+  --pal-fg-muted: #8c887d;
+  --pal-border-subtle: rgba(212, 175, 55, 0.15);
+  --pal-accent-primary: #d4af37;
+  --pal-accent-secondary: #b8860b;
+  --pal-grid-color: rgba(212, 175, 55, 0.03);
+}
+
+.palette-industrial-slate {
+  --pal-bg-primary: #1e2022;
+  --pal-bg-secondary: #272a2e;
+  --pal-bg-card: #30343a;
+  --pal-fg-primary: #e8e9eb;
+  --pal-fg-secondary: #b6b9bd;
+  --pal-fg-muted: #7d828a;
+  --pal-border-subtle: rgba(255, 255, 255, 0.1);
+  --pal-accent-primary: #94a3b8;
+  --pal-accent-secondary: #64748b;
+  --pal-grid-color: rgba(255, 255, 255, 0.02);
+}
+
+.palette-arctic-research {
+  --pal-bg-primary: #f0f4f8;
+  --pal-bg-secondary: #e1e8f0;
+  --pal-bg-card: #ffffff;
+  --pal-fg-primary: #102a43;
+  --pal-fg-secondary: #243b53;
+  --pal-fg-muted: #627d98;
+  --pal-border-subtle: rgba(16, 42, 67, 0.08);
+  --pal-accent-primary: #186faf;
+  --pal-accent-secondary: #003e6b;
+  --pal-grid-color: rgba(16, 42, 67, 0.03);
+}
+
+.palette-forest-expedition {
+  --pal-bg-primary: #1a2421;
+  --pal-bg-secondary: #23302c;
+  --pal-bg-card: #2d3b36;
+  --pal-fg-primary: #e8ece1;
+  --pal-fg-secondary: #b5c4b1;
+  --pal-fg-muted: #798d73;
+  --pal-border-subtle: rgba(181, 196, 177, 0.12);
+  --pal-accent-primary: #8ab07d;
+  --pal-accent-secondary: #cd7f32;
+  --pal-grid-color: rgba(138, 176, 125, 0.04);
+}
+
+.palette-copper-journal {
+  --pal-bg-primary: #2d1810;
+  --pal-bg-secondary: #3b2216;
+  --pal-bg-card: #4a2d1e;
+  --pal-fg-primary: #f4ece6;
+  --pal-fg-secondary: #d9c5b2;
+  --pal-fg-muted: #a68a73;
+  --pal-border-subtle: rgba(217, 197, 178, 0.15);
+  --pal-accent-primary: #d97743;
+  --pal-accent-secondary: #a65129;
+  --pal-grid-color: rgba(217, 119, 67, 0.05);
+}
+
+.palette-museum-noir {
+  --pal-bg-primary: #050505;
+  --pal-bg-secondary: #0a0a0a;
+  --pal-bg-card: #111111;
+  --pal-fg-primary: #fcfaf5;
+  --pal-fg-secondary: #e6e2d3;
+  --pal-fg-muted: #8c887d;
+  --pal-border-subtle: rgba(255, 255, 255, 0.06);
+  --pal-accent-primary: #ffffff;
+  --pal-accent-secondary: #c2a878;
+  --pal-grid-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Ensure the body takes the correct palette background and foreground automatically */
+body {
+  background-color: var(--bg-primary);
+  color: var(--fg-primary);
 }
 
 @theme inline {

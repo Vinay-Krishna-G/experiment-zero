@@ -35,7 +35,9 @@ const rowVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
 };
 
-interface ExperimentPreviewProps {
+import { useEffect } from "react";
+
+interface ExperimentModalProps {
   experiment: Experiment | null;
   onClose: () => void;
 }
@@ -137,25 +139,61 @@ function MetaRow({ label, value }: { label: string; value: string }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function ExperimentPreview({ experiment, onClose }: ExperimentPreviewProps) {
+export default function ExperimentModal({ experiment, onClose }: ExperimentModalProps) {
   const relatedBp = experiment?.blueprintId ? BLUEPRINTS.find(b => b.id === experiment.blueprintId) : null;
   const relatedLogs = experiment ? RESEARCH_LOGS.filter(log => log.relatedExperimentId === experiment.id) : [];
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    if (experiment) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [experiment, onClose]);
 
   return (
     <AnimatePresence mode="wait">
       {experiment && (
-        <motion.div
-          key={experiment.id}
-          id={`preview-${experiment.id}`}
-          role="region"
-          aria-label={`Experiment journal: ${experiment.title}`}
-          initial={{ opacity: 0, y: 20, height: 0 }}
-          animate={{ opacity: 1, y: 0, height: "auto" }}
-          exit={{ opacity: 0, y: 10, height: 0 }}
-          transition={{ duration: 0.5, ease: EASE }}
-          style={{ overflow: "hidden", marginTop: "2.5rem" }}
-        >
-          <div style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "3px", position: "relative", overflow: "hidden", boxShadow: "0 8px 32px rgba(28,25,23,0.08), 0 2px 8px rgba(28,25,23,0.05)" }}>
+        <div style={{ position: "fixed", inset: 0, zIndex: 100, pointerEvents: "auto", display: "flex", justifyContent: "center" }}>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            style={{ position: "absolute", inset: 0, backgroundColor: "rgba(10, 8, 6, 0.85)", backdropFilter: "blur(12px)" }}
+            onClick={onClose}
+          />
+
+          <motion.div
+            key={experiment.id}
+            id={`preview-${experiment.id}`}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Experiment journal: ${experiment.title}`}
+            initial={{ y: "100%" }}
+            animate={{ y: "8%" }}
+            exit={{ y: "100%" }}
+            transition={{ duration: 0.5, ease: EASE }}
+            style={{ 
+              position: "absolute", 
+              bottom: 0, 
+              width: "100%", 
+              maxWidth: "1000px", 
+              height: "92%", 
+              overflowY: "auto", 
+              paddingBottom: "4rem" 
+            }}
+          >
+            <div style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderBottom: "none", borderRadius: "8px 8px 0 0", minHeight: "100%", position: "relative", overflow: "hidden", boxShadow: "0 -8px 32px rgba(28,25,23,0.3)" }}>
             {/* Spine */}
             <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 4, background: `linear-gradient(to right, ${STATUS_COLORS[experiment.status]}, transparent)`, opacity: 0.7 }} />
             {/* Corner fold */}
@@ -190,13 +228,12 @@ export default function ExperimentPreview({ experiment, onClose }: ExperimentPre
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem" }}>
                     <button
                       onClick={onClose}
-                      aria-label="Close experiment preview"
-                      id={`close-preview-${experiment.id}`}
-                      style={{ background: "none", border: "1px solid var(--border-subtle)", borderRadius: "2px", cursor: "pointer", padding: "0.3rem 0.6rem", fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.12em", color: "var(--fg-muted)", textTransform: "uppercase", transition: "border-color 0.2s ease, color 0.2s ease" }}
+                      aria-label="Close archive"
+                      style={{ background: "none", border: "1px solid var(--border-subtle)", borderRadius: "2px", cursor: "pointer", padding: "0.4rem 0.8rem", fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.12em", color: "var(--fg-muted)", transition: "border-color 0.2s ease, color 0.2s ease" }}
                       onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--fg-muted)"; el.style.color = "var(--fg-primary)"; }}
                       onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--border-subtle)"; el.style.color = "var(--fg-muted)"; }}
                     >
-                      Close ×
+                      [CLOSE ARCHIVE]
                     </button>
                     <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.52rem", letterSpacing: "0.15em", textTransform: "uppercase", color: STATUS_COLORS[experiment.status], border: `1px solid ${STATUS_COLORS[experiment.status]}`, padding: "0.25rem 0.6rem", borderRadius: "2px", opacity: 0.85 }}>
                       {experiment.status}
@@ -281,7 +318,8 @@ export default function ExperimentPreview({ experiment, onClose }: ExperimentPre
               )}
             </motion.div>
           </div>
-        </motion.div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );
