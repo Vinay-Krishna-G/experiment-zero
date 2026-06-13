@@ -1,27 +1,20 @@
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
-import WelcomeBanner from "@/components/ui/WelcomeBanner";
 import HeroSection from "@/components/home/HeroSection";
-import LabStatusPanel from "@/components/home/LabStatusPanel";
-import FieldNotesSection from "@/components/home/FieldNotesSection";
 import ExperimentRack from "@/components/experiments/ExperimentRack";
 import BlueprintArchive from "@/components/blueprints/BlueprintArchive";
 import ResearchLogArchive from "@/components/research/ResearchLogArchive";
-import ContactSection from "@/components/home/ContactSection";
+import HireMeSection from "@/components/home/HireMeSection";
+import VisitorStats from "@/components/home/VisitorStats";
 
 export default function HomePage() {
   return (
     <>
-      <WelcomeBanner />
       <Navigation />
 
       <main id="main-content" role="main">
         {/* 00 — Hero */}
         <HeroSection />
-
-        {/* 00 — Laboratory Status */}
-        <LabStatusPanel />
-
 
         {/* 01 — Experiments */}
         <ExperimentRack />
@@ -29,14 +22,14 @@ export default function HomePage() {
         {/* 02 — Blueprint Archive */}
         <BlueprintArchive />
 
-        {/* 03 — Research Log (Phase 4A) */}
+        {/* 03 — Notes (Research Log) */}
         <ResearchLogArchive />
 
-        {/* — Field Notes */}
-        <FieldNotesSection />
+        {/* 04 — Hire Me */}
+        <HireMeSection />
 
-        {/* 04 — Laboratory Correspondence */}
-        <ContactSection />
+        {/* 05 — Visitor Stats */}
+        <VisitorStats />
       </main>
 
       <Footer />

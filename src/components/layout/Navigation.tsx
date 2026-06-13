@@ -9,17 +9,15 @@ const ARCHIVE_INDEX = [
   { number: "01", label: "Projects", href: "#experiments" },
   { number: "02", label: "Architecture", href: "#blueprints" },
   { number: "03", label: "Notes", href: "#research-log" },
-  { number: "04", label: "Insights", href: "/insights" },
-  { number: "05", label: "Skill Matrix", href: "/evidence" },
-  { number: "06", label: "Contact", href: "#contact" },
+  { number: "04", label: "Hire Me", href: "#hire-me" },
 ];
 
 const NAV_ITEMS = [
+  { label: "Home", href: "#hero" },
   { label: "Projects", href: "#experiments" },
   { label: "Architecture", href: "#blueprints" },
-  { label: "Insights", href: "/insights" },
-  { label: "Skill Matrix", href: "/evidence" },
   { label: "Notes", href: "#research-log" },
+  { label: "Hire Me", href: "#hire-me" },
 ];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -122,7 +120,8 @@ export default function Navigation() {
         >
           {/* Logo */}
           <Link
-            href="/"
+            href="#hero"
+            onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}
             aria-label="Vinay Krishna Laboratory — home"
             style={{
               fontFamily: "var(--font-display)",
