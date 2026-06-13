@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { PROFILE, SOCIALS } from "@/content";
 
 export default function Footer() {
@@ -9,13 +6,59 @@ export default function Footer() {
       role="contentinfo"
       style={{
         borderTop: "1px solid var(--border-subtle)",
-        paddingBlock: "2.5rem",
+        padding: "5rem 0 2rem 0",
         marginTop: "auto",
+        backgroundColor: "var(--bg-primary)",
+        position: "relative",
+        overflow: "hidden"
       }}
     >
-      <div className="container-lab">
+      {/* Background texture */}
+      <div 
+        aria-hidden="true"
+        style={{ 
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "radial-gradient(circle, var(--border-medium) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+          opacity: 0.2,
+          pointerEvents: "none"
+        }} 
+      />
 
-        {/* Bottom row */}
+      <div className="container-lab" style={{ position: "relative", zIndex: 10 }}>
+        
+        {/* Top Section */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "2rem", marginBottom: "4rem" }}>
+          <div>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "var(--fg-muted)", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+              Engineering & Architecture
+            </div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "1.8rem", color: "var(--fg-primary)", fontWeight: 700, letterSpacing: "-0.02em" }}>
+              {PROFILE.name}
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: "2rem", fontFamily: "var(--font-mono)", fontSize: "0.75rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            {SOCIALS.github && (
+              <a href={SOCIALS.github} target="_blank" rel="noopener noreferrer" className="text-[var(--fg-secondary)] hover:text-[var(--fg-primary)] transition-colors duration-200" style={{ textDecoration: "none" }}>
+                GitHub ↗
+              </a>
+            )}
+            {SOCIALS.linkedin && (
+              <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer" className="text-[var(--fg-secondary)] hover:text-[var(--fg-primary)] transition-colors duration-200" style={{ textDecoration: "none" }}>
+                LinkedIn ↗
+              </a>
+            )}
+            {PROFILE.email && (
+              <a href={`mailto:${PROFILE.email}`} className="text-[var(--fg-secondary)] hover:text-[var(--fg-primary)] transition-colors duration-200" style={{ textDecoration: "none" }}>
+                Email ↗
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Bottom Section */}
         <div
           style={{
             display: "flex",
@@ -23,56 +66,27 @@ export default function Footer() {
             justifyContent: "space-between",
             flexWrap: "wrap",
             gap: "1rem",
+            paddingTop: "2rem",
+            borderTop: "1px dashed var(--border-subtle)"
           }}
         >
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6rem",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--fg-subtle)",
+            }}
+          >
+            © {new Date().getFullYear()} {PROFILE.name}
+          </span>
+          
           <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.58rem",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--fg-subtle)",
-              }}
-            >
-              © {new Date().getFullYear()} {PROFILE.name}
-            </span>
-            
-            <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-              {SOCIALS.github && (
-                <a
-                  href={SOCIALS.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  style={{ color: "var(--fg-subtle)", transition: "color 0.2s" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-subtle)"; }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-              )}
-              {SOCIALS.linkedin && (
-                <a
-                  href={SOCIALS.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  style={{ color: "var(--fg-subtle)", transition: "color 0.2s" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-subtle)"; }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
-              )}
-            </div>
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-            <span
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
+                fontSize: "0.6rem",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 color: "var(--fg-subtle)",
@@ -83,7 +97,7 @@ export default function Footer() {
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
+                fontSize: "0.6rem",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 color: "var(--fg-subtle)",
@@ -93,6 +107,7 @@ export default function Footer() {
             </span>
           </div>
         </div>
+
       </div>
     </footer>
   );

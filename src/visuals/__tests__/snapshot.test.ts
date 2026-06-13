@@ -34,7 +34,7 @@ const testCases: TestCase[] = [
     expectedParticleCount: 0,
   },
   {
-    category: "AI",
+    category: "Portfolio",
     status: "Planned",
     archived: false,
     deviceTier: "high",
@@ -44,7 +44,7 @@ const testCases: TestCase[] = [
     expectedParticleCount: 0,
   },
   {
-    category: "Infrastructure",
+    category: "Education",
     status: "On Hold",
     archived: false,
     deviceTier: "medium",
@@ -54,7 +54,7 @@ const testCases: TestCase[] = [
     expectedParticleCount: 4,
   },
   {
-    category: "Design",
+    category: "Productivity",
     status: "In Progress",
     archived: false,
     deviceTier: "high",

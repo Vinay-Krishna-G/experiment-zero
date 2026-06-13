@@ -23,7 +23,7 @@ export const KNOWLEDGE_ARTIFACTS: KnowledgeArtifact[] = [
     },
     sources: [
       {
-        nodeId: "res-architecture-clarity-matters-more-than-visual-polish",
+        nodeId: "res-portfolio-content-system",
         sourceType: "research",
         evidenceStrength: 0.95,
         context: "Logs verified that clear file-based constraints are superior to runtime error boundaries.",
@@ -93,13 +93,13 @@ export const KNOWLEDGE_ARTIFACTS: KnowledgeArtifact[] = [
     },
     sources: [
       {
-        nodeId: "res-decoupling-rendering-from-interaction-state",
+        nodeId: "res-portfolio-static-vs-dynamic",
         sourceType: "research",
         evidenceStrength: 0.9,
         context: "Documents the separation boundary between container selectors and the WebGL renderer.",
       },
       {
-        nodeId: "res-glb-payload-vs-interaction-latency",
+        nodeId: "res-portfolio-flat-files",
         sourceType: "research",
         evidenceStrength: 0.85,
         context: "Validates frame rates and scroll performance metrics on canvas swaps.",
@@ -175,7 +175,7 @@ export const KNOWLEDGE_ARTIFACTS: KnowledgeArtifact[] = [
     },
     sources: [
       {
-        nodeId: "res-one-click-copy-metrics",
+        nodeId: "res-promptvault-search-vs-categories",
         sourceType: "research",
         evidenceStrength: 0.95,
         context: "Logs direct analytics findings on user search vs clipboard actions.",

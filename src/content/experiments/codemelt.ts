@@ -2,7 +2,7 @@
 import { createExperiment } from "../factories";
 
 export const aiCodebaseAnalyzer = createExperiment({
-  id: "ai-codebase-analyzer",
+  id: "codemelt",
 
   publishedAt: "2026-06-12",
 
@@ -16,7 +16,7 @@ export const aiCodebaseAnalyzer = createExperiment({
 
   status: "In Progress",
 
-  primaryCategory: "AI Developer Tool",
+  primaryCategory: "Developer Tool",
 
   tags: [
     "AI",
@@ -49,7 +49,8 @@ export const aiCodebaseAnalyzer = createExperiment({
     "Tailwind CSS"
   ],
 
-  blueprintId: "ai-codebase-analyzer",
+  blueprintId: "codemelt",
+  github: "https://github.com",
   liveUrl: "https://codemelt.vercel.app/",
 
   evidence: {

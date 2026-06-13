@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const codemeltMetadataRetrieval = createResearchLog({
   id: "codemelt-metadata-retrieval",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Metadata Improves Retrieval More Than Bigger Models",
   category: "Discovery",
@@ -19,6 +20,6 @@ The precision of the retrieval pipeline skyrocketed. By forcing the search to re
 - Throwing a larger, more expensive LLM at a problem rarely fixes underlying retrieval flaws.
 - Metadata is the secret weapon of effective RAG pipelines, providing the deterministic boundaries that probabilistic vector search lacks.`,
   tags: ["Search","RAG","Metadata"],
-  relatedExperimentId: "ai-codebase-analyzer",
-  relatedBlueprintId: "ai-codebase-analyzer"
+  relatedExperimentId: "codemelt",
+  relatedBlueprintId: "codemelt"
 });

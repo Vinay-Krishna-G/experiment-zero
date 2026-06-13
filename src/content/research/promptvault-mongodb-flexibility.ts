@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const promptvaultMongodbFlexibility = createResearchLog({
   id: "promptvault-mongodb-flexibility",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "MongoDB Flexibility During MVP Development",
   category: "System Design Note",

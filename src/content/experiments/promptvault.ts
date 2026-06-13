@@ -16,7 +16,7 @@ export const promptvault = createExperiment({
 
   status: "Completed",
 
-  primaryCategory: "Productivity Platform",
+  primaryCategory: "Developer Tool",
 
   tags: [
     "AI",
@@ -50,6 +50,7 @@ export const promptvault = createExperiment({
   ],
 
   blueprintId: "promptvault",
+  github: "https://github.com",
   liveUrl: "https://trendyprompt.vercel.app/",
 
   evidence: {

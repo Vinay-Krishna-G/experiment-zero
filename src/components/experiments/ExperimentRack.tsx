@@ -40,69 +40,12 @@ const RACK_ORDER: RackSlot[] = ["active", "completed", "future"];
 
 const LEGACY_ID_MAP: Record<string, string> = {
   "001": "promptvault",
-  "002": "ai-codebase-analyzer",
+  "002": "codemelt",
   "003": "experiment-zero",
-  "004": "future-experiment",
+  "004": "studyspark",
 };
 
-const REFERENCE_SPECIMENS: Experiment[] = [
-  {
-    id: "ref-1",
-    title: "Active Core",
-    tagline: "Firefly Emission Test",
-    status: "In Progress",
-    primaryCategory: "Developer Tool",
-    stack: [],
-    archived: false,
-    bottle: { size: "medium", glass: "clear", glow: "green", label: "EX-01", fillLevel: 0.8 },
-    github: "",
-    live: "",
-    year: "2026",
-    priority: 1
-  },
-  {
-    id: "ref-2",
-    title: "Refined Solution",
-    tagline: "Sapphire Liquid State",
-    status: "Completed",
-    primaryCategory: "Architecture",
-    stack: [],
-    archived: false,
-    bottle: { size: "medium", glass: "clear", glow: "blue", label: "EX-02", fillLevel: 0.6 },
-    github: "",
-    live: "",
-    year: "2026",
-    priority: 2
-  },
-  {
-    id: "ref-3",
-    title: "Theoretical Model",
-    tagline: "Amber Smoke Plume",
-    status: "Research",
-    primaryCategory: "AI",
-    stack: [],
-    archived: false,
-    bottle: { size: "medium", glass: "amber", glow: "gold", label: "EX-03", fillLevel: 1.0 },
-    github: "",
-    live: "",
-    year: "2026",
-    priority: 3
-  },
-  {
-    id: "ref-4",
-    title: "Classified Node",
-    tagline: "Violet Energy Pulse",
-    status: "Planned",
-    primaryCategory: "Infrastructure",
-    stack: [],
-    archived: false,
-    bottle: { size: "medium", glass: "clear", glow: "none", label: "EX-04", fillLevel: 0.5 },
-    github: "",
-    live: "",
-    year: "2026",
-    priority: 4
-  },
-] as unknown as Experiment[];
+
 
 function URLSync({ onSync }: { onSync: (id: string | null) => void }) {
   const searchParams = useSearchParams();
@@ -248,27 +191,7 @@ export default function ExperimentRack() {
 
           <div className="container-lab" style={{ position: "relative", zIndex: 1 }}>
             
-            {/* ── REFERENCE RACK ── */}
-            <div style={{ paddingBottom: "2rem", marginBottom: "4rem", borderBottom: "1px solid rgba(200, 161, 91, 0.2)" }}>
-              <div style={{ marginBottom: "2rem", textAlign: "center" }}>
-                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", color: "var(--rack-border)" }}>
-                  SPECIMEN REFERENCE LIBRARY
-                </h3>
-                <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--fg-subtle)", letterSpacing: "0.2em", textTransform: "uppercase", marginTop: "0.5rem" }}>
-                  Internal Visual QA Collection
-                </p>
-              </div>
-              <LaboratoryShelf>
-                {REFERENCE_SPECIMENS.map((exp) => (
-                  <SpecimenCard
-                    key={exp.id}
-                    experiment={exp}
-                    isSelected={selectedId === exp.id}
-                    onClick={() => handleBottleClick(exp.id)}
-                  />
-                ))}
-              </LaboratoryShelf>
-            </div>
+
 
             {/* Render each rack only if it has experiments */}
             <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>

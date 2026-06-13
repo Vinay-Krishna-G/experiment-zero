@@ -3,13 +3,16 @@ import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
 import ExperimentRack from "@/components/experiments/ExperimentRack";
 import BlueprintArchive from "@/components/blueprints/BlueprintArchive";
+import ShipInBottle from "@/components/experiments/ShipInBottle";
 import ResearchLogArchive from "@/components/research/ResearchLogArchive";
 import HireMeSection from "@/components/home/HireMeSection";
 import VisitorStats from "@/components/home/VisitorStats";
+import WelcomeBanner from "@/components/ui/WelcomeBanner";
 
 export default function HomePage() {
   return (
     <>
+      <WelcomeBanner />
       <Navigation />
 
       <main id="main-content" role="main">
@@ -18,6 +21,9 @@ export default function HomePage() {
 
         {/* 01 — Experiments */}
         <ExperimentRack />
+
+        {/* Ship in a Bottle */}
+        <ShipInBottle />
 
         {/* 02 — Blueprint Archive */}
         <BlueprintArchive />

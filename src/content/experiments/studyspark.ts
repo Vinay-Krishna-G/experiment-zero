@@ -16,7 +16,7 @@ export const studySpark = createExperiment({
 
   status: "Completed",
 
-  primaryCategory: "Education Platform",
+  primaryCategory: "Education",
 
   tags: [
     "Education",
@@ -51,6 +51,7 @@ export const studySpark = createExperiment({
   ],
 
   blueprintId: "studyspark",
+  github: "https://github.com",
   liveUrl: "https://study-spark-seven-rouge.vercel.app/",
 
   evidence: {

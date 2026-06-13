@@ -13,12 +13,15 @@ interface SpecimenCardProps {
 
 export default function SpecimenCard({ experiment, isSelected, onClick }: SpecimenCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { modeColor, glowColor } = getBottleColors(experiment.status);
+  const { modeColor, glowColor } = getBottleColors(experiment.id);
 
   return (
     <div
+      className="specimen-card"
       style={{
         position: "relative",
+        width: "320px",
+        height: "520px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -73,12 +76,23 @@ export default function SpecimenCard({ experiment, isSelected, onClick }: Specim
       </AnimatePresence>
 
       {/* ── Bottle Renderer ── */}
-      <CSSBottleRenderer
-        experiment={experiment}
-        isSelected={isSelected}
-        isHovered={isHovered}
-        onClick={onClick}
-      />
+      <div
+        className="specimen-visual"
+        style={{
+          height: "280px",
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <CSSBottleRenderer
+          experiment={experiment}
+          isSelected={isSelected}
+          isHovered={isHovered}
+          onClick={onClick}
+        />
+      </div>
 
       {/* ── Permanent Museum Label (P2) ── */}
       <div
@@ -98,6 +112,19 @@ export default function SpecimenCard({ experiment, isSelected, onClick }: Specim
         </div>
         <div style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "var(--fg-primary)", marginTop: "0.3rem" }}>
           {experiment.title}
+        </div>
+        <div style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.45rem",
+          letterSpacing: "0.15em",
+          padding: "2px 6px",
+          borderRadius: "2px",
+          marginTop: "0.3rem",
+          backgroundColor: experiment.id === "experiment-zero" ? "rgba(16, 185, 129, 0.1)" : "rgba(59, 130, 246, 0.1)",
+          color: experiment.id === "experiment-zero" ? "var(--accent-emerald)" : "var(--accent-blue)",
+          border: `1px solid ${experiment.id === "experiment-zero" ? "rgba(16, 185, 129, 0.2)" : "rgba(59, 130, 246, 0.2)"}`,
+        }}>
+          {experiment.id === "experiment-zero" ? "BUILDING" : "LIVE"}
         </div>
         <div style={{ width: "32px", height: "1px", backgroundColor: "var(--border-subtle)", margin: "0.4rem 0" }} />
         <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--fg-secondary)", maxWidth: "160px", lineHeight: 1.4 }}>

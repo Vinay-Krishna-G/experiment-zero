@@ -30,7 +30,7 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
         {experiment.evidence && (
           <div className="mb-12">
             <ImpactPanel evidence={experiment.evidence} />
-            {experiment.id === 'ai-codebase-analyzer' && (
+            {experiment.id === 'codemelt' && (
               <SystemPipeline 
                 title="RAG Pipeline Architecture"
                 accentColor="var(--accent-emerald)"
@@ -65,7 +65,7 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
         )}
         
         {/* Relationship Map for all Flagship projects */}
-        {(experiment.id === 'experiment-zero' || experiment.id === 'ai-codebase-analyzer' || experiment.id === 'promptvault') && journeyData && (
+        {(experiment.id === 'experiment-zero' || experiment.id === 'codemelt' || experiment.id === 'promptvault') && journeyData && (
           <ArtifactRelationshipMap 
             experimentTitle={experiment.title}
             blueprintTitle={journeyData.blueprintTitle}

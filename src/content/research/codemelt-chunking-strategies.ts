@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const codemeltChunkingStrategies = createResearchLog({
   id: "codemelt-chunking-strategies",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Chunking Strategies for Large Codebases",
   category: "System Design Note",
@@ -19,6 +20,6 @@ Retrieval accuracy improved significantly. When the LLM was provided with intact
 - In code-based RAG, chunking strategy is often more important than the choice of the underlying embedding model.
 - Preserving structural boundaries is critical for maintaining semantic meaning in vector space.`,
   tags: ["RAG","LangChain","Vector Databases"],
-  relatedExperimentId: "ai-codebase-analyzer",
-  relatedBlueprintId: "ai-codebase-analyzer"
+  relatedExperimentId: "codemelt",
+  relatedBlueprintId: "codemelt"
 });

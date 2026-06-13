@@ -3,16 +3,16 @@
 /* ─── Design Tokens ─────────────────────────────────────────────────── */
 :root {
   /* Light Mode Default (Arctic Research) */
-  --pal-bg-primary: #f0f4f8;
-  --pal-bg-secondary: #e1e8f0;
+  --pal-bg-primary: #f8fafc;
+  --pal-bg-secondary: #e2e8f0;
   --pal-bg-card: #ffffff;
-  --pal-fg-primary: #102a43;
-  --pal-fg-secondary: #243b53;
-  --pal-fg-muted: #627d98;
-  --pal-border-subtle: rgba(16, 42, 67, 0.08);
-  --pal-accent-primary: #186faf;
-  --pal-accent-secondary: #003e6b;
-  --pal-grid-color: rgba(16, 42, 67, 0.03);
+  --pal-fg-primary: #0f172a;
+  --pal-fg-secondary: #334155;
+  --pal-fg-muted: #64748b;
+  --pal-border-subtle: rgba(15, 23, 42, 0.08);
+  --pal-accent-primary: #2563eb;
+  --pal-accent-secondary: #0891b2;
+  --pal-grid-color: rgba(15, 23, 42, 0.03);
 
   /* Base Mapping to support existing codebase components seamlessly */
   --bg-primary: var(--pal-bg-primary);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 
@@ -143,8 +144,9 @@ const fsR = fs;
 // Generate Research Logs
 let researchExports = '';
 researchLogs.forEach((log) => {
-  const content = `import { createResearchLog } from "../factories";\n\nexport const ${log.id.replace(/-([a-z])/g, (g) => g[1].toUpperCase())} = createResearchLog({\n  id: "${log.id}",\n  publishedAt: "2026-06-13",\n  title: "${log.title}",\n  category: "${log.category}",\n  summary: "${log.summary}",\n  content: \`${log.content.replace(/`/g, "\\`")}\`,\n  tags: ${JSON.stringify(log.tags)},\n  relatedExperimentId: "${log.relatedExperimentId}",\n  relatedBlueprintId: "${log.relatedBlueprintId}"\n});\n`;
+  const content = `import { createResearchLog } from "../factories";\n\nexport const ${log.id.replace(/-([a-z])/g, (g) => g[1].toUpperCase())} = createResearchLog({\n  id: "${log.id}",\n  date: "2026-06-13",\n  publishedAt: "2026-06-13",\n  title: "${log.title}",\n  category: "${log.category}",\n  summary: "${log.summary}",\n  content: \`${log.content.replace(/`/g, "\\`")}\`,\n  tags: ${JSON.stringify(log.tags)},\n  relatedExperimentId: "${log.relatedExperimentId}",\n  relatedBlueprintId: "${log.relatedBlueprintId}"\n});\n`;
   fsR.writeFileSync(path.join('src/content/research', `${log.id}.ts`), content);
+
   researchExports += `export { ${log.id.replace(/-([a-z])/g, (g) => g[1].toUpperCase())} } from "./${log.id}";\n`;
 });
 fsR.writeFileSync('src/content/research/index.ts', researchExports);

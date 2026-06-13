@@ -15,7 +15,9 @@ export const experimentZero = createExperiment({
 
   status: "In Progress",
 
-  primaryCategory: "Portfolio Platform",
+  primaryCategory: "Portfolio",
+
+  progress: 85,
 
   tags: [
     "Portfolio",

@@ -36,6 +36,7 @@ function ArchiveReferenceInner({ type, id, title }: ArchiveReferenceProps) {
   return (
     <button
       onClick={handleNavigate}
+      className="text-[var(--fg-secondary)] hover:text-[var(--accent-emerald)]"
       style={{
         background: "none",
         border: "none",
@@ -43,7 +44,6 @@ function ArchiveReferenceInner({ type, id, title }: ArchiveReferenceProps) {
         margin: 0,
         fontFamily: "var(--font-mono)",
         fontSize: "0.55rem",
-        color: "var(--fg-secondary)",
         letterSpacing: "0.08em",
         cursor: "pointer",
         textDecoration: "underline",
@@ -54,8 +54,6 @@ function ArchiveReferenceInner({ type, id, title }: ArchiveReferenceProps) {
         lineHeight: 1.5,
         transition: "color 0.2s ease"
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent-emerald)" }}
-      onMouseLeave={(e) => { e.currentTarget.style.color = "var(--fg-secondary)" }}
     >
       REF: {displayId.toUpperCase()} — {title}
     </button>

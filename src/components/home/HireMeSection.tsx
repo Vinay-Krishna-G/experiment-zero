@@ -1,6 +1,6 @@
 import React from 'react';
 import SectionHeader from "@/components/ui/SectionHeader";
-import { PROFILE } from "@/content";
+import { PROFILE, SOCIALS } from "@/content";
 
 export default function HireMeSection() {
   return (
@@ -21,7 +21,7 @@ export default function HireMeSection() {
       <div className="container-lab" style={{ position: "relative", zIndex: 10 }}>
         <SectionHeader 
           number="04"
-          title="Hire Me" 
+          title="LET'S BUILD SOMETHING USEFUL" 
           description="Available for select opportunities" 
         />
 
@@ -29,13 +29,13 @@ export default function HireMeSection() {
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "4rem" }}>
             
-            {/* Roles */}
+            {/* Interests */}
             <div>
               <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", letterSpacing: "0.15em", color: "var(--fg-muted)", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-                Available For
+                I&apos;m interested in:
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {["Frontend Engineering", "Full Stack Development", "Technical Product Development", "AI Powered Applications"].map(role => (
+                {["Frontend Engineering", "Full Stack Development", "Developer Tools", "AI-Powered Applications"].map(role => (
                   <li key={role} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
                     <span style={{ color: "var(--accent-emerald)", marginTop: "0.2rem", fontSize: "0.8rem" }}>•</span>
                     <span style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--fg-primary)", fontWeight: 500 }}>{role}</span>
@@ -44,61 +44,64 @@ export default function HireMeSection() {
               </ul>
             </div>
 
-            {/* Details */}
+            {/* Availability */}
             <div>
               <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", letterSpacing: "0.15em", color: "var(--fg-muted)", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-                Logistics
+                Available for:
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--fg-secondary)" }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
                 {[
-                  { label: "Location", value: PROFILE.location },
-                  { label: "Remote", value: PROFILE.availability.remote ? "Yes" : "No" },
-                  { label: "Freelance", value: PROFILE.availability.freelance ? "Open" : "Closed" },
-                  { label: "Full Time", value: PROFILE.availability.fullTime ? "Open" : "Closed" }
-                ].map(item => (
-                  <div key={item.label} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px dashed var(--border-subtle)", paddingBottom: "0.5rem" }}>
-                    <span>{item.label}</span>
-                    <span style={{ color: "var(--fg-primary)", fontWeight: 500 }}>{item.value}</span>
-                  </div>
+                  PROFILE.availability.fullTime && "Full Time",
+                  PROFILE.availability.freelance && "Freelance",
+                  PROFILE.availability.remote && "Remote Opportunities"
+                ].filter(Boolean).map(role => (
+                  <li key={String(role)} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
+                    <span style={{ color: "var(--accent-emerald)", marginTop: "0.2rem", fontSize: "0.8rem" }}>•</span>
+                    <span style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--fg-primary)", fontWeight: 500 }}>{role}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
           </div>
 
           {/* Actions */}
-          <div style={{ marginTop: "5rem", display: "flex", gap: "1.5rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ marginTop: "5rem", display: "flex", gap: "1.5rem", justifyContent: "flex-start", flexWrap: "wrap", borderTop: "1px dashed var(--border-subtle)", paddingTop: "2.5rem" }}>
             <a 
-              href="https://cal.com/" 
+              href={SOCIALS.linkedin} 
               target="_blank" 
               rel="noopener noreferrer"
+              className="hover:brightness-110"
               style={{
                 display: "inline-block",
-                padding: "1rem 2rem",
-                backgroundColor: "var(--fg-primary)",
-                color: "var(--bg-primary)",
+                padding: "0.8rem 1.6rem",
+                backgroundColor: "var(--accent-emerald)",
+                color: "#ffffff",
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.85rem",
+                fontSize: "0.75rem",
                 fontWeight: 600,
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 textDecoration: "none",
                 borderRadius: "2px",
-                transition: "background-color 0.2s ease",
+                transition: "filter 0.2s ease",
               }}
             >
-              [Schedule a Conversation]
+              [LinkedIn]
             </a>
             <a 
-              href={`mailto:${PROFILE.email}`} 
+              href={SOCIALS.github} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:border-[var(--fg-primary)] hover:bg-[var(--bg-secondary)]"
               style={{
                 display: "inline-block",
-                padding: "1rem 2rem",
+                padding: "0.8rem 1.6rem",
                 backgroundColor: "transparent",
                 border: "1px solid var(--border-medium)",
                 color: "var(--fg-primary)",
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.85rem",
+                fontSize: "0.75rem",
                 fontWeight: 600,
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
@@ -107,7 +110,28 @@ export default function HireMeSection() {
                 transition: "border-color 0.2s ease, background-color 0.2s ease",
               }}
             >
-              [Email Me]
+              [GitHub]
+            </a>
+            <a 
+              href={`mailto:${PROFILE.email}`} 
+              className="hover:border-[var(--fg-primary)] hover:bg-[var(--bg-secondary)]"
+              style={{
+                display: "inline-block",
+                padding: "0.8rem 1.6rem",
+                backgroundColor: "transparent",
+                border: "1px solid var(--border-medium)",
+                color: "var(--fg-primary)",
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                borderRadius: "2px",
+                transition: "border-color 0.2s ease, background-color 0.2s ease",
+              }}
+            >
+              [Email]
             </a>
           </div>
 

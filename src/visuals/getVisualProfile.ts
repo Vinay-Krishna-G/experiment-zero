@@ -25,17 +25,13 @@ const profileCache = new Map<string, VisualProfile>();
 
 export function getArchetype(category: PrimaryCategory): VisualArchetype {
   switch (category) {
-    case "Backend":
     case "Developer Tool":
-    case "AI":
+    case "Portfolio":
       return "technical_laboratory";
     case "Research":
-    case "Unknown":
       return "living_archive";
-    case "Infrastructure":
+    case "Education":
       return "network_intelligence";
-    case "Frontend":
-    case "Design":
     case "Productivity":
       return "editorial_motion";
     default:

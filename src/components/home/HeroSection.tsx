@@ -53,10 +53,7 @@ export default function HeroSection() {
   const nameY = prefersReducedMotion ? "0%" : nameYTransform;
   const activeCoordY = prefersReducedMotion ? "0%" : coordY;
 
-  const connections = 
-    EXPERIMENTS.filter(e => e.blueprintId).length + 
-    RESEARCH_LOGS.filter(r => r.relatedBlueprintId).length + 
-    RESEARCH_LOGS.filter(r => r.relatedExperimentId).length;
+
 
   return (
     <section
@@ -305,6 +302,7 @@ export default function HeroSection() {
               <a
                 href="#experiments"
                 id="hero-view-projects"
+                className="hover:bg-[var(--accent-emerald)]"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "0.72rem",
@@ -319,12 +317,6 @@ export default function HeroSection() {
                   transition: "background-color 0.2s ease",
                   display: "inline-block",
                 }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "var(--fg-primary)";
-                }}
               >
                 View Projects
               </a>
@@ -334,6 +326,7 @@ export default function HeroSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   id="hero-resume"
+                  className="hover:border-[var(--accent-emerald)] hover:text-[var(--accent-emerald)]"
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: "0.72rem",
@@ -348,16 +341,6 @@ export default function HeroSection() {
                     transition: "border-color 0.2s ease, color 0.2s ease",
                     display: "inline-block",
                   }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "var(--accent-emerald)";
-                    el.style.color = "var(--accent-emerald)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "var(--border-medium)";
-                    el.style.color = "var(--fg-secondary)";
-                  }}
                 >
                   Download Resume
                 </a>
@@ -369,14 +352,11 @@ export default function HeroSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub Profile"
+                    className="text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors duration-200"
                     style={{
-                      color: "var(--fg-muted)",
-                      transition: "color 0.2s ease",
                       display: "flex",
                       alignItems: "center",
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                   </a>
@@ -387,14 +367,11 @@ export default function HeroSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="LinkedIn Profile"
+                    className="text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors duration-200"
                     style={{
-                      color: "var(--fg-muted)",
-                      transition: "color 0.2s ease",
                       display: "flex",
                       alignItems: "center",
                     }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                   </a>

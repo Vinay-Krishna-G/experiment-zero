@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { getLabStatus } from "@/content/status";
-import { PROFILE, SITE_SETTINGS } from "@/content";
+import { PROFILE } from "@/content";
 
 const ARCHIVE_INDEX = [
   { number: "00", label: "Home", href: "#hero" },
@@ -16,10 +15,10 @@ const ARCHIVE_INDEX = [
 
 const NAV_ITEMS = [
   { label: "Home", href: "#hero" },
-  { label: "Projects", href: "#experiments" },
+  { label: "Experiments", href: "#experiments" },
   { label: "Architecture", href: "#blueprints" },
   { label: "Notes", href: "#research-log" },
-  { label: "Hire Me", href: "#hire-me" },
+  { label: "Work With Me", href: "#hire-me" },
 ];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -180,7 +179,7 @@ export default function Navigation() {
                 href={PROFILE.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:inline-flex"
+                className="hidden md:inline-flex bg-[var(--nav-accent)] hover:bg-[var(--accent-emerald)]"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "0.6rem",
@@ -188,19 +187,12 @@ export default function Navigation() {
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
                   color: "var(--nav-text)",
-                  backgroundColor: "var(--nav-accent)",
                   padding: "0.4rem 0.8rem",
                   textDecoration: "none",
                   borderRadius: "2px",
                   transition: "background-color 0.2s ease",
                   alignItems: "center",
                   justifyContent: "center",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "var(--nav-accent)";
                 }}
               >
                 Resume
@@ -371,20 +363,17 @@ export default function Navigation() {
                   <button
                     onClick={() => { setIsDrawerOpen(false); triggerRef.current?.focus(); }}
                     aria-label="Close archive index"
+                    className="border border-[var(--border-medium)] text-[var(--fg-muted)] hover:border-[var(--fg-primary)] hover:text-[var(--fg-primary)]"
                     style={{
                       background: "none",
-                      border: "1px solid var(--border-medium)",
                       borderRadius: "2px",
                       cursor: "pointer",
                       padding: "0.35rem 0.6rem",
                       fontFamily: "var(--font-mono)",
                       fontSize: "0.55rem",
                       letterSpacing: "0.1em",
-                      color: "var(--fg-muted)",
                       transition: "border-color 0.2s ease, color 0.2s ease",
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--fg-primary)"; e.currentTarget.style.color = "var(--fg-primary)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-medium)"; e.currentTarget.style.color = "var(--fg-muted)"; }}
                   >
                     Close ×
                   </button>
@@ -397,6 +386,7 @@ export default function Navigation() {
                       key={item.href}
                       href={item.href}
                       onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
+                      className="hover:bg-[rgba(28,20,8,0.03)]"
                       style={{
                         display: "flex",
                         alignItems: "baseline",
@@ -407,8 +397,6 @@ export default function Navigation() {
                         transition: "background-color 0.15s ease",
                         backgroundColor: "transparent",
                       }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(28,20,8,0.03)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
                     >
                       <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.15em", color: "var(--accent-copper)", flexShrink: 0, minWidth: "2.5rem" }}>
                         {item.number}

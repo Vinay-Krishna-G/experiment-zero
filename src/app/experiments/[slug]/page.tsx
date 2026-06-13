@@ -17,9 +17,9 @@ export function generateStaticParams() {
 
 const LEGACY_ID_MAP: Record<string, string> = {
   "001": "promptvault",
-  "002": "ai-codebase-analyzer",
+  "002": "codemelt",
   "003": "experiment-zero",
-  "004": "future-experiment",
+  "004": "studyspark",
 };
 
 export async function generateMetadata({ params }: PageProps) {

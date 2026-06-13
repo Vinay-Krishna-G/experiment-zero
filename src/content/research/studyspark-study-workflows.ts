@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const studysparkStudyWorkflows = createResearchLog({
   id: "studyspark-study-workflows",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Designing Study Workflows Instead of Note Storage",
   category: "Observation",

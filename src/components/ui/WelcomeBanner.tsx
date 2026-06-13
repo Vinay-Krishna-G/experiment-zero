@@ -6,13 +6,14 @@ import { SITE_SETTINGS } from "@/content";
 
 // Each log line appears in sequence
 const LOG_LINES = [
-  { id: "lab", text: `${SITE_SETTINGS.siteName.toUpperCase()} LABORATORY`, delay: 0.1, isHeader: true },
-  { id: "divider", text: null, delay: 0.5, isDivider: true },
-  { id: "log", text: "EXPLORER ENTRY LOGGED", delay: 0.75, isAccent: true },
-  { id: "date", text: "__DATE__", delay: 1.1 },
-  { id: "time", text: "__TIME__", delay: 1.4 },
-  { id: "divider2", text: null, delay: 1.75, isDivider: true },
-  { id: "enter", text: "Entering Laboratory...", delay: 2.05, isMuted: true },
+  { id: "lab", text: `EXPLORER #${SITE_SETTINGS.explorerNumber}`, delay: 0.1, isHeader: true },
+  { id: "enter", text: "Entering Research Facility...", delay: 0.4, isMuted: true },
+  { id: "divider", text: null, delay: 0.6, isDivider: true },
+  { id: "exp", text: "Loading Experiments...", delay: 0.9, isMuted: true },
+  { id: "bp", text: "Loading Blueprints...", delay: 1.2, isMuted: true },
+  { id: "notes", text: "Loading Notes...", delay: 1.5, isMuted: true },
+  { id: "divider2", text: null, delay: 1.8, isDivider: true },
+  { id: "ready", text: "ARCHIVE READY.", delay: 2.0, isAccent: true },
 ];
 
 function formatDate(d: Date) {
@@ -134,7 +135,7 @@ export default function WelcomeBanner() {
 
     sessionStorage.setItem("welcome-seen", "true");
 
-    const timer = setTimeout(() => setVisible(false), 3400);
+    const timer = setTimeout(() => setVisible(false), 2500); // Max 2.5 seconds
     return () => clearTimeout(timer);
   }, [prefersReducedMotion]);
 

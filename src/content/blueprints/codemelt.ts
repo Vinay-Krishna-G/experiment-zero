@@ -2,11 +2,11 @@
 import { createBlueprint } from "../factories";
 
 export const aiCodebaseAnalyzer = createBlueprint({
-  id: "ai-codebase-analyzer",
+  id: "codemelt",
 
   publishedAt: "2026-06-12",
 
-  projectId: "ai-codebase-analyzer",
+  projectId: "codemelt",
 
   title: "CodeMelt: AI Repository Intelligence Architecture",
 

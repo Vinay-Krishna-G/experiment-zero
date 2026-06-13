@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const portfolioStaticVsDynamic = createResearchLog({
   id: "portfolio-static-vs-dynamic",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Static Generation vs Dynamic Content",
   category: "System Design Note",

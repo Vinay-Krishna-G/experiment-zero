@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const portfolioContentSystem = createResearchLog({
   id: "portfolio-content-system",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Building a Portfolio as a Content System",
   category: "Observation",

@@ -36,15 +36,11 @@ export interface BaseContent {
 }
 
 export type PrimaryCategory =
+  | "Portfolio"
   | "Developer Tool"
-  | "Research"
-  | "Infrastructure"
-  | "AI"
-  | "Frontend"
-  | "Backend"
-  | "Design"
+  | "Education"
   | "Productivity"
-  | "Unknown";
+  | "Research";
 
 export type ExperimentStatus =
   | "Completed"

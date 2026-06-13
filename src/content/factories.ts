@@ -15,10 +15,11 @@ function deriveAppearance(category: PrimaryCategory, status: ExperimentStatus, a
   if (status === "Research") return "obsidian-research";
   
   switch (category) {
-    case "AI": return "violet-ai";
-    case "Infrastructure": return "slate-infrastructure";
+    case "Portfolio": return "violet-ai";
+    case "Education": return "slate-infrastructure";
     case "Research": return "obsidian-research";
     case "Developer Tool": return "emerald-core";
+    case "Productivity": return "crystal-prototype";
     default: return "crystal-prototype";
   }
 }

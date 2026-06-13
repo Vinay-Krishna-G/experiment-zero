@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { type Experiment, type Blueprint, type ResearchLog, SITE_SETTINGS } from '@/content';
 
 const SITE_URL = SITE_SETTINGS.siteUrl;
-const SITE_NAME = SITE_SETTINGS.name;
 
 export function buildExperimentMetadata(experiment: Experiment): Metadata {
   const url = `${SITE_URL}/experiments/${experiment.slug}`;

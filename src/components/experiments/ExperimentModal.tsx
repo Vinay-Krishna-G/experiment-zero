@@ -313,7 +313,7 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
               )}
 
               {/* ── Action links ── */}
-              {(experiment.github || experiment.demo) && (
+              {(experiment.github || experiment.liveUrl || experiment.demo) && (
                 <motion.div variants={rowVariants} style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
                   {experiment.github && (
                     <a href={experiment.github} target="_blank" rel="noopener noreferrer" id={`preview-github-${experiment.id}`}
@@ -323,8 +323,8 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
                       GitHub ↗
                     </a>
                   )}
-                  {experiment.demo && (
-                    <a href={experiment.demo} target="_blank" rel="noopener noreferrer" id={`preview-demo-${experiment.id}`}
+                  {(experiment.liveUrl || experiment.demo) && (
+                    <a href={experiment.liveUrl || experiment.demo} target="_blank" rel="noopener noreferrer" id={`preview-demo-${experiment.id}`}
                       style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--bg-card)", backgroundColor: "var(--fg-primary)", padding: "0.4rem 0.9rem", textDecoration: "none", borderRadius: "2px", transition: "background-color 0.2s ease", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
                       onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)"; }}
                       onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--fg-primary)"; }}>

@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const studysparkProgressTracking = createResearchLog({
   id: "studyspark-progress-tracking",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Progress Tracking Without Creating Friction",
   category: "System Design Note",

@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const portfolioFlatFiles = createResearchLog({
   id: "portfolio-flat-files",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Why I Chose Flat Files Over a CMS",
   category: "System Design Note",

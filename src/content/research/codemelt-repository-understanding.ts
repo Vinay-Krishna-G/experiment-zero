@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const codemeltRepositoryUnderstanding = createResearchLog({
   id: "codemelt-repository-understanding",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Why Repository Understanding Is Difficult",
   category: "Observation",
@@ -19,6 +20,6 @@ By treating the repository as a graph of knowledge rather than a collection of t
 - Code is highly contextual; a function's meaning depends on its callers and its placement within the broader architecture.
 - Developer tools succeed when they reduce the cognitive load of exploration, rather than simply generating more text to read.`,
   tags: ["Developer Experience","AI","RAG"],
-  relatedExperimentId: "ai-codebase-analyzer",
-  relatedBlueprintId: "ai-codebase-analyzer"
+  relatedExperimentId: "codemelt",
+  relatedBlueprintId: "codemelt"
 });

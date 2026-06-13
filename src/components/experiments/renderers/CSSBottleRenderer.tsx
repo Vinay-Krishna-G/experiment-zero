@@ -1,34 +1,35 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import type { Experiment } from "@/types";
-import { getVisualProfile } from "@/visuals/getVisualProfile";
 
-export function getBottleColors(status: string) {
+export function getBottleColors(experimentId: string): { mode: "firefly" | "liquid" | "smoke" | "potion", modeColor: string, glowColor: string, vapor: boolean, blackBubbles: boolean } {
   let mode: "firefly" | "liquid" | "smoke" | "potion" = "liquid";
-  let modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire default
+  let modeColor = "rgba(59, 130, 246, 0.6)"; // Default
   let glowColor = "rgba(59, 130, 246, 0.4)";
+  let vapor = false;
+  let blackBubbles = false;
   
-  if (status === "Planned" || status === "On Hold") {
+  if (experimentId === "experiment-zero") {
     mode = "potion";
-    modeColor = "rgba(16, 185, 129, 0.8)"; // Toxic Green
+    modeColor = "rgba(16, 185, 129, 0.8)"; // Emerald
     glowColor = "rgba(16, 185, 129, 0.5)";
-  } else if (status === "Research") {
-    mode = "smoke";
-    modeColor = "rgba(245, 158, 11, 0.6)"; // Amber
-    glowColor = "rgba(245, 158, 11, 0.4)";
-  } else if (status === "Completed") {
-    mode = "liquid";
-    modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire
-    glowColor = "rgba(59, 130, 246, 0.4)";
-  } else {
-    // Active / In Progress / Beta
+  } else if (experimentId === "codemelt") {
     mode = "firefly";
-    modeColor = "rgba(6, 182, 212, 0.8)"; // Cyan
-    glowColor = "rgba(6, 182, 212, 0.5)";
+    modeColor = "rgba(17, 24, 39, 0.8)"; // Navy Blue
+    glowColor = "rgba(244, 114, 182, 0.5)"; // Pink
+  } else if (experimentId === "studyspark") {
+    mode = "firefly";
+    modeColor = "rgba(255, 255, 255, 0.8)"; // White
+    glowColor = "rgba(251, 146, 60, 0.5)"; // Orange
+  } else if (experimentId === "promptvault") {
+    mode = "potion";
+    modeColor = "rgba(243, 244, 246, 0.8)"; // White Potion
+    glowColor = "rgba(255, 255, 255, 0.5)";
+    vapor = true;
+    blackBubbles = true;
   }
-  return { mode, modeColor, glowColor };
+  return { mode, modeColor, glowColor, vapor, blackBubbles };
 }
 
 interface ExperimentBottleProps {
@@ -45,25 +46,12 @@ export default function CSSBottleRenderer({
   onClick,
 }: ExperimentBottleProps) {
 
-  const profile = getVisualProfile(
-    experiment.primaryCategory,
-    experiment.status,
-    experiment.archived,
-    "high"
-  );
-  
-  const { mode, modeColor, glowColor } = getBottleColors(experiment.status);
+  const { mode, modeColor, glowColor, vapor, blackBubbles } = getBottleColors(experiment.id);
 
   // Palette logic for Fireflies
-  const fireflyPalettes = [
-    ["#34d399", "#22d3ee"], // Emerald + Cyan
-    ["#22d3ee", "#c084fc"], // Cyan + Violet
-    ["#60a5fa", "#f472b6"], // Blue + Pink
-    ["#34d399", "#fbbf24"], // Emerald + Gold
-  ];
-  const charCode = experiment.title.charCodeAt(0) || 0;
-  const paletteIndex = (experiment.id.length + charCode) % fireflyPalettes.length;
-  const activePalette = fireflyPalettes[paletteIndex];
+  let activePalette = ["#34d399", "#22d3ee"]; // fallback
+  if (experiment.id === "codemelt") activePalette = ["#3b82f6", "#ffffff"]; // Blue + White
+  else if (experiment.id === "studyspark") activePalette = ["#ea580c", "#d97706", "#dc2626"]; // Orange + Amber + Warm Red
 
   const liquidHeight = `${Math.round(experiment.bottle.fillLevel * 78)}%`;
   const isPlanned = experiment.status === "Planned";
@@ -128,7 +116,7 @@ export default function CSSBottleRenderer({
           <motion.div
             aria-hidden="true"
             animate={{ 
-              y: isHovered ? (mode === "firefly" || mode === "smoke" ? -25 : -8) : 0, 
+              y: isHovered ? (mode === "potion" || mode === "liquid" ? -8 : -25) : 0, 
               rotate: isHovered ? 8 : 0,
               x: isHovered ? "-40%" : "-50%" 
             }}
@@ -397,7 +385,11 @@ export default function CSSBottleRenderer({
               {/* CATEGORY D: Potion (Active/Planned) */}
               {mode === "potion" && (
                 <motion.div
-                  animate={{ height: liquidHeight }}
+                  animate={{ 
+                    height: liquidHeight,
+                    rotateZ: isHovered ? [0, 2, -1, 0.5, 0] : 0,
+                    scale: isHovered ? 1.02 : 1
+                  }}
                   initial={{ height: 0 }}
                   transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
                   style={{
@@ -405,8 +397,10 @@ export default function CSSBottleRenderer({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    background: `linear-gradient(to top, ${modeColor} 0%, transparent 100%)`,
-                    borderTop: `2px solid rgba(255,255,255,0.6)`,
+                    background: experiment.id === "experiment-zero" 
+                      ? "linear-gradient(to top, #22c55e 0%, #34d399 45%, #86efac 100%)"
+                      : `linear-gradient(to top, ${modeColor} 0%, transparent 100%)`,
+                    borderTop: `4px solid rgba(255,255,255,0.85)`, // Prominent Meniscus
                     boxShadow: isHovered 
                       ? `inset 0 0 50px ${glowColor}, 0 -15px 40px ${glowColor}` 
                       : `inset 0 0 20px ${glowColor}`,
@@ -414,20 +408,22 @@ export default function CSSBottleRenderer({
                   }}
                 >
                   {/* Vapor Layer */}
-                  <motion.div
-                    animate={{ opacity: isHovered ? 0.7 : 0.3 }}
-                    style={{
-                      position: "absolute",
-                      top: -15,
-                      left: 0,
-                      right: 0,
-                      height: 30,
-                      background: `radial-gradient(ellipse, ${glowColor} 0%, transparent 70%)`,
-                      filter: "blur(8px)",
-                      pointerEvents: "none",
-                      mixBlendMode: "screen"
-                    }}
-                  />
+                  {vapor && (
+                    <motion.div
+                      animate={{ opacity: isHovered ? 0.7 : 0.3 }}
+                      style={{
+                        position: "absolute",
+                        top: -15,
+                        left: 0,
+                        right: 0,
+                        height: 30,
+                        background: `radial-gradient(ellipse, rgba(255,255,255,0.3) 0%, transparent 70%)`,
+                        filter: "blur(8px)",
+                        pointerEvents: "none",
+                        mixBlendMode: "screen"
+                      }}
+                    />
+                  )}
                   {/* Boiling Bubbles */}
                   {Array.from({ length: isHovered ? 15 : 8 }).map((_, i) => {
                     const sizes = [4, 6, 10, 16]; // Larger bubbles
@@ -454,8 +450,9 @@ export default function CSSBottleRenderer({
                         width: bubbleSize,
                         height: bubbleSize,
                         borderRadius: "50%",
-                        backgroundColor: "#fff",
-                        boxShadow: `0 0 10px 3px ${modeColor}`
+                        backgroundColor: blackBubbles ? "#111" : "#fff",
+                        boxShadow: `0 0 10px 3px ${blackBubbles ? "rgba(0,0,0,0.5)" : modeColor}`,
+                        border: blackBubbles ? "1px solid rgba(255,255,255,0.1)" : "none"
                       }}
                     />
                     );

@@ -2,6 +2,7 @@ import { createResearchLog } from "../factories";
 
 export const promptvaultSearchVsCategories = createResearchLog({
   id: "promptvault-search-vs-categories",
+  date: "2026-06-13",
   publishedAt: "2026-06-13",
   title: "Why Search Matters More Than Categories",
   category: "Discovery",
