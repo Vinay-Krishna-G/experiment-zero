@@ -1,8 +1,8 @@
 import type { FieldNote } from "@/types";
 
 export const note07: FieldNote = {
-  "id": "note-07",
-  "date": "May 2026",
-  "tag": "Product",
-  "note": "Every good product is just a solved frustration. The best inventions come from spending enough time with a problem that you stop tolerating it."
+  id: "note-7",
+  date: "June 2026",
+  tag: "Database",
+  note: "Schema flexibility in NoSQL is a prototype superpower, but a maintenance liability in production."
 };

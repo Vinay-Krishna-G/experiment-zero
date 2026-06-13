@@ -2,86 +2,145 @@ import { createBlueprint } from "../factories";
 
 export const experimentZero = createBlueprint({
   id: "experiment-zero",
+
   publishedAt: "2026-06-12",
-  projectId: "003",
-  title: "Static Site Validation Hooks Architecture Blueprint",
-  objective: "Architecture layout for static developer portfolios. Prebuild schema validators and static route compilations.",
+
+  projectId: "experiment-zero",
+
+  title: "Portfolio Architecture",
+
+  objective:
+    "Design a fully static, content-driven developer portfolio that functions as a living archive of engineering experiments, research logs, and technical blueprints, relying entirely on compile-time type safety rather than a runtime CMS.",
+
   technologies: [
     "Next.js",
     "TypeScript",
-    "TailwindCSS",
+    "Tailwind CSS",
     "Framer Motion",
-    "CSS Custom Properties"
+    "Static Site Generation"
   ],
+
   stages: [
     {
-      name: "Concept Formation",
-      annotation: "Warm paper, muted emerald, JetBrains Mono — inventor notebook"
+      name: "Information Architecture",
+      annotation:
+        "Designed the relational graph between Experiments, Blueprints, Research Logs, and Field Notes."
     },
     {
-      name: "Identity Research",
-      annotation: "Playfair Display editorial + Inter body + JetBrains Mono"
+      name: "Data Modeling",
+      annotation:
+        "Built strictly typed TypeScript registries to act as a flat-file database."
     },
     {
-      name: "Laboratory Design",
-      annotation: "Data-driven components — content lives in data files"
+      name: "Layout & Navigation",
+      annotation:
+        "Implemented the 'Experiment Vault' modal routing and base layout."
     },
     {
-      name: "Archive Construction",
-      annotation: "Framer Motion — staggered reveals, parallax, sweep lines"
+      name: "Interactive Physics",
+      annotation:
+        "Developed custom bottle physics (liquid, smoke, fireflies) for the vault index."
     },
     {
-      name: "System Expansion",
-      annotation: "CSS bottle system with BottleRenderer abstraction for Phase 6"
+      name: "Schema Refactoring",
+      annotation:
+        "Extracted configuration into a Single Source of Truth architecture."
     },
     {
-      name: "Public Launch",
-      annotation: "Expedition route maps replacing conventional diagrams"
+      name: "Deployment",
+      annotation:
+        "Deployed as a 100% static application with zero runtime data dependencies."
     }
   ],
+
   discoveries: [
     {
-      text: "A portfolio should feel like a place, not a page. The difference is whether the visitor explores or browses."
+      text:
+        "Abstracting content into TypeScript registries provides better developer experience and type safety than relying on a headless CMS for single-author sites."
     },
     {
-      text: "Data-driven architecture eliminates the 'update the portfolio' tax — content lives in one file."
+      text:
+        "A portfolio feels much more engaging when treated as an interconnected knowledge base rather than a linear list of projects."
     },
     {
-      text: "CSS-only bottles are convincing enough for Phase 1 — premature Three.js would slow momentum."
+      text:
+        "Static site generation (SSG) completely eliminates database latency, making exploration instant."
     }
   ],
+
   lessons: [
-    "Establishing a centralized CSS variable system first made building components 10x faster.",
-    "Separating data (TypeScript files) from presentation (React components) kept the codebase clean.",
-    "Framer motion is great, but overuse causes performance drops. Only animate state changes."
+    "Type safety is a powerful tool for maintaining content integrity over time.",
+    "Complex interactive animations (like the specimen bottles) must be carefully isolated from layout shifts to maintain performance.",
+    "Decoupling the 'identity' and 'content' configurations from the UI components is essential for long-term maintainability."
   ],
-  status: "In Development",
+
+  status: "Verified",
+
   evidence: {
-    problem: "Static developer portfolios must ensure sitemap correctness, zero database costs, and absolute stability without sacrificing content relationships.",
+    problem:
+      "Most developer portfolios act as simple digital brochures. They show the final outcome of a project but fail to demonstrate the engineering constraints, design decisions, and architectural tradeoffs that led to that outcome.",
+
     constraints: [
-      "Must run statically on Next.js edge environments.",
-      "Must validate all internal links and category mappings at build time.",
-      "Must compile routes in under 30 seconds."
+      "Must be fully statically generated.",
+      "Must not require a runtime database or CMS.",
+      "Broken relational links between projects and blueprints must fail the build.",
+      "Content should be manageable entirely through the code repository.",
+      "Must be highly performant and accessible."
     ],
+
     alternatives: [
       {
-        name: "Headless CMS Integration",
-        pros: ["Easy content editing GUI interface"],
-        cons: ["Introduces external API network latency at build time", "Prone to runtime link corruption and dynamic page breaks"]
+        name: "Headless CMS (Sanity, Contentful)",
+        pros: [
+          "Easy editorial interface",
+          "Decoupled content management"
+        ],
+        cons: [
+          "Introduces runtime/build-time network dependencies",
+          "Schema mismatches between codebase and CMS can cause failures"
+        ]
+      },
+      {
+        name: "Standard React SPA",
+        pros: [
+          "High interactivity",
+          "Simple deployment"
+        ],
+        cons: [
+          "Poor SEO capabilities",
+          "Does not scale well for large amounts of interconnected content"
+        ]
       }
     ],
-    finalDecision: "Decoupled data registries feeding static templates, with prebuild script validation verifying dynamic relationships.",
+
+    finalDecision:
+      "Build a static site using Next.js App Router and local TypeScript registries. This ensures 100% type safety and zero network latency for content retrieval.",
+
     tradeoffs: [
-      "Traded visual content editor GUI interface for local file-based type safety and offline developer experience."
+      "Chose to manage content entirely in code, sacrificing a visual editing interface in exchange for complete control and type safety.",
+      "Accepted the burden of modeling complex relational structures manually rather than relying on a relational database."
     ],
+
     outcome: {
-      description: "Implemented git commit validation hooks and local prebuild compiler guards to verify content schemas.",
+      description:
+        "Delivered a highly structured, content-driven portfolio platform that showcases the 'how' and 'why' of engineering projects, entirely validated at build-time.",
+
       metrics: [
-        "Zero database hosting dependencies or costs",
-        "Next.js static files scale infinitely on CDN edge boundaries",
-        "npx tsx src/content/validate.ts catches all invalid registry mappings before git commit"
+        "Build-time validation for content integrity",
+        "Type-safe content architecture",
+        "Responsive experience across desktop and mobile devices",
+        "Zero external database dependencies",
+        "Fully static deployment"
       ]
     },
-    engineeringSignals: ["Frontend Architecture", "Type Safety", "Build Tooling"]
+
+    engineeringSignals: [
+      "System Design",
+      "Frontend Architecture",
+      "Static Site Generation",
+      "Content Modeling",
+      "TypeScript Proficiency",
+      "Developer Experience"
+    ]
   }
 });

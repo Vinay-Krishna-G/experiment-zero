@@ -1,4 +1,4 @@
 export { promptvault } from "./promptvault";
-export { aiCodebaseAnalyzer } from "./ai-codebase-analyzer";
+export { aiCodebaseAnalyzer as codemelt } from "./codemelt";
 export { experimentZero } from "./experiment-zero";
-export { futureBlueprint } from "./future-blueprint";
+export { studyspark } from "./studyspark";

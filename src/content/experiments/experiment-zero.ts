@@ -1,56 +1,120 @@
+
 import { createExperiment } from "../factories";
 
 export const experimentZero = createExperiment({
   id: "experiment-zero",
   publishedAt: "2026-06-12",
-  title: "Static Developer Portfolio: Build Integrity Engine",
-  tagline: "A statically generated portfolio built to ensure 100% type safety and zero runtime errors.",
+
+  title: "Portfolio",
+
+  tagline:
+    "A content-driven engineering portfolio documenting projects, architecture decisions, and technical discoveries.",
+
   description:
-    "A Next.js static site generator (SSG) portfolio utilizing strict CI/CD prebuild validation hooks to enforce content schemas before deployment.",
+    "Antigravity is a portfolio platform built to showcase projects, architecture blueprints, engineering notes, and technical decision-making in a structured and maintainable way. Instead of functioning as a traditional portfolio, it acts as a living archive where every project is connected to its implementation details, tradeoffs, research notes, and technical documentation. The platform is powered by a content-first architecture using TypeScript registries, static generation, and schema validation to ensure long-term maintainability and reliability.",
+
   status: "In Progress",
-  primaryCategory: "Developer Tool",
-  tags: ["Portfolio"],
-  complexity: 4,
-  timeline: [
-    { label: "Idea", status: "done" },
-    { label: "Research", status: "done" },
-    { label: "Building", status: "current" },
-    { label: "Polish", status: "pending" },
-    { label: "Launched", status: "pending" },
+
+  primaryCategory: "Portfolio Platform",
+
+  tags: [
+    "Portfolio",
+    "Developer Platform",
+    "Documentation",
+    "Next.js",
+    "TypeScript"
   ],
-  stack: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
+
+  complexity: 5,
+
+  timeline: [
+    { label: "Research", status: "done" },
+    { label: "Architecture", status: "done" },
+    { label: "Development", status: "current" },
+    { label: "Content Population", status: "current" },
+    { label: "Launch", status: "pending" }
+  ],
+
+  stack: [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Framer Motion",
+    "Static Site Generation",
+    "Content Architecture"
+  ],
+
   blueprintId: "experiment-zero",
+
   evidence: {
-    problem: "Developer portfolios are traditionally static resumes that fail to demonstrate actual engineering processes, tradeoff rationale, or performance optimizations.",
+    problem:
+      "Most developer portfolios focus on showcasing finished projects but fail to demonstrate engineering decision-making, architectural thinking, technical tradeoffs, and problem-solving processes. Recruiters and hiring managers often see outcomes without understanding how those outcomes were achieved.",
+
     constraints: [
-      "Must compile 100% statically (next build).",
-      "First Contentful Paint must load under 150ms.",
-      "Build pipeline must block deployments on link errors."
+      "Must be fully statically generated.",
+      "Must not require a runtime database.",
+      "Content should be manageable through TypeScript registries.",
+      "Broken relationships between projects, blueprints, and notes must fail validation before deployment.",
+      "Must maintain strong SEO and performance characteristics."
     ],
+
     alternatives: [
       {
-        name: "Standard React SPA",
-        pros: ["Simple deployment", "Extremely dynamic client state transitions"],
-        cons: ["Poor SEO crawls due to client-side data rendering requirements"]
+        name: "Traditional Portfolio Website",
+        pros: [
+          "Simple implementation",
+          "Easy content management"
+        ],
+        cons: [
+          "Limited technical depth",
+          "Poor demonstration of engineering process",
+          "Projects become isolated showcase pages"
+        ]
       },
       {
-        name: "Dynamic Server SSR",
-        pros: ["High interactivity with live server data connections"],
-        cons: ["Increases hosting dependencies and setup complexity", "Harder to serve over edge CDNs globally with zero DB latency"]
+        name: "CMS-Driven Portfolio",
+        pros: [
+          "Easy content updates",
+          "Non-technical editing workflow"
+        ],
+        cons: [
+          "Additional infrastructure",
+          "External dependencies",
+          "Reduced type safety"
+        ]
       }
     ],
-    finalDecision: "Next.js App Router static site generation (SSG) utilizing custom prebuild integrity tests.",
+
+    finalDecision:
+      "Build a content-driven portfolio platform using Next.js, TypeScript registries, schema validation, and static generation to create a connected ecosystem of projects, architecture documents, and engineering notes.",
+
     tradeoffs: [
-      "Chose to manage content in local TypeScript files instead of a CMS. This removed the ability to edit via a UI, but guaranteed that broken links would fail the build before deploying."
+      "Chose TypeScript content registries instead of a CMS, sacrificing visual editing in exchange for type safety and maintainability.",
+      "Chose static generation over server-rendered architecture to maximize performance and simplify deployment.",
+      "Accepted a larger content modeling effort in exchange for stronger relationships between projects, blueprints, and engineering notes."
     ],
+
     outcome: {
-      description: "Static portfolio achieving 100/100 Lighthouse performance metrics with zero runtime data crashes.",
+      description:
+        "Created a portfolio platform that documents not only what was built, but also why it was built, how decisions were made, and what was learned throughout the process.",
+
       metrics: [
-        "100% Google Lighthouse score",
-        "Zero runtime crashes",
-        "Ingestion checks run in < 500ms"
+        "Fully static deployment",
+        "Connected project and blueprint architecture",
+        "Schema-validated content pipeline",
+        "Type-safe content management",
+        "Optimized for recruiter and engineering-manager review"
       ]
     },
-    engineeringSignals: ["Frontend Architecture", "DX Improvements", "Type Safety"]
+
+    engineeringSignals: [
+      "Frontend Architecture",
+      "Content Modeling",
+      "Static Site Generation",
+      "Developer Experience",
+      "System Design",
+      "Type Safety",
+      "Information Architecture"
+    ]
   }
 });

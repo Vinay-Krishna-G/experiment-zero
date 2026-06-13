@@ -1,56 +1,126 @@
+
 import { createExperiment } from "../factories";
 
 export const promptvault = createExperiment({
   id: "promptvault",
+
   publishedAt: "2026-06-12",
+
   title: "PromptVault",
-  tagline: "A full-stack productivity tool for organizing and retrieving AI prompts.",
+
+  tagline:
+    "A full-stack platform for organizing, managing, and discovering AI prompts.",
+
   description:
-    "A productivity tool for storing, organizing, and quickly retrieving AI prompts. Built to solve the problem of losing great prompts in chat history. Features tagging, search, and one-click copy.",
+    "PromptVault is a full-stack prompt management platform designed to help users store, organize, search, and reuse AI prompts efficiently. As AI tools became a daily part of workflows, managing useful prompts across multiple chats and platforms became increasingly difficult. PromptVault provides a centralized workspace where users can build personal prompt libraries, organize prompts into categories, search instantly, and access their collections from anywhere.",
+
   status: "Completed",
-  primaryCategory: "Developer Tool",
-  tags: ["Productivity"],
-  complexity: 3,
-  timeline: [
-    { label: "Idea", status: "done" },
-    { label: "Research", status: "done" },
-    { label: "Prototype", status: "done" },
-    { label: "Deployment", status: "done" },
-    { label: "Shipped", status: "done" },
+
+  primaryCategory: "Productivity Platform",
+
+  tags: [
+    "AI",
+    "Productivity",
+    "Prompt Engineering",
+    "Full Stack",
+    "SaaS"
   ],
-  stack: ["Next.js", "MongoDB", "TypeScript", "TailwindCSS"],
+
+  complexity: 4,
+
+  timeline: [
+    { label: "Research", status: "done" },
+    { label: "Planning", status: "done" },
+    { label: "Development", status: "done" },
+    { label: "Deployment", status: "done" },
+    { label: "Live", status: "done" }
+  ],
+
+  stack: [
+    "React",
+    "Vite",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Mongoose",
+    "JWT Authentication",
+    "Tailwind CSS",
+    "Cloudinary",
+    "Resend"
+  ],
+
   blueprintId: "promptvault",
+  liveUrl: "https://trendyprompt.vercel.app/",
+
   evidence: {
-    problem: "Losing AI prompts in chaotic chat logs caused developers to constantly reinvent effective phrasing, decreasing efficiency and team retention of prompt strategies.",
+    problem:
+      "Useful AI prompts are often scattered across chat histories, notes applications, documents, and browser bookmarks. As prompt libraries grow, finding and reusing effective prompts becomes increasingly difficult, leading to duplicated effort and inefficient workflows.",
+
     constraints: [
-      "Must load in under 200ms on first print.",
-      "Must offer instant copy options without invoking heavy clipboard frameworks.",
-      "Must persist state locally for offline execution support."
+      "Users must securely access personal prompt libraries.",
+      "Search and retrieval should feel instantaneous.",
+      "Prompt organization should remain flexible as categories evolve.",
+      "The system should support future AI-related features without major schema redesigns.",
+      "The application should remain lightweight and responsive."
     ],
+
     alternatives: [
       {
-        name: "Browser Extension",
-        pros: ["Always present on active AI chat screens"],
-        cons: ["Requires complex store publishing reviews", "Limited local data persistence access"]
+        name: "Markdown Files and Notes Apps",
+        pros: [
+          "Simple setup",
+          "No backend infrastructure required"
+        ],
+        cons: [
+          "Difficult to search at scale",
+          "Poor organization",
+          "No authentication or cloud synchronization"
+        ]
       },
       {
-        name: "Static Markdown Folder",
-        pros: ["Simple local management"],
-        cons: ["No search indices", "High friction for copying values"]
+        name: "Browser Bookmarks",
+        pros: [
+          "Easy to save references"
+        ],
+        cons: [
+          "Not designed for prompt management",
+          "No categorization workflow",
+          "Limited search capabilities"
+        ]
       }
     ],
-    finalDecision: "Built a Next.js static productivity hub optimized with client-side clipboard copy bindings and fast fuzzy search indexing.",
+
+    finalDecision:
+      "Build a dedicated full-stack prompt management platform using React, Express, MongoDB, and JWT authentication, providing centralized storage, categorization, search, and retrieval capabilities.",
+
     tradeoffs: [
-      "Chose MongoDB over Postgres to allow rapid iteration of prompt schemas without dealing with strict relational migrations."
+      "Chose MongoDB over a relational database to allow flexible prompt schemas and faster feature iteration.",
+      "Implemented custom JWT authentication instead of adopting a larger authentication framework to maintain full control over the authentication flow.",
+      "Used client-side search for the MVP to provide fast retrieval while avoiding the operational complexity of dedicated search infrastructure."
     ],
+
     outcome: {
-      description: "Successfully decoupled prompt creation from the clipboard extraction path, reducing retrieval friction to zero.",
+      description:
+        "Delivered a deployed full-stack application that enables users to manage AI prompts through a centralized, authenticated workspace with categorization, search, and cloud persistence.",
+
       metrics: [
-        "120ms first content paint load",
-        "Successfully implemented zero-latency client-side search",
-        "Zero external database dependencies"
+        "Custom JWT authentication system",
+        "Cloud-based prompt persistence",
+        "Client-side instant prompt search",
+        "Image upload support via Cloudinary",
+        "Email infrastructure powered by Resend",
+        "Production deployment on Vercel"
       ]
     },
-    engineeringSignals: ["System Design", "Performance Optimization", "DX Improvements"]
+
+    engineeringSignals: [
+      "Full Stack Development",
+      "Authentication & Security",
+      "Database Design",
+      "REST API Development",
+      "Cloud Integrations",
+      "Product Architecture"
+    ]
   }
 });
+

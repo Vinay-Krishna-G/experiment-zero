@@ -1,16 +1,16 @@
 import { promptvault } from "./experiments/promptvault";
-import { aiCodebaseAnalyzer } from "./experiments/ai-codebase-analyzer";
+import { aiCodebaseAnalyzer as codemelt } from "./experiments/codemelt";
 import { experimentZero } from "./experiments/experiment-zero";
-import { futureExperiment } from "./experiments/future-experiment";
+import { studySpark } from "./experiments/studyspark";
 import type { Experiment, RackSlot, BaseContent, Blueprint, ResearchLog } from "@/types";
 
 export * from "@/types";
 
 export const ALL_EXPERIMENTS: Experiment[] = [
   promptvault,
-  aiCodebaseAnalyzer,
+  codemelt,
   experimentZero,
-  futureExperiment,
+  studySpark,
 ];
 
 import * as blueprintsObj from './blueprints';

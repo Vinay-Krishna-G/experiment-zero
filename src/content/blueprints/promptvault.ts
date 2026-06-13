@@ -1,92 +1,156 @@
+
 import { createBlueprint } from "../factories";
 
 export const promptvault = createBlueprint({
   id: "promptvault",
+
   publishedAt: "2026-06-12",
-  "projectId": "001",
-  "title": "PromptVault",
-  "objective": "Design a system that allows developers and creators to store, organize, and instantly retrieve AI prompts — eliminating the problem of losing high-value prompts inside chat history.",
-  "technologies": [
-    "Next.js",
+
+  projectId: "promptvault",
+
+  title: "PromptVault Architecture",
+
+  objective:
+    "Design a scalable prompt management platform that enables users to securely store, organize, search, and retrieve AI prompts from a centralized workspace.",
+
+  technologies: [
+    "React",
+    "Vite",
+    "Node.js",
+    "Express.js",
     "MongoDB",
-    "TypeScript",
-    "TailwindCSS",
-    "NextAuth"
+    "Mongoose",
+    "JWT Authentication",
+    "Cloudinary",
+    "Resend",
+    "Tailwind CSS"
   ],
-  "stages": [
+
+  stages: [
     {
-      "name": "Prompt Discovery",
-      "annotation": "Identified prompt loss as a recurring frustration"
+      name: "Problem Discovery",
+      annotation:
+        "Identified prompt fragmentation across chat histories, notes apps, and browser bookmarks."
     },
     {
-      "name": "Taxonomy Design",
-      "annotation": "Designed prompt schema with tagging taxonomy"
+      name: "Data Modeling",
+      annotation:
+        "Designed prompt schemas, categories, tagging structures, and user ownership models."
     },
     {
-      "name": "Storage Architecture",
-      "annotation": "REST endpoints for CRUD + full-text search"
+      name: "Authentication Layer",
+      annotation:
+        "Implemented custom JWT authentication and protected API routes."
     },
     {
-      "name": "Retrieval System",
-      "annotation": "Tag-based filtering, keyboard-first navigation"
+      name: "Prompt Management",
+      annotation:
+        "Built CRUD workflows for creating, organizing, and updating prompt collections."
     },
     {
-      "name": "Interface Construction",
-      "annotation": "NextAuth with session-based user vaults"
+      name: "Search & Retrieval",
+      annotation:
+        "Implemented fast client-side filtering and retrieval workflows."
     },
     {
-      "name": "Launch Validation",
-      "annotation": "Shipped to production on Vercel + MongoDB Atlas"
+      name: "Deployment",
+      annotation:
+        "Deployed full-stack application with cloud storage and production-ready infrastructure."
     }
   ],
-  "discoveries": [
+
+  discoveries: [
     {
-      "text": "Tagging taxonomy matters more than search — users navigate by category, not keyword."
+      text:
+        "Users naturally organize prompts by category and workflow rather than relying entirely on search."
     },
     {
-      "text": "One-click copy is the most-used feature. Friction here kills the product."
+      text:
+        "Fast retrieval and copy workflows provide more value than complex organizational features."
     },
     {
-      "text": "MongoDB's full-text search was sufficient at this scale; no Elasticsearch needed."
+      text:
+        "Flexible schemas allow prompt structures to evolve as AI workflows change."
     }
   ],
-  "lessons": [
-    "Building the core interaction first revealed that instant copying was more important than complex tagging.",
-    "Changing MongoDB schemas mid-project required annoying data migrations; design schemas upfront.",
-    "Integrating NextAuth early saved days of refactoring later."
+
+  lessons: [
+    "Designing data models early reduces future migration effort.",
+    "Authentication should be implemented before advanced product features.",
+    "Simple retrieval workflows often provide more value than highly sophisticated search systems.",
+    "Building the core user workflow first exposes product priorities faster than adding secondary features."
   ],
-  "status": "Verified",
+
+  status: "Verified",
+
   evidence: {
-    problem: "Authentication structures and prompt schemas were shifting, leading to database schema mismatches and API route failures on Vercel deployment.",
+    problem:
+      "As AI adoption increased, useful prompts became scattered across multiple tools and conversations. Users lacked a centralized system for storing, organizing, and reusing prompts efficiently.",
+
     constraints: [
-      "Must use serverless MongoDB Atlas boundaries.",
-      "Must limit schema validation checks to compile-time definitions.",
-      "Must support nextauth JWT session models."
+      "User prompt libraries must remain private and secure.",
+      "Prompt schemas should remain flexible as requirements evolve.",
+      "Search and retrieval should feel immediate.",
+      "The platform should support future AI-related features without major architectural rewrites.",
+      "The application must remain deployable using modern serverless infrastructure."
     ],
+
     alternatives: [
       {
-        name: "NoSQL Schema-less Storage",
-        pros: ["Unlimited flexibility during early prototyping"],
-        cons: ["Prone to runtime errors when querying missing attributes"]
+        name: "Relational Database (PostgreSQL)",
+        pros: [
+          "Strong schema enforcement",
+          "Excellent relational querying"
+        ],
+        cons: [
+          "Additional migration overhead during rapid product iteration"
+        ]
       },
       {
-        name: "PostgreSQL Prisma Schema",
-        pros: ["Strict referential integrity constraints"],
-        cons: ["Requires complex migrations for every minor prompt structure adjustment"]
+        name: "Simple Notes Application",
+        pros: [
+          "Minimal development complexity"
+        ],
+        cons: [
+          "Poor organization",
+          "No authentication",
+          "Limited scalability"
+        ]
       }
     ],
-    finalDecision: "Used MongoDB with TypeScript interface validations mapping to dynamic serverless REST api endpoints.",
+
+    finalDecision:
+      "Build a dedicated full-stack platform using MongoDB, Express, React, and JWT authentication with flexible document schemas and cloud-backed persistence.",
+
     tradeoffs: [
-      "Accepted slightly slower query speeds of text-based lookup in exchange for rapid prototype iterations and easy schema updates."
+      "Chose MongoDB to enable faster schema evolution during product development.",
+      "Implemented custom JWT authentication instead of introducing a larger authentication framework.",
+      "Used client-side search for the MVP to prioritize simplicity and responsiveness."
     ],
+
     outcome: {
-      description: "Deployed dynamic, multi-tenant prompt vaults on serverless boundaries.",
+      description:
+        "Delivered a production-ready prompt management platform with authentication, cloud persistence, prompt organization, search capabilities, and extensible architecture for future AI features.",
+
       metrics: [
-        "100% schema validation passes at compile time",
-        "NextAuth JWT login verification under 50ms",
-        "Zero schema migration downtime"
+        "Custom JWT authentication system",
+        "Prompt categorization and tagging",
+        "Cloudinary media upload integration",
+        "Email infrastructure via Resend",
+        "MongoDB cloud persistence",
+        "Production deployment on Vercel"
       ]
     },
-    engineeringSignals: ["Data Modeling", "API Design", "Type Safety"]
+
+    engineeringSignals: [
+      "System Design",
+      "Authentication & Security",
+      "Database Design",
+      "REST API Development",
+      "Cloud Integrations",
+      "Data Modeling",
+      "Product Architecture"
+    ]
   }
 });
+

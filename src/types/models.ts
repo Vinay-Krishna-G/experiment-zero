@@ -70,6 +70,7 @@ export interface Experiment extends BaseContent {
   stack: string[];
   github?: string;
   demo?: string;
+  liveUrl?: string;
   blueprintId?: string;
   content?: ContentSections;
   relatedIds?: string[];
