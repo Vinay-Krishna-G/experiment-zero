@@ -73,12 +73,10 @@ export default function ResearchEntry({ log }: ResearchEntryProps) {
         </h3>
 
         {/* ── Content Body ── */}
-        <div style={{
-          fontFamily: "Georgia, 'Times New Roman', serif",
-          fontSize: "clamp(0.95rem, 2vw, 1.1rem)",
+        <div className="prose-reading" style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "clamp(0.95rem, 2vw, 1.05rem)",
           color: "var(--fg-secondary)",
-          lineHeight: 1.85,
-          maxWidth: "60ch",
           display: "flex",
           flexDirection: "column",
           gap: "1.5rem"

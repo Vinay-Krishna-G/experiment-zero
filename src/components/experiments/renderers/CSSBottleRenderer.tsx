@@ -56,9 +56,10 @@ export default function CSSBottleRenderer({
 
   // Palette logic for Fireflies
   const fireflyPalettes = [
-    ["#34d399", "#60a5fa"], // Emerald + Blue
+    ["#34d399", "#22d3ee"], // Emerald + Cyan
+    ["#22d3ee", "#c084fc"], // Cyan + Violet
     ["#60a5fa", "#f472b6"], // Blue + Pink
-    ["#c084fc", "#22d3ee"], // Violet + Cyan
+    ["#34d399", "#fbbf24"], // Emerald + Gold
   ];
   const charCode = experiment.title.charCodeAt(0) || 0;
   const paletteIndex = (experiment.id.length + charCode) % fireflyPalettes.length;
@@ -156,24 +157,24 @@ export default function CSSBottleRenderer({
                   key={`escape-${i}`}
                   initial={{ y: 20, x: 0, opacity: 0 }}
                   animate={{
-                    y: [20, -50 - Math.random() * 30, -60, -40, -50],
-                    x: [0, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 50, (Math.random() - 0.5) * 30, 0],
-                    opacity: [0, 1, 0.8, 1, 0]
+                    y: [20, -35 - i * 5, -30 - i * 5, -40 - i * 5, -25],
+                    x: [0, (i % 2 === 0 ? 15 : -15), (i % 2 === 0 ? -10 : 10), (i % 2 === 0 ? 5 : -5), 0],
+                    opacity: [0, 1, 0.7, 1, 0]
                   }}
                   transition={{
-                    duration: 4 + Math.random() * 2,
+                    duration: 3.5 + i,
                     ease: "easeInOut",
-                    delay: i * 0.2
+                    repeat: Infinity
                   }}
                   style={{
                     position: "absolute",
                     top: 0,
                     left: "50%",
-                    width: 3 + Math.random() * 2,
-                    height: 3 + Math.random() * 2,
+                    width: 3 + (i % 2),
+                    height: 3 + (i % 2),
                     backgroundColor: "#fff",
                     borderRadius: "50%",
-                    boxShadow: `0 0 12px 4px ${activePalette[i % 2]}`,
+                    boxShadow: `0 0 12px 3px ${activePalette[i % 2]}`,
                     zIndex: 10,
                     pointerEvents: "none"
                   }}
@@ -187,14 +188,15 @@ export default function CSSBottleRenderer({
             <motion.div
               initial={{ y: 20, opacity: 0, scale: 0.5 }}
               animate={{
-                y: [20, -40, -80],
-                x: [0, 10, -10],
-                opacity: [0, 0.6, 0],
-                scale: [0.5, 1.5, 2]
+                y: [20, -30, -60],
+                x: [0, 5, -5],
+                opacity: [0, 0.4, 0],
+                scale: [0.5, 1.5, 2.5]
               }}
               transition={{
-                duration: 3,
-                ease: "easeOut"
+                duration: 4,
+                ease: "easeOut",
+                repeat: Infinity
               }}
               style={{
                 position: "absolute",
@@ -203,7 +205,7 @@ export default function CSSBottleRenderer({
                 width: 20,
                 height: 20,
                 background: `radial-gradient(circle, ${modeColor} 0%, transparent 70%)`,
-                filter: "blur(8px)",
+                filter: "blur(10px)",
                 zIndex: 10,
                 pointerEvents: "none"
               }}
@@ -274,31 +276,32 @@ export default function CSSBottleRenderer({
               {/* CATEGORY A: Firefly (Active) */}
               {mode === "firefly" && (
                 <div style={{ position: "absolute", inset: 0 }}>
-                  {Array.from({ length: 12 }).map((_, i) => {
-                    const size = 2 + Math.random() * 4;
+                  {Array.from({ length: 20 }).map((_, i) => {
+                    // Size variation: mostly tiny, some medium, 1 hero
+                    const size = i === 0 ? 7 : (i < 5 ? 4 : 2);
                     return (
                       <motion.div
                         key={i}
                         animate={{
-                          y: [0, -40 - Math.random() * 100, 0],
-                          x: [0, (Math.random() - 0.5) * 60, 0],
-                          opacity: [0.3, 1, 0.3]
+                          y: [0, -40 - (i % 5) * 20, 0],
+                          x: [0, (i % 2 === 0 ? 1 : -1) * (15 + (i % 5) * 10), 0],
+                          opacity: [0.2, i === 0 ? 1 : 0.8, 0.2]
                         }}
                         transition={{
-                          duration: 4 + Math.random() * 6,
+                          duration: 4 + (i % 5) * 1.5,
                           repeat: Infinity,
                           ease: "easeInOut",
-                          delay: Math.random() * 5
+                          delay: (i % 5) * 0.5
                         }}
                         style={{
                           position: "absolute",
-                          bottom: 10 + Math.random() * 40,
-                          left: 10 + Math.random() * 60,
+                          bottom: 10 + (i % 10) * 15,
+                          left: 15 + (i % 8) * 10,
                           width: size,
                           height: size,
                           backgroundColor: "#fff",
                           borderRadius: "50%",
-                          boxShadow: `0 0 15px 5px ${activePalette[i % 2]}`,
+                          boxShadow: `0 0 ${i === 0 ? 20 : 12}px ${i === 0 ? 6 : 3}px ${activePalette[i % 2]}`,
                           filter: "blur(0.5px)"
                         }}
                       />
@@ -312,8 +315,8 @@ export default function CSSBottleRenderer({
                 <motion.div
                   animate={{ 
                     height: liquidHeight,
-                    rotateZ: isHovered ? [0, 2, -1, 0] : 0,
-                    scale: isHovered ? 1.02 : 1
+                    rotateZ: isHovered ? [0, 4, -2, 1, 0] : 0,
+                    scale: isHovered ? 1.03 : 1
                   }}
                   initial={{ height: 0 }}
                   transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -322,27 +325,36 @@ export default function CSSBottleRenderer({
                     bottom: -5,
                     left: -5,
                     right: -5,
-                    background: `linear-gradient(to top, ${modeColor} 0%, rgba(20,20,20,0.5) 100%)`,
-                    borderTop: `4px solid rgba(255,255,255,0.75)`, // Meniscus
-                    boxShadow: `inset 0 10px 20px rgba(255,255,255,0.15), inset 0 -40px 40px rgba(0,0,0,0.4), inset 0 -20px 20px rgba(0,0,0,0.8)`, // Internal depth
-                    transformOrigin: "bottom center"
+                    background: `linear-gradient(to top, ${modeColor} 0%, rgba(20,20,20,0.4) 100%)`,
+                    borderTop: `5px solid rgba(255,255,255,0.85)`, // Strong Meniscus
+                    boxShadow: `inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -40px 40px rgba(0,0,0,0.5), inset 0 -20px 20px rgba(0,0,0,0.8)`, // Internal depth
+                    transformOrigin: "bottom center",
+                    overflow: "hidden"
                   }}
                 >
+                  {/* Refraction highlight */}
+                  <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 15%, transparent 30%)",
+                    pointerEvents: "none"
+                  }} />
+                  
                   {/* Preserved Liquid Bubbles */}
                   {Array.from({ length: 8 }).map((_, i) => (
                     <motion.div
                       key={`bubble-${i}`}
-                      initial={{ y: "120%", x: 10 + Math.random() * 70, opacity: 0 }}
+                      initial={{ y: "120%", x: 10 + (i % 5) * 15, opacity: 0 }}
                       animate={{ y: "-20%", opacity: [0, 0.8, 0] }}
-                      transition={{ duration: 8 + Math.random() * 10, repeat: Infinity, delay: Math.random() * 10, ease: "linear" }}
+                      transition={{ duration: 6 + (i % 4) * 2, repeat: Infinity, delay: (i % 5), ease: "linear" }}
                       style={{
                         position: "absolute",
                         bottom: 0,
-                        width: 2 + Math.random() * 3,
-                        height: 2 + Math.random() * 3,
+                        width: 2 + (i % 3) * 1.5,
+                        height: 2 + (i % 3) * 1.5,
                         borderRadius: "50%",
-                        border: "1px solid rgba(255,255,255,0.7)",
-                        backgroundColor: "rgba(255,255,255,0.2)"
+                        border: "1px solid rgba(255,255,255,0.8)",
+                        backgroundColor: "rgba(255,255,255,0.3)"
                       }}
                     />
                   ))}
@@ -358,14 +370,14 @@ export default function CSSBottleRenderer({
                       animate={{
                         y: ["120%", "-40%"],
                         x: [0, (i % 2 === 0 ? 15 : -15), 0],
-                        opacity: [0, 0.6, 0],
-                        scale: [1, 1.5, 2]
+                        opacity: [0, 0.6 - i * 0.1, 0],
+                        scale: [1, 1.5 + i * 0.2, 2 + i * 0.5]
                       }}
                       transition={{
-                        y: { duration: 12 + i * 4, repeat: Infinity, ease: "linear", delay: i * 3 },
-                        x: { duration: 6 + i * 2, repeat: Infinity, ease: "easeInOut" },
-                        opacity: { duration: 12 + i * 4, repeat: Infinity, ease: "linear", delay: i * 3 },
-                        scale: { duration: 12 + i * 4, repeat: Infinity, ease: "linear", delay: i * 3 }
+                        y: { duration: 12 + (i % 3) * 4, repeat: Infinity, ease: "linear", delay: i * 2 },
+                        x: { duration: 6 + (i % 2) * 2, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 12 + (i % 3) * 4, repeat: Infinity, ease: "linear", delay: i * 2 },
+                        scale: { duration: 12 + (i % 3) * 4, repeat: Infinity, ease: "linear", delay: i * 2 }
                       }}
                       style={{
                         position: "absolute",
@@ -373,9 +385,8 @@ export default function CSSBottleRenderer({
                         width: "120%",
                         height: "80%",
                         background: `radial-gradient(ellipse at center, ${modeColor} 0%, transparent 60%)`,
-                        backgroundPosition: `${(i * 30) % 100}% ${(i * 40) % 100}%`,
                         transformOrigin: i % 2 === 0 ? "top left" : "bottom right",
-                        filter: "blur(12px)",
+                        filter: `blur(${12 + i * 2}px)`,
                         borderRadius: "50%"
                       }}
                     />
@@ -397,21 +408,46 @@ export default function CSSBottleRenderer({
                     background: `linear-gradient(to top, ${modeColor} 0%, transparent 100%)`,
                     borderTop: `2px solid rgba(255,255,255,0.6)`,
                     boxShadow: isHovered 
-                      ? `inset 0 0 40px ${glowColor}, 0 -10px 30px ${glowColor}` 
+                      ? `inset 0 0 50px ${glowColor}, 0 -15px 40px ${glowColor}` 
                       : `inset 0 0 20px ${glowColor}`,
                     transition: "box-shadow 0.4s ease"
                   }}
                 >
+                  {/* Vapor Layer */}
+                  <motion.div
+                    animate={{ opacity: isHovered ? 0.7 : 0.3 }}
+                    style={{
+                      position: "absolute",
+                      top: -15,
+                      left: 0,
+                      right: 0,
+                      height: 30,
+                      background: `radial-gradient(ellipse, ${glowColor} 0%, transparent 70%)`,
+                      filter: "blur(8px)",
+                      pointerEvents: "none",
+                      mixBlendMode: "screen"
+                    }}
+                  />
                   {/* Boiling Bubbles */}
                   {Array.from({ length: isHovered ? 15 : 8 }).map((_, i) => {
-                    const sizes = [3, 5, 8, 12];
+                    const sizes = [4, 6, 10, 16]; // Larger bubbles
                     const bubbleSize = sizes[i % sizes.length];
+                    const burstScale = 1.5;
                     return (
                     <motion.div
                       key={`potion-bubble-${i}`}
-                      initial={{ y: "100%", x: Math.random() * 80, opacity: 0 }}
-                      animate={{ y: "-10%", opacity: [0, 1, 0] }}
-                      transition={{ duration: 1.5 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2, ease: "easeIn" }}
+                      initial={{ y: "100%", x: (i * 12) % 80, opacity: 0, scale: 1 }}
+                      animate={{ 
+                        y: ["100%", "-5%", "-10%"], 
+                        opacity: [0, 1, 0],
+                        scale: [1, 1, burstScale] 
+                      }}
+                      transition={{ 
+                        duration: 1.5 + (i % 3), 
+                        repeat: Infinity, 
+                        delay: (i % 4) * 0.5, 
+                        ease: "easeIn" 
+                      }}
                       style={{
                         position: "absolute",
                         bottom: 0,
@@ -419,28 +455,21 @@ export default function CSSBottleRenderer({
                         height: bubbleSize,
                         borderRadius: "50%",
                         backgroundColor: "#fff",
-                        boxShadow: `0 0 8px 2px ${modeColor}`
+                        boxShadow: `0 0 10px 3px ${modeColor}`
                       }}
                     />
                     );
                   })}
-                  {/* Tiny Smoke Traces */}
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <motion.div
-                      key={`potion-smoke-${i}`}
-                      initial={{ y: "100%", x: Math.random() * 80, opacity: 0 }}
-                      animate={{ y: "-50%", opacity: [0, 0.4, 0], scale: [1, 1.5] }}
-                      transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2, ease: "easeOut" }}
-                      style={{
-                        position: "absolute",
-                        bottom: 0,
-                        width: 15,
-                        height: 25,
-                        background: `radial-gradient(ellipse, ${modeColor} 0%, transparent 60%)`,
-                        filter: "blur(4px)",
-                      }}
-                    />
-                  ))}
+                  {/* Thick Base Liquid Glow */}
+                  <div style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: "40%",
+                    background: `linear-gradient(to top, ${glowColor}, transparent)`,
+                    filter: "blur(4px)"
+                  }} />
                 </motion.div>
               )}
             </div>

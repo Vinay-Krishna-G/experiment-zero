@@ -414,3 +414,20 @@ body {
   }
 }
 
+
+/* ─── Reading Experience ────────────────────────────────────────────── */
+.prose-reading {
+  max-width: 70ch;
+  line-height: 1.75;
+  /* Auto margin if we want it centered, but usually we just constrain width */
+}
+
+.prose-reading p {
+  margin-bottom: 1.5em;
+}
+
+.prose-reading h2, .prose-reading h3, .prose-reading h4 {
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}

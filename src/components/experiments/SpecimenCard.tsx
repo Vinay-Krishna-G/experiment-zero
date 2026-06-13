@@ -84,7 +84,7 @@ export default function SpecimenCard({ experiment, isSelected, onClick }: Specim
       <div
         aria-hidden="true"
         style={{
-          marginTop: "1.5rem",
+          marginTop: "1.75rem",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -93,18 +93,18 @@ export default function SpecimenCard({ experiment, isSelected, onClick }: Specim
           pointerEvents: "none",
         }}
       >
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.15em", color: "var(--fg-muted)" }}>
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.2em", color: "var(--fg-subtle)" }}>
           EX-{String(experiment.id).padStart(3, '0').slice(0, 3).toUpperCase()}
         </div>
-        <div style={{ fontFamily: "var(--font-display)", fontSize: "0.95rem", color: "var(--fg-primary)", marginTop: "0.2rem" }}>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, color: "var(--fg-primary)", marginTop: "0.3rem" }}>
           {experiment.title}
         </div>
-        <div style={{ width: "24px", height: "1px", backgroundColor: "#c8a15b44", margin: "0.3rem 0" }} />
-        <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--fg-secondary)" }}>
+        <div style={{ width: "32px", height: "1px", backgroundColor: "var(--border-subtle)", margin: "0.4rem 0" }} />
+        <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--fg-secondary)", maxWidth: "160px", lineHeight: 1.4 }}>
           {experiment.tagline}
         </div>
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.15em", color: modeColor, marginTop: "0.4rem", textTransform: "uppercase" }}>
-          {experiment.status}
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.15em", color: modeColor, marginTop: "0.5rem", textTransform: "uppercase" }}>
+          [ {experiment.status} ]
         </div>
       </div>
     </div>

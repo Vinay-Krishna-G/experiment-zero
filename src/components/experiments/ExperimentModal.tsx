@@ -169,7 +169,7 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            style={{ position: "absolute", inset: 0, backgroundColor: "rgba(10, 8, 6, 0.85)", backdropFilter: "blur(12px)" }}
+            style={{ position: "absolute", inset: 0, backgroundColor: "rgba(10, 8, 6, 0.85)", backdropFilter: "blur(24px) saturate(1.2)" }}
             onClick={onClose}
           />
 
@@ -190,10 +190,22 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
               maxWidth: "1000px", 
               height: "92%", 
               overflowY: "auto", 
+              WebkitOverflowScrolling: "touch", // Smooth scrolling on mobile
               paddingBottom: "4rem" 
             }}
           >
-            <div style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderBottom: "none", borderRadius: "8px 8px 0 0", minHeight: "100%", position: "relative", overflow: "hidden", boxShadow: "0 -8px 32px rgba(28,25,23,0.3)" }}>
+            <div style={{ 
+              backgroundColor: "var(--bg-card)", 
+              backgroundImage: "radial-gradient(circle, rgba(28, 25, 23, 0.05) 0.5px, transparent 0.5px)",
+              backgroundSize: "24px 24px",
+              border: "1px solid var(--border-subtle)", 
+              borderBottom: "none", 
+              borderRadius: "8px 8px 0 0", 
+              minHeight: "100%", 
+              position: "relative", 
+              overflow: "hidden", 
+              boxShadow: "0 -8px 32px rgba(0,0,0,0.5)" 
+            }}>
             {/* Spine */}
             <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 4, background: `linear-gradient(to right, ${STATUS_COLORS[experiment.status]}, transparent)`, opacity: 0.7 }} />
             {/* Corner fold */}
@@ -213,7 +225,7 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
                     <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 700, color: "var(--fg-primary)", letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "0.4rem" }}>
                       {experiment.title}
                     </h3>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--fg-muted)", fontStyle: "italic", lineHeight: 1.5, marginBottom: "1rem" }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--fg-secondary)", fontStyle: "italic", lineHeight: 1.5, marginBottom: "1.25rem" }}>
                       {experiment.tagline}
                     </p>
                     {/* Journal metadata grid */}
@@ -225,17 +237,26 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
                     </div>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem" }}>
+                  {/* Sticky Close Button Container */}
+                  <div style={{ 
+                    position: "sticky", 
+                    top: "2rem", 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    alignItems: "flex-end", 
+                    gap: "0.5rem",
+                    zIndex: 20
+                  }}>
                     <button
                       onClick={onClose}
                       aria-label="Close archive"
-                      style={{ background: "none", border: "1px solid var(--border-subtle)", borderRadius: "2px", cursor: "pointer", padding: "0.4rem 0.8rem", fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.12em", color: "var(--fg-muted)", transition: "border-color 0.2s ease, color 0.2s ease" }}
-                      onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--fg-muted)"; el.style.color = "var(--fg-primary)"; }}
-                      onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--border-subtle)"; el.style.color = "var(--fg-muted)"; }}
+                      style={{ background: "var(--bg-primary)", border: "1px solid var(--border-subtle)", borderRadius: "2px", cursor: "pointer", padding: "0.5rem 1rem", fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.12em", color: "var(--fg-primary)", transition: "border-color 0.2s ease, background-color 0.2s ease", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}
+                      onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = "var(--bg-card-hover)"; el.style.borderColor = "var(--fg-muted)"; }}
+                      onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = "var(--bg-primary)"; el.style.borderColor = "var(--border-subtle)"; }}
                     >
                       [CLOSE ARCHIVE]
                     </button>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.52rem", letterSpacing: "0.15em", textTransform: "uppercase", color: STATUS_COLORS[experiment.status], border: `1px solid ${STATUS_COLORS[experiment.status]}`, padding: "0.25rem 0.6rem", borderRadius: "2px", opacity: 0.85 }}>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: STATUS_COLORS[experiment.status], border: `1px solid ${STATUS_COLORS[experiment.status]}`, padding: "0.25rem 0.6rem", borderRadius: "2px", opacity: 0.85, backgroundColor: "var(--bg-card)" }}>
                       {experiment.status}
                     </span>
                   </div>
@@ -246,9 +267,11 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
               <motion.div variants={rowVariants} style={{ height: 1, backgroundColor: "var(--border-subtle)", marginBottom: "1.75rem" }} aria-hidden="true" />
 
               {/* ── Description ── */}
-              <motion.p variants={rowVariants} style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.85rem, 1.4vw, 0.95rem)", color: "var(--fg-secondary)", lineHeight: 1.85, marginBottom: "2rem", maxWidth: "64ch" }}>
-                {experiment.description}
-              </motion.p>
+              <motion.div variants={rowVariants} className="prose-reading">
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)", color: "var(--fg-secondary)", lineHeight: 1.85, marginBottom: "2rem" }}>
+                  {experiment.description}
+                </p>
+              </motion.div>
 
               {/* ── Complexity + Timeline side-by-side ── */}
               <motion.div variants={rowVariants} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "2rem", marginBottom: "2rem" }}>
