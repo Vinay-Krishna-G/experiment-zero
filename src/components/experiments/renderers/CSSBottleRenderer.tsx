@@ -6,14 +6,14 @@ import type { Experiment } from "@/types";
 import { getVisualProfile } from "@/visuals/getVisualProfile";
 
 export function getBottleColors(status: string) {
-  let mode: "firefly" | "liquid" | "smoke" | "energy" = "liquid";
+  let mode: "firefly" | "liquid" | "smoke" | "potion" = "liquid";
   let modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire default
   let glowColor = "rgba(59, 130, 246, 0.4)";
   
   if (status === "Planned" || status === "On Hold") {
-    mode = "energy";
-    modeColor = "rgba(139, 92, 246, 0.6)"; // Violet
-    glowColor = "rgba(139, 92, 246, 0.4)";
+    mode = "potion";
+    modeColor = "rgba(16, 185, 129, 0.8)"; // Toxic Green
+    glowColor = "rgba(16, 185, 129, 0.5)";
   } else if (status === "Research") {
     mode = "smoke";
     modeColor = "rgba(245, 158, 11, 0.6)"; // Amber
@@ -25,8 +25,8 @@ export function getBottleColors(status: string) {
   } else {
     // Active / In Progress / Beta
     mode = "firefly";
-    modeColor = "rgba(16, 185, 129, 0.6)"; // Emerald
-    glowColor = "rgba(16, 185, 129, 0.4)";
+    modeColor = "rgba(6, 182, 212, 0.8)"; // Cyan
+    glowColor = "rgba(6, 182, 212, 0.5)";
   }
   return { mode, modeColor, glowColor };
 }
@@ -116,8 +116,12 @@ export default function CSSBottleRenderer({
           {/* Cork */}
           <motion.div
             aria-hidden="true"
-            animate={{ rotate: isHovered ? 6 : 0, y: isHovered ? -12 : 0, x: isHovered ? "-45%" : "-50%" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            animate={{ 
+              y: isHovered ? (mode === "firefly" || mode === "smoke" ? -25 : -8) : 0, 
+              rotate: isHovered ? 8 : 0,
+              x: isHovered ? "-40%" : "-50%" 
+            }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             style={{
               position: "absolute",
               top: 0,
@@ -134,28 +138,62 @@ export default function CSSBottleRenderer({
             }}
           />
 
-          {/* Escaping Firefly (only for Active mode) */}
+          {/* Escaping Fireflies */}
           {mode === "firefly" && isHovered && (
+            <>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <motion.div
+                  key={`escape-${i}`}
+                  initial={{ y: 20, x: 0, opacity: 0 }}
+                  animate={{
+                    y: [20, -50 - Math.random() * 30, -60, -40, -50],
+                    x: [0, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 50, (Math.random() - 0.5) * 30, 0],
+                    opacity: [0, 1, 0.8, 1, 0]
+                  }}
+                  transition={{
+                    duration: 4 + Math.random() * 2,
+                    ease: "easeInOut",
+                    delay: i * 0.2
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: "50%",
+                    width: 3 + Math.random() * 2,
+                    height: 3 + Math.random() * 2,
+                    backgroundColor: "#fff",
+                    borderRadius: "50%",
+                    boxShadow: `0 0 12px 4px ${modeColor}`,
+                    zIndex: 10,
+                    pointerEvents: "none"
+                  }}
+                />
+              ))}
+            </>
+          )}
+
+          {/* Escaping Smoke Wisp */}
+          {mode === "smoke" && isHovered && (
             <motion.div
-              initial={{ y: 20, x: 0, opacity: 0 }}
+              initial={{ y: 20, opacity: 0, scale: 0.5 }}
               animate={{
-                y: [20, -60, -50, -70, -40],
-                x: [0, 15, -10, 5, 20],
-                opacity: [0, 1, 1, 1, 0]
+                y: [20, -40, -80],
+                x: [0, 10, -10],
+                opacity: [0, 0.6, 0],
+                scale: [0.5, 1.5, 2]
               }}
               transition={{
-                duration: 6,
-                ease: "easeInOut",
+                duration: 3,
+                ease: "easeOut"
               }}
               style={{
                 position: "absolute",
                 top: 0,
-                left: "50%",
-                width: 4,
-                height: 4,
-                backgroundColor: "#fff",
-                borderRadius: "50%",
-                boxShadow: `0 0 10px 4px ${modeColor}`,
+                left: "40%",
+                width: 20,
+                height: 20,
+                background: `radial-gradient(circle, ${modeColor} 0%, transparent 70%)`,
+                filter: "blur(8px)",
                 zIndex: 10,
                 pointerEvents: "none"
               }}
@@ -204,15 +242,19 @@ export default function CSSBottleRenderer({
               left: 0,
               right: 0,
               bottom: 0,
-              background: "linear-gradient(to right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.15) 100%)",
-              border: `1.5px solid rgba(255,255,255,0.4)`,
+              background: "linear-gradient(to right, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 20%, rgba(0,0,0,0.2) 50%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0.25) 100%)",
+              border: `2px solid rgba(255,255,255,0.3)`,
+              borderLeft: `2.5px solid rgba(255,255,255,0.5)`,
+              borderRight: `2px solid rgba(255,255,255,0.4)`,
               borderRadius: "8px 8px 12px 12px",
               boxShadow: `
-                inset 0 0 15px rgba(255,255,255,0.3),
-                inset 0 -20px 30px rgba(0,0,0,0.15),
-                inset 0 10px 20px rgba(255,255,255,0.2)
+                inset 0 0 20px rgba(255,255,255,0.15),
+                inset 0 -20px 30px rgba(0,0,0,0.5),
+                inset 20px 0 20px rgba(0,0,0,0.35),
+                inset -20px 0 20px rgba(0,0,0,0.35),
+                0 4px 20px rgba(0,0,0,0.5)
               `,
-              backdropFilter: "blur(6px)",
+              backdropFilter: "blur(8px) brightness(0.85)",
               overflow: "hidden",
             }}
           >
@@ -221,38 +263,116 @@ export default function CSSBottleRenderer({
               
               {/* CATEGORY A: Firefly (Active) */}
               {mode === "firefly" && (
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${glowColor}, transparent 80%)` }}>
-                  {Array.from({ length: 3 }).map((_, i) => (
+                <div style={{ position: "absolute", inset: 0 }}>
+                  {Array.from({ length: 12 }).map((_, i) => {
+                    const size = 2 + Math.random() * 4;
+                    return (
+                      <motion.div
+                        key={i}
+                        animate={{
+                          y: [0, -40 - Math.random() * 100, 0],
+                          x: [0, (Math.random() - 0.5) * 60, 0],
+                          opacity: [0.3, 1, 0.3]
+                        }}
+                        transition={{
+                          duration: 4 + Math.random() * 6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: Math.random() * 5
+                        }}
+                        style={{
+                          position: "absolute",
+                          bottom: 10 + Math.random() * 40,
+                          left: 10 + Math.random() * 60,
+                          width: size,
+                          height: size,
+                          backgroundColor: "#fff",
+                          borderRadius: "50%",
+                          boxShadow: `0 0 15px 5px ${modeColor}`,
+                          filter: "blur(0.5px)"
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* CATEGORY B: Liquid Specimen */}
+              {mode === "liquid" && !isPlanned && (
+                <motion.div
+                  animate={{ 
+                    height: liquidHeight,
+                    rotateZ: isHovered ? [0, 2, -1, 0] : 0,
+                    scale: isHovered ? 1.02 : 1
+                  }}
+                  initial={{ height: 0 }}
+                  transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                  style={{
+                    position: "absolute",
+                    bottom: -5,
+                    left: -5,
+                    right: -5,
+                    background: `linear-gradient(to top, ${modeColor} 0%, rgba(20,20,20,0.5) 100%)`,
+                    borderTop: `3px solid rgba(255,255,255,0.5)`, // Meniscus
+                    boxShadow: `inset 0 10px 30px ${glowColor}, inset 0 -20px 20px rgba(0,0,0,0.8)`, // Internal depth
+                    transformOrigin: "bottom center"
+                  }}
+                >
+                  {/* Preserved Liquid Bubbles */}
+                  {Array.from({ length: 8 }).map((_, i) => (
                     <motion.div
-                      key={i}
+                      key={`bubble-${i}`}
+                      initial={{ y: "120%", x: 10 + Math.random() * 70, opacity: 0 }}
+                      animate={{ y: "-20%", opacity: [0, 0.8, 0] }}
+                      transition={{ duration: 8 + Math.random() * 10, repeat: Infinity, delay: Math.random() * 10, ease: "linear" }}
+                      style={{
+                        position: "absolute",
+                        bottom: 0,
+                        width: 2 + Math.random() * 3,
+                        height: 2 + Math.random() * 3,
+                        borderRadius: "50%",
+                        border: "1px solid rgba(255,255,255,0.7)",
+                        backgroundColor: "rgba(255,255,255,0.2)"
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              )}
+
+              {/* CATEGORY C: Smoke / Mist Specimen */}
+              {mode === "smoke" && (
+                <div style={{ position: "absolute", inset: 0, overflow: "hidden", mixBlendMode: "screen" }}>
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <motion.div
+                      key={`smoke-${i}`}
                       animate={{
-                        y: [0, -30 - Math.random() * 20, 0],
-                        x: [0, (Math.random() - 0.5) * 20, 0],
-                        opacity: [0.1, 0.8, 0.1]
+                        y: ["120%", "-40%"],
+                        x: [0, (i % 2 === 0 ? 15 : -15), 0],
+                        opacity: [0, 0.6, 0],
+                        scale: [1, 1.5, 2]
                       }}
                       transition={{
-                        duration: 5 + Math.random() * 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: Math.random() * 3
+                        y: { duration: 12 + i * 4, repeat: Infinity, ease: "linear", delay: i * 3 },
+                        x: { duration: 6 + i * 2, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 12 + i * 4, repeat: Infinity, ease: "linear", delay: i * 3 },
+                        scale: { duration: 12 + i * 4, repeat: Infinity, ease: "linear", delay: i * 3 }
                       }}
                       style={{
                         position: "absolute",
-                        bottom: 30 + Math.random() * 20,
-                        left: 30 + Math.random() * 30,
-                        width: 3,
-                        height: 3,
-                        backgroundColor: "#fff",
-                        borderRadius: "50%",
-                        boxShadow: `0 0 12px 3px ${modeColor}`
+                        left: -20 + i * 20,
+                        width: "120%",
+                        height: "80%",
+                        background: `radial-gradient(ellipse at center, ${modeColor} 0%, transparent 60%)`,
+                        filter: "blur(12px)",
+                        borderRadius: "50%"
                       }}
                     />
                   ))}
                 </div>
               )}
 
-              {/* CATEGORY B: Liquid Specimen */}
-              {mode === "liquid" && !isPlanned && (
+              {/* CATEGORY D: Potion (Active/Planned) */}
+              {mode === "potion" && (
                 <motion.div
                   animate={{ height: liquidHeight }}
                   initial={{ height: 0 }}
@@ -263,82 +383,49 @@ export default function CSSBottleRenderer({
                     left: 0,
                     right: 0,
                     background: `linear-gradient(to top, ${modeColor} 0%, transparent 100%)`,
-                    overflow: "hidden",
-                    borderTop: `2px solid rgba(255,255,255,0.4)`, // Meniscus
-                    boxShadow: `inset 0 10px 20px ${glowColor}` // Internal glow
+                    borderTop: `2px solid rgba(255,255,255,0.6)`,
+                    boxShadow: isHovered 
+                      ? `inset 0 0 40px ${glowColor}, 0 -10px 30px ${glowColor}` 
+                      : `inset 0 0 20px ${glowColor}`,
+                    transition: "box-shadow 0.4s ease"
                   }}
                 >
-                  {/* Potion Bubbles */}
-                  {Array.from({ length: 4 }).map((_, i) => (
+                  {/* Boiling Bubbles */}
+                  {Array.from({ length: isHovered ? 15 : 8 }).map((_, i) => (
                     <motion.div
-                      key={`bubble-${i}`}
-                      initial={{ y: "100%", x: Math.random() * 60, opacity: 0 }}
-                      animate={{ y: "-10%", opacity: [0, 0.6, 0] }}
-                      transition={{ duration: 3 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5, ease: "linear" }}
+                      key={`potion-bubble-${i}`}
+                      initial={{ y: "100%", x: Math.random() * 80, opacity: 0 }}
+                      animate={{ y: "-10%", opacity: [0, 1, 0] }}
+                      transition={{ duration: 1.5 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2, ease: "easeIn" }}
                       style={{
                         position: "absolute",
                         bottom: 0,
-                        width: 2 + Math.random() * 2,
-                        height: 2 + Math.random() * 2,
+                        width: 3 + Math.random() * 4,
+                        height: 3 + Math.random() * 4,
                         borderRadius: "50%",
-                        border: "1px solid rgba(255,255,255,0.6)",
+                        backgroundColor: "#fff",
+                        boxShadow: `0 0 8px 2px ${modeColor}`
+                      }}
+                    />
+                  ))}
+                  {/* Tiny Smoke Traces */}
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <motion.div
+                      key={`potion-smoke-${i}`}
+                      initial={{ y: "100%", x: Math.random() * 80, opacity: 0 }}
+                      animate={{ y: "-50%", opacity: [0, 0.4, 0], scale: [1, 1.5] }}
+                      transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2, ease: "easeOut" }}
+                      style={{
+                        position: "absolute",
+                        bottom: 0,
+                        width: 15,
+                        height: 25,
+                        background: `radial-gradient(ellipse, ${modeColor} 0%, transparent 60%)`,
+                        filter: "blur(4px)",
                       }}
                     />
                   ))}
                 </motion.div>
-              )}
-
-              {/* CATEGORY C: Smoke / Mist Specimen */}
-              {mode === "smoke" && (
-                <div style={{ position: "absolute", inset: 0, overflow: "hidden", mixBlendMode: "screen" }}>
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <motion.div
-                      key={`smoke-${i}`}
-                      animate={{
-                        y: ["100%", "-50%"],
-                        opacity: [0, 0.5, 0]
-                      }}
-                      transition={{
-                        duration: 8 + i * 4,
-                        repeat: Infinity,
-                        ease: "linear",
-                        delay: i * 3
-                      }}
-                      style={{
-                        position: "absolute",
-                        left: -10 + i * 15,
-                        width: "80%",
-                        height: "100%",
-                        background: `linear-gradient(to top, transparent, ${modeColor}, transparent)`,
-                        filter: "blur(8px)",
-                        borderRadius: "50%"
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-
-              {/* CATEGORY D: Energy Core (Classified) */}
-              {mode === "energy" && (
-                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <motion.div
-                    animate={{ scale: isHovered ? [1, 1.2, 1] : [1, 1.05, 1], opacity: isHovered ? [0.6, 1, 0.6] : [0.4, 0.6, 0.4] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: "50%",
-                      backgroundColor: "#fff",
-                      boxShadow: `0 0 40px 20px ${modeColor}`,
-                      filter: "blur(2px)"
-                    }}
-                  />
-                  {/* Faint Electrical Distortion */}
-                  <div style={{
-                    position: "absolute", inset: 0, mixBlendMode: "overlay", opacity: 0.3,
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`
-                  }} />
-                </div>
               )}
             </div>
 

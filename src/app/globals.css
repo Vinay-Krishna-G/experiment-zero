@@ -49,6 +49,12 @@
 
   /* Spacing */
   --nav-height: 64px;
+
+  /* Nav Theme */
+  --nav-bg-scrolled: rgba(247, 244, 239, 0.88);
+  --nav-border-scrolled: rgba(28, 25, 23, 0.1);
+  --nav-text: var(--pal-fg-primary);
+  --nav-accent: var(--pal-accent-primary);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -64,6 +70,12 @@
     --pal-accent-primary: #d4af37;
     --pal-accent-secondary: #b8860b;
     --pal-grid-color: rgba(212, 175, 55, 0.03);
+
+    /* Nav Theme for Obsidian Gold */
+    --nav-bg-scrolled: rgba(17, 17, 17, 0.88);
+    --nav-border-scrolled: rgba(200, 161, 91, 0.15);
+    --nav-text: #f4ead7;
+    --nav-accent: #c8a15b;
   }
 }
 

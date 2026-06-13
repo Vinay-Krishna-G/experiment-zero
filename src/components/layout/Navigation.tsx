@@ -110,8 +110,8 @@ export default function Navigation() {
           zIndex: 100,
           height: "var(--nav-height)",
           transition: "background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease",
-          backgroundColor: isScrolled ? "rgba(247, 244, 239, 0.88)" : "transparent",
-          borderBottom: isScrolled ? "1px solid var(--border-subtle)" : "1px solid transparent",
+          backgroundColor: isScrolled ? "var(--nav-bg-scrolled)" : "transparent",
+          borderBottom: isScrolled ? "1px solid var(--nav-border-scrolled)" : "1px solid transparent",
           backdropFilter: isScrolled ? "blur(14px) saturate(1.15)" : "none",
           WebkitBackdropFilter: isScrolled ? "blur(14px) saturate(1.15)" : "none",
         }}
@@ -128,7 +128,7 @@ export default function Navigation() {
               fontFamily: "var(--font-display)",
               fontSize: "1.05rem",
               fontWeight: 700,
-              color: "var(--fg-primary)",
+              color: "var(--nav-text)",
               textDecoration: "none",
               letterSpacing: "-0.02em",
               flexShrink: 0,
@@ -185,8 +185,8 @@ export default function Navigation() {
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "var(--bg-card)",
-                backgroundColor: "var(--fg-primary)",
+                color: "var(--nav-text)",
+                backgroundColor: "var(--nav-accent)",
                 padding: "0.4rem 0.8rem",
                 textDecoration: "none",
                 borderRadius: "2px",
@@ -198,7 +198,7 @@ export default function Navigation() {
                 (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--fg-primary)";
+                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--nav-accent)";
               }}
             >
               Resume
@@ -212,9 +212,9 @@ export default function Navigation() {
               <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
                 <span
                   aria-hidden="true"
-                  style={{ display: "inline-block", width: 5, height: 5, borderRadius: "50%", backgroundColor: "var(--accent-emerald)", animation: "pulse-dot 2.8s ease-in-out infinite", flexShrink: 0 }}
+                  style={{ display: "inline-block", width: 5, height: 5, borderRadius: "50%", backgroundColor: "var(--nav-accent)", animation: "pulse-dot 2.8s ease-in-out infinite", flexShrink: 0 }}
                 />
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", fontWeight: 500, letterSpacing: "0.18em", color: "var(--accent-emerald)", textTransform: "uppercase" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", fontWeight: 500, letterSpacing: "0.18em", color: "var(--nav-accent)", textTransform: "uppercase" }}>
                   Online
                 </span>
               </div>
@@ -263,6 +263,15 @@ export default function Navigation() {
           }
           @media (max-width: 767px) {
             .archive-index-trigger { display: flex !important; }
+          }
+          .ink-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--nav-accent);
           }
         `}</style>
       </motion.header>
@@ -334,7 +343,7 @@ export default function Navigation() {
                   left: 0,
                   bottom: 0,
                   width: 3,
-                  background: "linear-gradient(to bottom, var(--accent-copper), rgba(146,64,14,0.3))",
+                  background: "linear-gradient(to bottom, var(--nav-accent), rgba(146,64,14,0.3))",
                 }}
               />
 
