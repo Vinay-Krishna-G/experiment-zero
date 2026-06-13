@@ -5,6 +5,7 @@ import type { Blueprint } from "@/content";
 import BlueprintMap from "./BlueprintMap";
 import BlueprintStamp from "./BlueprintStamp";
 import ArchiveReference from "@/components/ui/ArchiveReference";
+import EquipmentTag from "@/components/ui/EquipmentTag";
 import { RESEARCH_LOGS } from "@/content";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -198,22 +199,7 @@ export default function BlueprintCard({ blueprint }: BlueprintCardProps) {
                 <SectionLabel>Technologies Utilized</SectionLabel>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                   {blueprint.technologies.map((tech) => (
-                    <div key={tech} style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.6rem",
-                      letterSpacing: "0.06em",
-                      color: "var(--fg-secondary)",
-                      backgroundColor: "rgba(28,20,8,0.03)",
-                      border: "1px solid var(--border-subtle)",
-                      padding: "0.3rem 0.65rem",
-                      borderRadius: "2px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.45rem",
-                    }}>
-                      <span style={{ width: 4, height: 4, borderRadius: "50%", backgroundColor: "var(--accent-emerald)", display: "inline-block", opacity: 0.65, flexShrink: 0 }} aria-hidden="true" />
-                      {tech}
-                    </div>
+                    <EquipmentTag key={tech} label={tech} />
                   ))}
                 </div>
               </motion.div>

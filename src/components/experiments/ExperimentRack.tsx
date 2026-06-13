@@ -93,7 +93,7 @@ export default function ExperimentRack() {
       <section
         id="experiments"
         aria-label="Experiments"
-        style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)", position: "relative" }}
+        style={{ paddingBlock: "clamp(3rem, 6vw, 5rem)", position: "relative" }}
       >
       <Suspense fallback={null}><URLSync onSync={setSelectedId} /></Suspense>
       <div className="container-lab">

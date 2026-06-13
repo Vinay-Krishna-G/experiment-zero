@@ -10,7 +10,7 @@ export default function FieldNotesSection() {
     <section
       id="field-notes"
       aria-label="Field Notes"
-      style={{ paddingBlock: "clamp(3rem, 6vw, 6rem)", position: "relative" }}
+      style={{ paddingBlock: "clamp(2rem, 4vw, 4rem)", position: "relative" }}
     >
       <div className="container-lab">
         <motion.div

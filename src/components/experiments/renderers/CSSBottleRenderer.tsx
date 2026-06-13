@@ -12,9 +12,6 @@ interface ExperimentBottleProps {
   onClick: () => void;
 }
 
-/**
- * CSS glass bottle — Phase 6 interface: same props, swap via BottleRenderer.tsx.
- */
 export default function ExperimentBottle({
   experiment,
   isSelected,
@@ -28,9 +25,32 @@ export default function ExperimentBottle({
     experiment.archived,
     "high"
   );
-  const colors = COLORS[profile.material.liquidColor].css;
+  
+  // Define modes based on user direction
+  let mode: "firefly" | "liquid" | "smoke" | "energy" = "liquid";
+  let modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire default
+  let glowColor = "rgba(59, 130, 246, 0.4)";
+  
+  if (experiment.id === "experiment-zero") {
+    mode = "energy";
+    modeColor = "rgba(245, 158, 11, 0.6)"; // Amber
+    glowColor = "rgba(245, 158, 11, 0.4)";
+  } else if (experiment.id === "promptvault" || experiment.primaryCategory?.toLowerCase().includes("ux")) {
+    mode = "firefly";
+    modeColor = "rgba(16, 185, 129, 0.6)"; // Emerald
+    glowColor = "rgba(16, 185, 129, 0.4)";
+  } else if (experiment.primaryCategory?.toLowerCase().includes("research") || experiment.status === "Planned") {
+    mode = "smoke";
+    modeColor = "rgba(139, 92, 246, 0.5)"; // Violet
+    glowColor = "rgba(139, 92, 246, 0.4)";
+  } else {
+    mode = "liquid";
+    modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire
+    glowColor = "rgba(59, 130, 246, 0.4)";
+  }
+
   const liquidHeight = `${Math.round(experiment.bottle.fillLevel * 78)}%`;
-  const isPlanned = experiment.status === "Planned" || profile.material.liquidOpacity === 0;
+  const isPlanned = experiment.status === "Planned";
 
   return (
     <div
@@ -49,8 +69,8 @@ export default function ExperimentBottle({
             aria-hidden="true"
             style={{
               position: "absolute",
-              left: "calc(100% + 0.75rem)",
-              top: "20%",
+              left: "calc(100% + 1rem)",
+              top: "10%",
               zIndex: 10,
               backgroundColor: "var(--bg-card)",
               border: "1px solid var(--border-medium)",
@@ -65,30 +85,29 @@ export default function ExperimentBottle({
             <div
               style={{
                 height: 1,
-                backgroundColor: colors.base,
+                backgroundColor: glowColor,
                 marginBottom: "0.5rem",
-                opacity: 0.6,
+                opacity: 0.8,
               }}
             />
             {[
               { k: "Specimen", v: `#${experiment.id}` },
               { k: "Status", v: experiment.status },
-              { k: "Recovered", v: experiment.year },
               { k: "Category", v: experiment.primaryCategory },
             ].map(({ k, v }) => (
               <div
                 key={k}
                 style={{
                   display: "flex",
-                  gap: "0.6rem",
+                  gap: "0.8rem",
                   alignItems: "baseline",
-                  marginBottom: "0.2rem",
+                  marginBottom: "0.3rem",
                 }}
               >
                 <span
                   style={{
                     fontFamily: "var(--font-mono)",
-                    fontSize: "0.48rem",
+                    fontSize: "0.55rem",
                     letterSpacing: "0.2em",
                     textTransform: "uppercase",
                     color: "var(--fg-subtle)",
@@ -100,10 +119,10 @@ export default function ExperimentBottle({
                 <span
                   style={{
                     fontFamily: "var(--font-mono)",
-                    fontSize: "0.52rem",
+                    fontSize: "0.6rem",
                     letterSpacing: "0.1em",
                     color: "var(--fg-secondary)",
-                    fontWeight: 500,
+                    fontWeight: 600,
                   }}
                 >
                   {v}
@@ -133,38 +152,56 @@ export default function ExperimentBottle({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "0.75rem",
+          gap: "1rem",
         }}
       >
+        {/* Environment Illumination (Glow hits shelf on hover) */}
+        <motion.div
+          animate={{ opacity: isHovered || isSelected ? 1 : 0.2, scale: isHovered ? 1.1 : 1 }}
+          transition={{ duration: 0.4 }}
+          style={{
+            position: "absolute",
+            bottom: -10,
+            width: 100,
+            height: 20,
+            borderRadius: "50%",
+            background: `radial-gradient(ellipse at center, ${glowColor} 0%, transparent 70%)`,
+            filter: "blur(8px)",
+            zIndex: 0,
+            pointerEvents: "none"
+          }}
+        />
+
         {/* Bottle silhouette */}
         <div
           style={{
             position: "relative",
-            width: 72,
+            width: 76,
             height: 160,
             filter: isSelected
-              ? `drop-shadow(0 0 14px ${colors.glow}) drop-shadow(0 8px 24px rgba(28,25,23,0.22))`
+              ? `drop-shadow(0 0 20px ${glowColor}) drop-shadow(0 12px 30px rgba(28,25,23,0.3))`
               : isHovered
-              ? `drop-shadow(0 6px 18px rgba(28,25,23,0.18))`
-              : `drop-shadow(0 4px 12px rgba(28,25,23,0.1))`,
-            transition: "filter 0.3s ease",
+              ? `drop-shadow(0 0 12px ${glowColor}) drop-shadow(0 8px 24px rgba(28,25,23,0.2))`
+              : `drop-shadow(0 4px 16px rgba(28,25,23,0.15))`,
+            transition: "filter 0.4s ease",
+            zIndex: 1,
           }}
         >
-          {/* Cork — rotates on hover via JS animation */}
+          {/* Cork */}
           <motion.div
             aria-hidden="true"
-            animate={{ rotate: isHovered ? 5 : 0 }}
+            animate={{ rotate: isHovered ? 4 : 0, y: isHovered ? -2 : 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: "absolute",
               top: 0,
               left: "50%",
               x: "-50%",
-              width: 18,
-              height: 14,
-              background: "linear-gradient(to bottom, #A07820 0%, #6B4F0C 100%)",
-              borderRadius: "3px 3px 1px 1px",
-              boxShadow: "inset 0 1px 2px rgba(255,255,255,0.15), 0 2px 4px rgba(0,0,0,0.2)",
+              width: 22,
+              height: 16,
+              background: "linear-gradient(to bottom, #8f6e2b 0%, #594418 100%)",
+              borderRadius: "4px 4px 1px 1px",
+              boxShadow: "inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 6px rgba(0,0,0,0.4)",
               zIndex: 3,
               originX: "50%",
               originY: "100%",
@@ -176,154 +213,209 @@ export default function ExperimentBottle({
             aria-hidden="true"
             style={{
               position: "absolute",
-              top: 12,
+              top: 14,
               left: "50%",
               transform: "translateX(-50%)",
-              width: 20,
+              width: 24,
               height: 28,
-              background:
-                "linear-gradient(to right, rgba(247,244,239,0.6) 0%, rgba(247,244,239,0.35) 40%, rgba(247,244,239,0.5) 100%)",
-              border: "1px solid rgba(28,25,23,0.15)",
+              background: "linear-gradient(to right, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.3) 100%)",
+              border: "1px solid rgba(255,255,255,0.4)",
               borderBottom: "none",
               borderRadius: "3px 3px 0 0",
+              boxShadow: "inset 0 0 8px rgba(255,255,255,0.2)",
+              backdropFilter: "blur(2px)",
               zIndex: 2,
               overflow: "hidden",
             }}
           >
-            <div
+             <div
               style={{
                 position: "absolute",
                 top: 0,
-                left: "15%",
-                width: "25%",
+                left: "20%",
+                width: "20%",
                 height: "100%",
-                background: "linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)",
+                background: "linear-gradient(to bottom, rgba(255,255,255,0.8), transparent)",
                 borderRadius: "2px",
               }}
             />
           </div>
 
-          {/* Body */}
+          {/* Thick Glass Body */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
-              top: 36,
+              top: 38,
               left: 0,
               right: 0,
               bottom: 0,
-              background:
-                "linear-gradient(to right, rgba(247,244,239,0.5) 0%, rgba(247,244,239,0.25) 50%, rgba(247,244,239,0.45) 100%)",
-              border: `1px solid ${
-                isSelected ? "rgba(28,25,23,0.28)" : "rgba(28,25,23,0.14)"
-              }`,
-              borderRadius: "6px 6px 8px 8px",
+              background: "linear-gradient(to right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.15) 100%)",
+              border: `1.5px solid rgba(255,255,255,0.4)`,
+              borderRadius: "8px 8px 12px 12px",
+              boxShadow: `
+                inset 0 0 15px rgba(255,255,255,0.3),
+                inset 0 -20px 30px rgba(0,0,0,0.15),
+                inset 0 10px 20px rgba(255,255,255,0.2)
+              `,
+              backdropFilter: "blur(6px)",
               overflow: "hidden",
-              transition: "border-color 0.3s ease",
             }}
           >
-            {/* Liquid fill */}
-            {!isPlanned && (
-              <motion.div
-                animate={{ height: liquidHeight }}
-                initial={{ height: 0 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: `linear-gradient(to top, ${colors.base} 0%, ${colors.highlight} 100%)`,
-                }}
-              >
-                <div
+            {/* SPECIMEN RENDERERS */}
+            <div style={{ position: "absolute", inset: 4, borderRadius: "4px 4px 8px 8px", overflow: "hidden" }}>
+              
+              {/* CATEGORY A: Firefly (PromptVault) */}
+              {mode === "firefly" && (
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${glowColor}, transparent 60%)` }}>
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{
+                        y: [0, -40 - Math.random() * 40, 0],
+                        x: [0, (Math.random() - 0.5) * 30, 0],
+                        opacity: [0.2, 1, 0.2]
+                      }}
+                      transition={{
+                        duration: 3 + Math.random() * 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: Math.random() * 2
+                      }}
+                      style={{
+                        position: "absolute",
+                        bottom: 20 + Math.random() * 20,
+                        left: 20 + Math.random() * 30,
+                        width: 4,
+                        height: 4,
+                        backgroundColor: "#fff",
+                        borderRadius: "50%",
+                        boxShadow: `0 0 8px 3px ${modeColor}`
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* CATEGORY B: Liquid Specimen */}
+              {mode === "liquid" && !isPlanned && (
+                <motion.div
+                  animate={{ height: liquidHeight }}
+                  initial={{ height: 0 }}
+                  transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
                   style={{
                     position: "absolute",
-                    top: 0,
+                    bottom: 0,
                     left: 0,
                     right: 0,
-                    height: 4,
-                    background: `linear-gradient(to right, transparent, ${colors.highlight}, transparent)`,
-                    opacity: 0.7,
-                    animation: "liquid-shimmer 3s ease-in-out infinite",
+                    background: `linear-gradient(to top, ${modeColor} 0%, transparent 100%)`,
+                    filter: "blur(2px)",
+                  }}
+                >
+                  <motion.div
+                    animate={{ opacity: isHovered ? 1 : 0.6 }}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: -20,
+                      right: -20,
+                      height: 8,
+                      background: `linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent)`,
+                      animation: "liquid-shimmer 4s ease-in-out infinite",
+                    }}
+                  />
+                </motion.div>
+              )}
+
+              {/* CATEGORY C: Smoke / Mist Specimen */}
+              {mode === "smoke" && (
+                <motion.div
+                  animate={{ rotate: 360, scale: [1, 1.2, 1], opacity: isHovered ? 0.8 : 0.5 }}
+                  transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, scale: { duration: 8, repeat: Infinity, ease: "easeInOut" } }}
+                  style={{
+                    position: "absolute",
+                    bottom: -20,
+                    left: -20,
+                    right: -20,
+                    height: "120%",
+                    background: `radial-gradient(circle at center, ${modeColor} 0%, transparent 60%)`,
+                    filter: "blur(12px)",
+                    transformOrigin: "center center",
                   }}
                 />
-              </motion.div>
-            )}
+              )}
 
-            {/* Left glass highlight */}
+              {/* CATEGORY D: Energy Core */}
+              {mode === "energy" && (
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <motion.div
+                    animate={{ scale: [1, 1.15, 1], opacity: isHovered ? [0.8, 1, 0.8] : [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: "50%",
+                      backgroundColor: "#fff",
+                      boxShadow: `0 0 20px 10px ${modeColor}, inset 0 0 10px #fff`,
+                      filter: "blur(2px)"
+                    }}
+                  />
+                  {/* Energy rings */}
+                  <motion.div
+                    animate={{ rotate: 360, scale: isHovered ? [1, 1.2, 1] : 1 }}
+                    transition={{ rotate: { duration: 4, repeat: Infinity, ease: "linear" } }}
+                    style={{
+                      position: "absolute",
+                      width: 40,
+                      height: 40,
+                      borderRadius: "50%",
+                      border: `2px dashed ${modeColor}`,
+                      opacity: 0.6
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Left thick glass highlight overlay */}
             <div
               style={{
                 position: "absolute",
-                top: "8%",
-                left: "10%",
-                width: "14%",
-                height: "72%",
-                background:
-                  "linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0.1))",
+                top: "5%",
+                left: "8%",
+                width: "15%",
+                height: "90%",
+                background: "linear-gradient(to right, rgba(255,255,255,0.8), transparent)",
                 borderRadius: "4px",
                 pointerEvents: "none",
+                filter: "blur(1px)"
               }}
             />
 
-            {/* Right shadow */}
+            {/* Inner bottle shadow for depth */}
             <div
               style={{
                 position: "absolute",
-                top: 0,
-                right: 0,
-                width: "18%",
-                height: "100%",
-                background: "linear-gradient(to right, transparent, rgba(28,25,23,0.06))",
+                inset: 0,
+                boxShadow: "inset -10px 0 20px rgba(0,0,0,0.2)",
                 pointerEvents: "none",
+                borderRadius: "inherit"
               }}
             />
-
-            {/* Fill tick */}
-            {!isPlanned && (
-              <div
-                aria-hidden="true"
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  bottom: liquidHeight,
-                  width: 5,
-                  height: 1,
-                  backgroundColor: "rgba(28,25,23,0.25)",
-                }}
-              />
-            )}
           </div>
 
-          {/* Selected ring */}
-          <AnimatePresence>
-            {isSelected && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                style={{
-                  position: "absolute",
-                  inset: -5,
-                  borderRadius: "10px 10px 12px 12px",
-                  border: `1.5px solid ${colors.base}`,
-                  pointerEvents: "none",
-                }}
-              />
-            )}
-          </AnimatePresence>
         </div>
 
         {/* Label beneath bottle */}
-        <div style={{ textAlign: "center", maxWidth: 90 }}>
+        <div style={{ textAlign: "center", maxWidth: 100 }}>
           <div
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.5rem",
+              fontSize: "0.55rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               color: "var(--fg-subtle)",
-              marginBottom: "0.2rem",
+              marginBottom: "0.3rem",
             }}
           >
             #{experiment.id}
@@ -331,8 +423,8 @@ export default function ExperimentBottle({
           <div
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "0.76rem",
-              fontWeight: 700,
+              fontSize: "0.9rem",
+              fontWeight: 800,
               color: isSelected ? "var(--fg-primary)" : "var(--fg-secondary)",
               letterSpacing: "-0.01em",
               lineHeight: 1.2,
@@ -341,31 +433,13 @@ export default function ExperimentBottle({
           >
             {experiment.title}
           </div>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.46rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color:
-                experiment.status === "Completed"
-                  ? "var(--accent-emerald)"
-                  : experiment.status === "In Progress"
-                  ? "var(--accent-copper)"
-                  : "var(--fg-subtle)",
-              marginTop: "0.25rem",
-              opacity: 0.85,
-            }}
-          >
-            {experiment.status}
-          </div>
         </div>
       </motion.button>
 
       <style>{`
         @keyframes liquid-shimmer {
-          0%, 100% { opacity: 0.6; transform: scaleX(0.8); }
-          50%       { opacity: 1;   transform: scaleX(1.05); }
+          0%, 100% { opacity: 0.4; transform: translateX(-10px); }
+          50%       { opacity: 1;   transform: translateX(10px); }
         }
       `}</style>
     </div>

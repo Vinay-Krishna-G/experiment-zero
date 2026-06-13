@@ -3,16 +3,16 @@
 /* ─── Design Tokens ─────────────────────────────────────────────────── */
 :root {
   /* Backgrounds — warm paper / stone */
-  --bg-primary:     #f7f4ef;   /* aged paper warm off-white */
-  --bg-secondary:   #f0ebe2;   /* slightly deeper parchment */
-  --bg-card:        #faf8f4;   /* notebook page */
-  --bg-card-hover:  #f5f1ea;
+  --bg-primary:     #eadecc;   /* aged paper warm darker off-white */
+  --bg-secondary:   #e0d4c1;   /* slightly deeper parchment */
+  --bg-card:        #ece0ce;   /* notebook page */
+  --bg-card-hover:  #e2d5c1;
 
   /* Foreground — charcoal / iron */
   --fg-primary:     #1c1917;   /* iron black */
-  --fg-secondary:   #44403c;   /* charcoal */
-  --fg-muted:       #78716c;   /* stone */
-  --fg-subtle:      #a8a29e;   /* very muted */
+  --fg-secondary:   #292524;   /* charcoal darker */
+  --fg-muted:       #57534e;   /* stone darker */
+  --fg-subtle:      #78716c;   /* very muted but readable */
 
   /* Accent — muted emerald */
   --accent-emerald:        #2d6a4f;
@@ -71,13 +71,13 @@ body {
   /* Paper texture — subtle noise via layered gradients */
   background-image:
     /* Tiny dot grid — blueprint paper feel */
-    radial-gradient(circle, rgba(28, 25, 23, 0.08) 0.5px, transparent 0.5px),
+    radial-gradient(circle, rgba(28, 25, 23, 0.12) 0.5px, transparent 0.5px),
     /* Warm parchment gradient */
     linear-gradient(
       160deg,
-      #f7f4ef 0%,
-      #f2ede4 50%,
-      #f7f4ef 100%
+      var(--bg-primary) 0%,
+      var(--bg-secondary) 50%,
+      var(--bg-primary) 100%
     );
   background-size: 24px 24px, 100% 100%;
   background-attachment: fixed;

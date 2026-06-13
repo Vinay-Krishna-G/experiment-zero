@@ -61,7 +61,7 @@ export default function LabStatusPanel() {
     <section
       id="laboratory-status"
       aria-label="Laboratory Status"
-      style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)", position: "relative" }}
+      style={{ paddingBlock: "clamp(3rem, 6vw, 5rem)", position: "relative" }}
     >
       <div className="container-lab">
         <SectionHeader
