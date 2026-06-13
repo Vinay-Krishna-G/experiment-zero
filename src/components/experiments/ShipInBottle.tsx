@@ -149,10 +149,11 @@ export default function ShipInBottle() {
                     
                     <path d="M 150 30 Q 180 50 225 70 L 150 80 Z" fill="#ffffff" opacity="0.9" />
 
+                    {/* Hull */}
                     <path d="M 15 120 L 180 120 Q 200 120 205 95 L 5 95 Q 10 120 15 120 Z" fill="url(#hullGradient)" />
+                    {/* Bowsprit */}
                     <line x1="200" y1="98" x2="225" y2="70" stroke="#2a180b" strokeWidth="3" />
                   </svg>
-                  */}
                 </div>
 
                 {/* Multi-layer Animated Water */}

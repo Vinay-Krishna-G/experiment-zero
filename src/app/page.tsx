@@ -22,8 +22,9 @@ export default function HomePage() {
         {/* 01 — Experiments */}
         <ExperimentRack />
 
-        {/* Ship in a Bottle */}
+        {/* Ship in a Bottle 
         <ShipInBottle />
+        */}
 
         {/* 02 — Blueprint Archive */}
         <BlueprintArchive />
