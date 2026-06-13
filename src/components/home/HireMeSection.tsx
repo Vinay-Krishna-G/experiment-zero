@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionHeader from "@/components/ui/SectionHeader";
+import { PROFILE } from "@/content";
 
 export default function HireMeSection() {
   return (
@@ -50,10 +51,10 @@ export default function HireMeSection() {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem", fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--fg-secondary)" }}>
                 {[
-                  { label: "Location", value: "India" },
-                  { label: "Remote", value: "Yes" },
-                  { label: "Freelance", value: "Open" },
-                  { label: "Full Time", value: "Open" }
+                  { label: "Location", value: PROFILE.location },
+                  { label: "Remote", value: PROFILE.availability.remote ? "Yes" : "No" },
+                  { label: "Freelance", value: PROFILE.availability.freelance ? "Open" : "Closed" },
+                  { label: "Full Time", value: PROFILE.availability.fullTime ? "Open" : "Closed" }
                 ].map(item => (
                   <div key={item.label} style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px dashed var(--border-subtle)", paddingBottom: "0.5rem" }}>
                     <span>{item.label}</span>
@@ -89,7 +90,7 @@ export default function HireMeSection() {
               [Schedule a Conversation]
             </a>
             <a 
-              href="mailto:contact@example.com" 
+              href={`mailto:${PROFILE.email}`} 
               style={{
                 display: "inline-block",
                 padding: "1rem 2rem",

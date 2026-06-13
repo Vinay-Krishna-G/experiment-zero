@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { SITE_SETTINGS } from "@/content";
 
 // Each log line appears in sequence
 const LOG_LINES = [
-  { id: "lab", text: "VINAY KRISHNA LABORATORY", delay: 0.1, isHeader: true },
+  { id: "lab", text: `${SITE_SETTINGS.siteName.toUpperCase()} LABORATORY`, delay: 0.1, isHeader: true },
   { id: "divider", text: null, delay: 0.5, isDivider: true },
   { id: "log", text: "EXPLORER ENTRY LOGGED", delay: 0.75, isAccent: true },
   { id: "date", text: "__DATE__", delay: 1.1 },

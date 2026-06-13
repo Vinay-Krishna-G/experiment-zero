@@ -1,6 +1,7 @@
 import { type Experiment, type Blueprint, type ResearchLog } from '@/content';
+import { PROFILE, SITE_SETTINGS } from "@/content";
 
-const SITE_URL = 'https://vinaykrishna.dev';
+const SITE_URL = SITE_SETTINGS.siteUrl;
 
 export function buildCreativeWorkSchema(experiment: Experiment) {
   const url = `${SITE_URL}/experiments/${experiment.slug}`;
@@ -14,7 +15,7 @@ export function buildCreativeWorkSchema(experiment: Experiment) {
     "url": url,
     "author": {
       "@type": "Person",
-      "name": "Vinay Krishna",
+      "name": PROFILE.name,
       "url": SITE_URL
     },
     "dateCreated": experiment.year,
@@ -33,7 +34,7 @@ export function buildBlueprintSchema(blueprint: Blueprint) {
     "url": url,
     "author": {
       "@type": "Person",
-      "name": "Vinay Krishna",
+      "name": PROFILE.name,
       "url": SITE_URL
     },
     "keywords": blueprint.technologies.join(', ')
@@ -52,7 +53,7 @@ export function buildResearchSchema(log: ResearchLog) {
     "url": url,
     "author": {
       "@type": "Person",
-      "name": "Vinay Krishna",
+      "name": PROFILE.name,
       "url": SITE_URL
     },
     "datePublished": log.publishedAt,

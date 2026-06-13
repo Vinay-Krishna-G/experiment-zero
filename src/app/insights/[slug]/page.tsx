@@ -4,6 +4,7 @@ import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import { getKnowledgeArtifacts, getInsightArticleData } from "@/insights/resolvers/artifacts";
 import { InsightArticle } from "@/components/insights";
+import { PROFILE, SITE_SETTINGS } from "@/content";
 
 interface InsightPageProps {
   params: Promise<{ slug: string }>;
@@ -51,19 +52,19 @@ export default async function InsightDetailPage({ params }: InsightPageProps) {
         "@type": "ListItem",
         "position": 1,
         "name": "Laboratory",
-        "item": "https://experiment-zero.vercel.app",
+        "item": SITE_SETTINGS.siteUrl,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Insights",
-        "item": "https://experiment-zero.vercel.app/insights",
+        "item": `${SITE_SETTINGS.siteUrl}/insights`,
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": artifact.title,
-        "item": `https://experiment-zero.vercel.app/insights/${artifact.slug}`,
+        "item": `${SITE_SETTINGS.siteUrl}/insights/${artifact.slug}`,
       },
     ],
   };
@@ -80,16 +81,16 @@ export default async function InsightDetailPage({ params }: InsightPageProps) {
     })),
     "author": {
       "@type": "Person",
-      "name": "Vinay Krishna",
-      "url": "https://vinaykrishna.dev",
+      "name": PROFILE.name,
+      "url": SITE_SETTINGS.siteUrl,
     },
     "publisher": {
       "@type": "Person",
-      "name": "Vinay Krishna",
+      "name": PROFILE.name,
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://experiment-zero.vercel.app/insights/${artifact.slug}`,
+      "@id": `${SITE_SETTINGS.siteUrl}/insights/${artifact.slug}`,
     },
   };
 

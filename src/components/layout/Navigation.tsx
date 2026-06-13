@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { getLabStatus } from "@/content/status";
+import { PROFILE, SITE_SETTINGS } from "@/content";
 
 const ARCHIVE_INDEX = [
   { number: "00", label: "Home", href: "#hero" },
@@ -122,7 +124,7 @@ export default function Navigation() {
           <Link
             href="#hero"
             onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}
-            aria-label="Vinay Krishna Laboratory — home"
+            aria-label={`${PROFILE.name} Laboratory — home`}
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "1.05rem",
@@ -173,35 +175,37 @@ export default function Navigation() {
           {/* Right side: Lab status (desktop) + Archive Index trigger (mobile) */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
             {/* Resume CTA (desktop) */}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:inline-flex"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.6rem",
-                fontWeight: 500,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--nav-text)",
-                backgroundColor: "var(--nav-accent)",
-                padding: "0.4rem 0.8rem",
-                textDecoration: "none",
-                borderRadius: "2px",
-                transition: "background-color 0.2s ease",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--nav-accent)";
-              }}
-            >
-              Resume
-            </a>
+            {PROFILE.resumeUrl && (
+              <a
+                href={PROFILE.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:inline-flex"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.6rem",
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--nav-text)",
+                  backgroundColor: "var(--nav-accent)",
+                  padding: "0.4rem 0.8rem",
+                  textDecoration: "none",
+                  borderRadius: "2px",
+                  transition: "background-color 0.2s ease",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "var(--nav-accent)";
+                }}
+              >
+                Resume
+              </a>
+            )}
 
             {/* Lab status indicator */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1px" }}>

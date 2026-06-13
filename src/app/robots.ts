@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { SITE_SETTINGS } from '@/content';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://vinaykrishna.dev/sitemap.xml',
+    sitemap: `${SITE_SETTINGS.siteUrl}/sitemap.xml`,
   };
 }

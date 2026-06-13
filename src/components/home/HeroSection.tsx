@@ -4,9 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import TitleCycler from "./TitleCycler";
 import LabCoordinates from "./LabCoordinates";
-import { EXPERIMENTS } from "@/content";
-import { BLUEPRINTS } from "@/content";
-import { RESEARCH_LOGS } from "@/content";
+import { EXPERIMENTS, BLUEPRINTS, RESEARCH_LOGS, PROFILE, SOCIALS } from "@/content";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -182,7 +180,7 @@ export default function HeroSection() {
                   marginBottom: "0.15em",
                 }}
               >
-                VINAY
+                {PROFILE.firstName}
               </motion.span>
 
               {/* Changing title row */}
@@ -217,7 +215,7 @@ export default function HeroSection() {
                   marginTop: "0.1em",
                 }}
               >
-                KRISHNA
+                {PROFILE.lastName}
               </motion.span>
             </h1>
 
@@ -264,13 +262,8 @@ export default function HeroSection() {
                     lineHeight: 1.65,
                     letterSpacing: "0.01em",
                   }}
-                >
-                  Full Stack Engineer focused on AI tooling,
-                  <br />
-                  developer platforms, and highly scalable
-                  <br />
-                  knowledge systems.
-                </p>
+                  dangerouslySetInnerHTML={{ __html: PROFILE.title.replace(/,\s*/g, ",<br />") }}
+                />
               </div>
             </motion.div>
 
@@ -335,71 +328,77 @@ export default function HeroSection() {
               >
                 View Projects
               </a>
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                id="hero-resume"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.72rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--fg-secondary)",
-                  border: "1px solid var(--border-medium)",
-                  padding: "0.7rem 1.6rem",
-                  textDecoration: "none",
-                  borderRadius: "2px",
-                  transition: "border-color 0.2s ease, color 0.2s ease",
-                  display: "inline-block",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "var(--accent-emerald)";
-                  el.style.color = "var(--accent-emerald)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "var(--border-medium)";
-                  el.style.color = "var(--fg-secondary)";
-                }}
-              >
-                Download Resume
-              </a>
+              {PROFILE.resumeUrl && (
+                <a
+                  href={PROFILE.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  id="hero-resume"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.72rem",
+                    fontWeight: 500,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "var(--fg-secondary)",
+                    border: "1px solid var(--border-medium)",
+                    padding: "0.7rem 1.6rem",
+                    textDecoration: "none",
+                    borderRadius: "2px",
+                    transition: "border-color 0.2s ease, color 0.2s ease",
+                    display: "inline-block",
+                  }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "var(--accent-emerald)";
+                    el.style.color = "var(--accent-emerald)";
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = "var(--border-medium)";
+                    el.style.color = "var(--fg-secondary)";
+                  }}
+                >
+                  Download Resume
+                </a>
+              )}
               <div style={{ display: "flex", gap: "0.75rem", marginLeft: "0.5rem" }}>
-                <a
-                  href="https://github.com/vinaykrishna"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub Profile"
-                  style={{
-                    color: "var(--fg-muted)",
-                    transition: "color 0.2s ease",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a
-                  href="https://linkedin.com/in/vinaykrishna"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn Profile"
-                  style={{
-                    color: "var(--fg-muted)",
-                    transition: "color 0.2s ease",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
+                {SOCIALS.github && (
+                  <a
+                    href={SOCIALS.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub Profile"
+                    style={{
+                      color: "var(--fg-muted)",
+                      transition: "color 0.2s ease",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  </a>
+                )}
+                {SOCIALS.linkedin && (
+                  <a
+                    href={SOCIALS.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn Profile"
+                    style={{
+                      color: "var(--fg-muted)",
+                      transition: "color 0.2s ease",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  </a>
+                )}
               </div>
             </motion.div>
           </motion.div>

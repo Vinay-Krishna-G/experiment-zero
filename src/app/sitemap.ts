@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next';
-import { EXPERIMENTS, BLUEPRINTS, RESEARCH_LOGS } from '@/content';
+import { EXPERIMENTS, BLUEPRINTS, RESEARCH_LOGS, SITE_SETTINGS } from '@/content';
 import { getKnowledgeArtifacts } from '@/insights/resolvers/artifacts';
 import { getKnowledgeClusters } from '@/insights/resolvers/clusters';
 
-const SITE_URL = 'https://vinaykrishna.dev';
+const SITE_URL = SITE_SETTINGS.siteUrl;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseRoutes: MetadataRoute.Sitemap = [

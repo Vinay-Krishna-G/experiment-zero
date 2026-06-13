@@ -2,13 +2,16 @@
 
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { PROFILE, SOCIALS } from "@/content";
 
-const CONTACT_RECORDS = [
-  { label: "EMAIL", value: "vinay@example.com", href: "mailto:vinay@example.com" },
-  { label: "GITHUB", value: "github.com/username", href: "https://github.com/username" },
-  { label: "LINKEDIN", value: "linkedin.com/in/username", href: "https://linkedin.com/in/username" },
-  { label: "LOCATION", value: "Vijayawada, India" },
-];
+const getContactRecords = () => {
+  const records = [];
+  if (SOCIALS.email) records.push({ label: "EMAIL", value: SOCIALS.email, href: `mailto:${SOCIALS.email}` });
+  if (SOCIALS.github) records.push({ label: "GITHUB", value: SOCIALS.github.replace('https://', ''), href: SOCIALS.github });
+  if (SOCIALS.linkedin) records.push({ label: "LINKEDIN", value: SOCIALS.linkedin.replace('https://', ''), href: SOCIALS.linkedin });
+  if (PROFILE.location) records.push({ label: "LOCATION", value: PROFILE.location });
+  return records;
+};
 
 export default function ContactSection() {
   return (
@@ -61,7 +64,7 @@ export default function ContactSection() {
 
             {/* Right Column */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              {CONTACT_RECORDS.map((record) => (
+              {getContactRecords().map((record) => (
                 <div
                   key={record.label}
                   style={{

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
+import { PROFILE, SITE_SETTINGS, SOCIALS } from "@/content";
 import "./globals.css";
 
 
@@ -25,28 +26,28 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vinaykrishna.dev"),
-  title: "Experiment Zero — Vinay Krishna",
+  metadataBase: new URL(SITE_SETTINGS.siteUrl),
+  title: `${SITE_SETTINGS.siteName} — ${PROFILE.name}`,
   description: "Software experiments, AI systems, architecture research, and engineering documentation.",
-  keywords: ["Vinay Krishna", "Web Developer", "UI/UX Designer", "Portfolio", "Laboratory"],
-  authors: [{ name: "Vinay Krishna" }],
+  keywords: [PROFILE.name, "Web Developer", "UI/UX Designer", "Portfolio", "Laboratory"],
+  authors: [{ name: PROFILE.name }],
   openGraph: {
-    title: "Experiment Zero — Vinay Krishna",
+    title: `${SITE_SETTINGS.siteName} — ${PROFILE.name}`,
     description: "Software experiments, AI systems, architecture research, and engineering documentation.",
-    siteName: "Experiment Zero",
+    siteName: SITE_SETTINGS.siteName,
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Experiment Zero",
+        alt: SITE_SETTINGS.siteName,
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Experiment Zero — Vinay Krishna",
+    title: `${SITE_SETTINGS.siteName} — ${PROFILE.name}`,
     description: "Software experiments, AI systems, architecture research, and engineering documentation.",
     images: ["/og-image.jpg"],
   },
@@ -64,25 +65,26 @@ export default function RootLayout({
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      "name": "Vinay Krishna",
-      "url": "https://vinaykrishna.dev",
+      "name": PROFILE.name,
+      "url": SITE_SETTINGS.siteUrl,
       "jobTitle": "Software Engineer",
       "sameAs": [
-        "https://github.com/vinaykrishna"
-      ]
+        SOCIALS.github,
+        SOCIALS.linkedin,
+      ].filter(Boolean)
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Experiment Zero",
-      "url": "https://vinaykrishna.dev"
+      "name": SITE_SETTINGS.siteName,
+      "url": SITE_SETTINGS.siteUrl
     },
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "Experiment Archive",
       "description": "A curated library of software experiments, architectural blueprints, and research logs.",
-      "url": "https://vinaykrishna.dev"
+      "url": SITE_SETTINGS.siteUrl
     }
   ];
 

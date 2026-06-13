@@ -1,4 +1,5 @@
-const SITE_URL = 'https://vinaykrishna.dev';
+import { SITE_SETTINGS } from "@/content";
+const SITE_URL = SITE_SETTINGS.siteUrl;
 
 export function buildBreadcrumbSchema(items: { name: string; item?: string }[]) {
   return {
