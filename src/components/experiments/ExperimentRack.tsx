@@ -5,7 +5,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/ui/SectionHeader";
 import LaboratoryShelf from "./LaboratoryShelf";
-import BottleRenderer from "./BottleRenderer";
+import SpecimenCard from "./SpecimenCard";
 import ExperimentModal from "./ExperimentModal";
 import {
   EXPERIMENTS,
@@ -44,6 +44,65 @@ const LEGACY_ID_MAP: Record<string, string> = {
   "003": "experiment-zero",
   "004": "future-experiment",
 };
+
+const REFERENCE_SPECIMENS: Experiment[] = [
+  {
+    id: "ref-1",
+    title: "Active Core",
+    tagline: "Firefly Emission Test",
+    status: "In Progress",
+    primaryCategory: "Developer Tool",
+    stack: [],
+    archived: false,
+    bottle: { size: "medium", glass: "clear", glow: "green", label: "EX-01", fillLevel: 0.8 },
+    github: "",
+    live: "",
+    year: "2026",
+    priority: 1
+  },
+  {
+    id: "ref-2",
+    title: "Refined Solution",
+    tagline: "Sapphire Liquid State",
+    status: "Completed",
+    primaryCategory: "Architecture",
+    stack: [],
+    archived: false,
+    bottle: { size: "medium", glass: "clear", glow: "blue", label: "EX-02", fillLevel: 0.6 },
+    github: "",
+    live: "",
+    year: "2026",
+    priority: 2
+  },
+  {
+    id: "ref-3",
+    title: "Theoretical Model",
+    tagline: "Amber Smoke Plume",
+    status: "Research",
+    primaryCategory: "AI",
+    stack: [],
+    archived: false,
+    bottle: { size: "medium", glass: "amber", glow: "gold", label: "EX-03", fillLevel: 1.0 },
+    github: "",
+    live: "",
+    year: "2026",
+    priority: 3
+  },
+  {
+    id: "ref-4",
+    title: "Classified Node",
+    tagline: "Violet Energy Pulse",
+    status: "Planned",
+    primaryCategory: "Infrastructure",
+    stack: [],
+    archived: false,
+    bottle: { size: "medium", glass: "clear", glow: "none", label: "EX-04", fillLevel: 0.5 },
+    github: "",
+    live: "",
+    year: "2026",
+    priority: 4
+  },
+] as unknown as Experiment[];
 
 function URLSync({ onSync }: { onSync: (id: string | null) => void }) {
   const searchParams = useSearchParams();
@@ -176,8 +235,7 @@ export default function ExperimentRack() {
           style={{
             width: "100vw",
             marginLeft: "calc(-50vw + 50%)",
-            position: "relative",
-            background: "linear-gradient(to bottom, var(--bg-primary) 0%, #16120f 15%, #0a0806 100%)",
+            background: "linear-gradient(to bottom, var(--bg-primary) 0%, #1a1a1a 10%, #111111 100%)",
             padding: "8rem 0 4rem",
             marginTop: "2rem",
           }}
@@ -189,8 +247,31 @@ export default function ExperimentRack() {
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, opacity: 0.4, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")", mixBlendMode: "overlay", pointerEvents: "none" }} />
 
           <div className="container-lab" style={{ position: "relative", zIndex: 1 }}>
+            
+            {/* ── REFERENCE RACK ── */}
+            <div style={{ paddingBottom: "2rem", marginBottom: "4rem", borderBottom: "1px solid rgba(200, 161, 91, 0.2)" }}>
+              <div style={{ marginBottom: "2rem", textAlign: "center" }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", color: "var(--rack-border)" }}>
+                  SPECIMEN REFERENCE LIBRARY
+                </h3>
+                <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--fg-subtle)", letterSpacing: "0.2em", textTransform: "uppercase", marginTop: "0.5rem" }}>
+                  Internal Visual QA Collection
+                </p>
+              </div>
+              <LaboratoryShelf>
+                {REFERENCE_SPECIMENS.map((exp) => (
+                  <SpecimenCard
+                    key={exp.id}
+                    experiment={exp}
+                    isSelected={selectedId === exp.id}
+                    onClick={() => handleBottleClick(exp.id)}
+                  />
+                ))}
+              </LaboratoryShelf>
+            </div>
+
             {/* Render each rack only if it has experiments */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
               {RACK_ORDER.map((slot) => {
                 const exps = racks[slot];
                 if (exps.length === 0) return null;
@@ -200,7 +281,7 @@ export default function ExperimentRack() {
                 return (
                   <LaboratoryShelf key={slot} label={rackLabel}>
                     {exps.map((exp) => (
-                      <BottleRenderer
+                      <SpecimenCard
                         key={exp.id}
                         experiment={exp}
                         isSelected={selectedId === exp.id}

@@ -2,6 +2,18 @@
 
 /* ─── Design Tokens ─────────────────────────────────────────────────── */
 :root {
+  /* Light Mode Default (Arctic Research) */
+  --pal-bg-primary: #f0f4f8;
+  --pal-bg-secondary: #e1e8f0;
+  --pal-bg-card: #ffffff;
+  --pal-fg-primary: #102a43;
+  --pal-fg-secondary: #243b53;
+  --pal-fg-muted: #627d98;
+  --pal-border-subtle: rgba(16, 42, 67, 0.08);
+  --pal-accent-primary: #186faf;
+  --pal-accent-secondary: #003e6b;
+  --pal-grid-color: rgba(16, 42, 67, 0.03);
+
   /* Base Mapping to support existing codebase components seamlessly */
   --bg-primary: var(--pal-bg-primary);
   --bg-secondary: var(--pal-bg-secondary);
@@ -20,9 +32,9 @@
   --accent-copper: var(--pal-accent-secondary);
   --accent-copper-dim: color-mix(in srgb, var(--pal-accent-secondary) 15%, transparent 85%);
 
-  --rack-bg: #120e0c;
-  --rack-surface: #1a1411;
-  --rack-border: #2d221d;
+  --rack-bg: #111111;
+  --rack-surface: #111111;
+  --rack-border: #c8a15b;
 
   --border-subtle: var(--pal-border-subtle);
   --border-medium: color-mix(in srgb, var(--pal-border-subtle) 60%, var(--pal-fg-primary) 40%);
@@ -39,7 +51,24 @@
   --nav-height: 64px;
 }
 
-/* ─── Palette Laboratory ────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Mode (Obsidian Gold) */
+    --pal-bg-primary: #0a0a0a;
+    --pal-bg-secondary: #121212;
+    --pal-bg-card: #1a1a1a;
+    --pal-fg-primary: #fdfbf7;
+    --pal-fg-secondary: #d4cfc3;
+    --pal-fg-muted: #8c887d;
+    --pal-border-subtle: rgba(212, 175, 55, 0.15);
+    --pal-accent-primary: #d4af37;
+    --pal-accent-secondary: #b8860b;
+    --pal-grid-color: rgba(212, 175, 55, 0.03);
+  }
+}
+
+/* ─── Archived Palette Library ─── */
+/* Not currently active, kept for visual reference and future iteration */
 
 .palette-archive-paper {
   --pal-bg-primary: #eadecc;

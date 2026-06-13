@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import AmbientParticles from "@/components/ui/AmbientParticles";
-import PaletteSwitcher from "@/components/layout/PaletteSwitcher";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -104,7 +103,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <AmbientParticles />
-        <PaletteSwitcher />
         {children}
       </body>
     </html>

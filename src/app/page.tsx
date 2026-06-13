@@ -22,8 +22,6 @@ export default function HomePage() {
         {/* 00 — Laboratory Status */}
         <LabStatusPanel />
 
-        {/* — Field Notes */}
-        <FieldNotesSection />
 
         {/* 01 — Experiments */}
         <ExperimentRack />
@@ -33,6 +31,9 @@ export default function HomePage() {
 
         {/* 03 — Research Log (Phase 4A) */}
         <ResearchLogArchive />
+
+        {/* — Field Notes */}
+        <FieldNotesSection />
 
         {/* 04 — Laboratory Correspondence */}
         <ContactSection />

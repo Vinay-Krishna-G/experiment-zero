@@ -44,7 +44,7 @@ export default function LaboratoryShelf({ children, label }: LaboratoryShelfProp
         style={{
           display: "flex",
           flexWrap: "wrap",
-          gap: "2rem 3rem",
+          gap: "2.5rem 5rem",
           alignItems: "flex-end",
           justifyContent: "flex-start",
           paddingBottom: "0.5rem",
@@ -65,10 +65,10 @@ export default function LaboratoryShelf({ children, label }: LaboratoryShelfProp
           background: `
             linear-gradient(
               to bottom,
-              #6B4C2A 0%,
-              #5A3D1F 30%,
-              #4A3018 70%,
-              #3D2710 100%
+              #5C3A1E 0%,
+              #4C2E14 30%,
+              #3D240D 70%,
+              #311B09 100%
             )
           `,
           boxShadow:
@@ -97,7 +97,7 @@ export default function LaboratoryShelf({ children, label }: LaboratoryShelfProp
             left: 0,
             width: 6,
             height: "100%",
-            background: "linear-gradient(to right, #B8860B, #8B6914)",
+            background: "linear-gradient(to right, #C8A15B, #A87C38)",
             borderRadius: "2px 0 0 2px",
             opacity: 0.7,
           }}
@@ -111,7 +111,7 @@ export default function LaboratoryShelf({ children, label }: LaboratoryShelfProp
             right: 0,
             width: 6,
             height: "100%",
-            background: "linear-gradient(to left, #B8860B, #8B6914)",
+            background: "linear-gradient(to left, #C8A15B, #A87C38)",
             borderRadius: "0 2px 2px 0",
             opacity: 0.7,
           }}
@@ -147,7 +147,7 @@ function ShelfBracket({ side }: { side: "left" | "right" }) {
         [side]: "1.5rem",
         width: 10,
         height: 24,
-        background: "linear-gradient(to bottom, #8B6914, #6B4F0C)",
+        background: "linear-gradient(to bottom, #A87C38, #825E21)",
         borderRadius: "0 0 3px 3px",
         opacity: 0.65,
         boxShadow: "inset 0 -1px 2px rgba(255,255,255,0.1)",

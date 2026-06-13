@@ -4,43 +4,21 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Experiment } from "@/types";
 import { getVisualProfile } from "@/visuals/getVisualProfile";
-import { COLORS } from "@/visuals/colors";
-import EquipmentTag from "@/components/ui/EquipmentTag";
 
-interface ExperimentBottleProps {
-  experiment: Experiment;
-  isSelected: boolean;
-  onClick: () => void;
-}
-
-export default function ExperimentBottle({
-  experiment,
-  isSelected,
-  onClick,
-}: ExperimentBottleProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const profile = getVisualProfile(
-    experiment.primaryCategory,
-    experiment.status,
-    experiment.archived,
-    "high"
-  );
-  
-  // Define modes based on user direction
+export function getBottleColors(status: string) {
   let mode: "firefly" | "liquid" | "smoke" | "energy" = "liquid";
   let modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire default
   let glowColor = "rgba(59, 130, 246, 0.4)";
   
-  if (experiment.status === "Planned" || experiment.status === "On Hold") {
+  if (status === "Planned" || status === "On Hold") {
     mode = "energy";
     modeColor = "rgba(139, 92, 246, 0.6)"; // Violet
     glowColor = "rgba(139, 92, 246, 0.4)";
-  } else if (experiment.status === "Research") {
+  } else if (status === "Research") {
     mode = "smoke";
     modeColor = "rgba(245, 158, 11, 0.6)"; // Amber
     glowColor = "rgba(245, 158, 11, 0.4)";
-  } else if (experiment.status === "Completed") {
+  } else if (status === "Completed") {
     mode = "liquid";
     modeColor = "rgba(59, 130, 246, 0.6)"; // Sapphire
     glowColor = "rgba(59, 130, 246, 0.4)";
@@ -50,66 +28,37 @@ export default function ExperimentBottle({
     modeColor = "rgba(16, 185, 129, 0.6)"; // Emerald
     glowColor = "rgba(16, 185, 129, 0.4)";
   }
+  return { mode, modeColor, glowColor };
+}
+
+interface ExperimentBottleProps {
+  experiment: Experiment;
+  isSelected: boolean;
+  isHovered: boolean;
+  onClick: () => void;
+}
+
+export default function CSSBottleRenderer({
+  experiment,
+  isSelected,
+  isHovered,
+  onClick,
+}: ExperimentBottleProps) {
+
+  const profile = getVisualProfile(
+    experiment.primaryCategory,
+    experiment.status,
+    experiment.archived,
+    "high"
+  );
+  
+  const { mode, modeColor, glowColor } = getBottleColors(experiment.status);
 
   const liquidHeight = `${Math.round(experiment.bottle.fillLevel * 78)}%`;
   const isPlanned = experiment.status === "Planned";
 
   return (
-    <div
-      style={{ position: "relative", display: "inline-flex", flexDirection: "column", alignItems: "center" }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* ── Specimen label — appears on hover, beside bottle ── */}
-      <AnimatePresence>
-        {isHovered && !isSelected && (
-          <motion.div
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -6 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              left: "calc(100% + 1.5rem)",
-              top: "20%",
-              zIndex: 50,
-              backgroundColor: "rgba(18, 13, 11, 0.8)",
-              backdropFilter: "blur(12px)",
-              border: `1px solid ${glowColor}`,
-              borderRadius: "4px",
-              padding: "1rem 1.25rem",
-              whiteSpace: "nowrap",
-              boxShadow: `0 8px 32px rgba(0,0,0,0.4), 0 0 20px ${glowColor}`,
-              pointerEvents: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.4rem",
-              minWidth: "220px",
-            }}
-          >
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg-subtle)", marginBottom: "0.6rem" }}>
-              #{experiment.id.toUpperCase()}
-            </div>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: modeColor, fontWeight: 600 }}>
-              {experiment.status}
-            </div>
-            {experiment.stack.length > 0 && (
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "var(--fg-muted)", marginTop: "0.4rem" }}>
-                {experiment.stack.join(" • ")}
-              </div>
-            )}
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "var(--fg-subtle)", marginTop: "0.2rem" }}>
-              {experiment.year}
-            </div>
-            
-            <div style={{ marginTop: "1rem", paddingTop: "0.5rem", borderTop: "1px solid rgba(255,255,255,0.1)", fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.2em", color: "var(--fg-primary)", textAlign: "center" }}>
-              [OPEN ARCHIVE]
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
+    <>
       {/* ── Bottle button ── */}
       <motion.button
         id={`bottle-${experiment.id}`}
@@ -273,29 +222,29 @@ export default function ExperimentBottle({
               {/* CATEGORY A: Firefly (Active) */}
               {mode === "firefly" && (
                 <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${glowColor}, transparent 80%)` }}>
-                  {Array.from({ length: 5 }).map((_, i) => (
+                  {Array.from({ length: 3 }).map((_, i) => (
                     <motion.div
                       key={i}
                       animate={{
-                        y: [0, -60 - Math.random() * 40, 0],
-                        x: [0, (Math.random() - 0.5) * 40, 0],
-                        opacity: [0.2, 1, 0.2]
+                        y: [0, -30 - Math.random() * 20, 0],
+                        x: [0, (Math.random() - 0.5) * 20, 0],
+                        opacity: [0.1, 0.8, 0.1]
                       }}
                       transition={{
-                        duration: 4 + Math.random() * 5,
+                        duration: 5 + Math.random() * 4,
                         repeat: Infinity,
                         ease: "easeInOut",
                         delay: Math.random() * 3
                       }}
                       style={{
                         position: "absolute",
-                        bottom: 30 + Math.random() * 30,
-                        left: 20 + Math.random() * 50,
-                        width: 4,
-                        height: 4,
+                        bottom: 30 + Math.random() * 20,
+                        left: 30 + Math.random() * 30,
+                        width: 3,
+                        height: 3,
                         backgroundColor: "#fff",
                         borderRadius: "50%",
-                        boxShadow: `0 0 10px 4px ${modeColor}`
+                        boxShadow: `0 0 12px 3px ${modeColor}`
                       }}
                     />
                   ))}
@@ -314,56 +263,55 @@ export default function ExperimentBottle({
                     left: 0,
                     right: 0,
                     background: `linear-gradient(to top, ${modeColor} 0%, transparent 100%)`,
-                    filter: "blur(2px)",
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    borderTop: `2px solid rgba(255,255,255,0.4)`, // Meniscus
+                    boxShadow: `inset 0 10px 20px ${glowColor}` // Internal glow
                   }}
                 >
-                  {/* Wavy surface layer */}
-                  <div style={{
-                    position: "absolute",
-                    top: -10, left: "-50%", width: "200%", height: 30,
-                    background: `linear-gradient(to bottom, rgba(255,255,255,0.4), transparent)`,
-                    borderRadius: "50%",
-                    animation: isHovered ? "liquid-wave 3s ease-in-out infinite" : "liquid-wave 6s ease-in-out infinite",
-                    opacity: 0.6
-                  }} />
-                  <motion.div
-                    animate={{ opacity: isHovered ? 1 : 0.6 }}
-                    style={{
-                      position: "absolute",
-                      top: 10,
-                      left: -20,
-                      right: -20,
-                      height: 8,
-                      background: `linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent)`,
-                      animation: isHovered ? "liquid-shimmer 2s ease-in-out infinite" : "liquid-shimmer 5s ease-in-out infinite",
-                    }}
-                  />
+                  {/* Potion Bubbles */}
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <motion.div
+                      key={`bubble-${i}`}
+                      initial={{ y: "100%", x: Math.random() * 60, opacity: 0 }}
+                      animate={{ y: "-10%", opacity: [0, 0.6, 0] }}
+                      transition={{ duration: 3 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5, ease: "linear" }}
+                      style={{
+                        position: "absolute",
+                        bottom: 0,
+                        width: 2 + Math.random() * 2,
+                        height: 2 + Math.random() * 2,
+                        borderRadius: "50%",
+                        border: "1px solid rgba(255,255,255,0.6)",
+                      }}
+                    />
+                  ))}
                 </motion.div>
               )}
 
               {/* CATEGORY C: Smoke / Mist Specimen */}
               {mode === "smoke" && (
-                <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-                  {Array.from({ length: 4 }).map((_, i) => (
+                <div style={{ position: "absolute", inset: 0, overflow: "hidden", mixBlendMode: "screen" }}>
+                  {Array.from({ length: 3 }).map((_, i) => (
                     <motion.div
-                      key={i}
+                      key={`smoke-${i}`}
                       animate={{
-                        y: ["100%", "-100%"],
-                        x: [0, (i % 2 === 0 ? 10 : -10), 0],
-                        opacity: [0, isHovered ? 0.6 : 0.3, 0]
+                        y: ["100%", "-50%"],
+                        opacity: [0, 0.5, 0]
                       }}
                       transition={{
-                        y: { duration: 15 + i * 5, repeat: Infinity, ease: "linear", delay: i * 2 },
-                        x: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-                        opacity: { duration: 15 + i * 5, repeat: Infinity, ease: "linear", delay: i * 2 }
+                        duration: 8 + i * 4,
+                        repeat: Infinity,
+                        ease: "linear",
+                        delay: i * 3
                       }}
                       style={{
                         position: "absolute",
-                        left: -20, right: -20, height: "150%",
-                        background: `radial-gradient(ellipse at center, ${modeColor} 0%, transparent 60%)`,
-                        filter: "blur(16px)",
-                        mixBlendMode: "screen"
+                        left: -10 + i * 15,
+                        width: "80%",
+                        height: "100%",
+                        background: `linear-gradient(to top, transparent, ${modeColor}, transparent)`,
+                        filter: "blur(8px)",
+                        borderRadius: "50%"
                       }}
                     />
                   ))}
@@ -374,30 +322,22 @@ export default function ExperimentBottle({
               {mode === "energy" && (
                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <motion.div
-                    animate={{ opacity: isHovered ? [0.4, 0.9, 0.4] : [0.2, 0.5, 0.2] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{ scale: isHovered ? [1, 1.2, 1] : [1, 1.05, 1], opacity: isHovered ? [0.6, 1, 0.6] : [0.4, 0.6, 0.4] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     style={{
-                      width: 18,
-                      height: 18,
+                      width: 24,
+                      height: 24,
                       borderRadius: "50%",
-                      backgroundColor: "transparent",
-                      boxShadow: `0 0 30px 15px ${modeColor}`,
-                      filter: "blur(4px)"
+                      backgroundColor: "#fff",
+                      boxShadow: `0 0 40px 20px ${modeColor}`,
+                      filter: "blur(2px)"
                     }}
                   />
-                  {/* Occasional Crackle */}
-                  <motion.div
-                    animate={{ opacity: isHovered ? [0, 0.8, 0, 0, 0.4, 0] : [0, 0.3, 0] }}
-                    transition={{ duration: 6, repeat: Infinity, times: [0, 0.05, 0.1, 0.5, 0.55, 0.6] }}
-                    style={{
-                      position: "absolute",
-                      width: 2, height: 40,
-                      background: "#fff",
-                      filter: "blur(1px)",
-                      transform: "rotate(45deg)",
-                      mixBlendMode: "overlay"
-                    }}
-                  />
+                  {/* Faint Electrical Distortion */}
+                  <div style={{
+                    position: "absolute", inset: 0, mixBlendMode: "overlay", opacity: 0.3,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`
+                  }} />
                 </div>
               )}
             </div>
@@ -438,6 +378,6 @@ export default function ExperimentBottle({
           50%       { opacity: 1;   transform: translateX(10px); }
         }
       `}</style>
-    </div>
+    </>
   );
 }
