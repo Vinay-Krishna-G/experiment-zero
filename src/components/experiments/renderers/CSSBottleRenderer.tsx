@@ -54,6 +54,16 @@ export default function CSSBottleRenderer({
   
   const { mode, modeColor, glowColor } = getBottleColors(experiment.status);
 
+  // Palette logic for Fireflies
+  const fireflyPalettes = [
+    ["#34d399", "#60a5fa"], // Emerald + Blue
+    ["#60a5fa", "#f472b6"], // Blue + Pink
+    ["#c084fc", "#22d3ee"], // Violet + Cyan
+  ];
+  const charCode = experiment.title.charCodeAt(0) || 0;
+  const paletteIndex = (experiment.id.length + charCode) % fireflyPalettes.length;
+  const activePalette = fireflyPalettes[paletteIndex];
+
   const liquidHeight = `${Math.round(experiment.bottle.fillLevel * 78)}%`;
   const isPlanned = experiment.status === "Planned";
 
@@ -163,7 +173,7 @@ export default function CSSBottleRenderer({
                     height: 3 + Math.random() * 2,
                     backgroundColor: "#fff",
                     borderRadius: "50%",
-                    boxShadow: `0 0 12px 4px ${modeColor}`,
+                    boxShadow: `0 0 12px 4px ${activePalette[i % 2]}`,
                     zIndex: 10,
                     pointerEvents: "none"
                   }}
@@ -288,7 +298,7 @@ export default function CSSBottleRenderer({
                           height: size,
                           backgroundColor: "#fff",
                           borderRadius: "50%",
-                          boxShadow: `0 0 15px 5px ${modeColor}`,
+                          boxShadow: `0 0 15px 5px ${activePalette[i % 2]}`,
                           filter: "blur(0.5px)"
                         }}
                       />
@@ -313,8 +323,8 @@ export default function CSSBottleRenderer({
                     left: -5,
                     right: -5,
                     background: `linear-gradient(to top, ${modeColor} 0%, rgba(20,20,20,0.5) 100%)`,
-                    borderTop: `3px solid rgba(255,255,255,0.5)`, // Meniscus
-                    boxShadow: `inset 0 10px 30px ${glowColor}, inset 0 -20px 20px rgba(0,0,0,0.8)`, // Internal depth
+                    borderTop: `4px solid rgba(255,255,255,0.75)`, // Meniscus
+                    boxShadow: `inset 0 10px 20px rgba(255,255,255,0.15), inset 0 -40px 40px rgba(0,0,0,0.4), inset 0 -20px 20px rgba(0,0,0,0.8)`, // Internal depth
                     transformOrigin: "bottom center"
                   }}
                 >
@@ -363,6 +373,8 @@ export default function CSSBottleRenderer({
                         width: "120%",
                         height: "80%",
                         background: `radial-gradient(ellipse at center, ${modeColor} 0%, transparent 60%)`,
+                        backgroundPosition: `${(i * 30) % 100}% ${(i * 40) % 100}%`,
+                        transformOrigin: i % 2 === 0 ? "top left" : "bottom right",
                         filter: "blur(12px)",
                         borderRadius: "50%"
                       }}
@@ -391,7 +403,10 @@ export default function CSSBottleRenderer({
                   }}
                 >
                   {/* Boiling Bubbles */}
-                  {Array.from({ length: isHovered ? 15 : 8 }).map((_, i) => (
+                  {Array.from({ length: isHovered ? 15 : 8 }).map((_, i) => {
+                    const sizes = [3, 5, 8, 12];
+                    const bubbleSize = sizes[i % sizes.length];
+                    return (
                     <motion.div
                       key={`potion-bubble-${i}`}
                       initial={{ y: "100%", x: Math.random() * 80, opacity: 0 }}
@@ -400,14 +415,15 @@ export default function CSSBottleRenderer({
                       style={{
                         position: "absolute",
                         bottom: 0,
-                        width: 3 + Math.random() * 4,
-                        height: 3 + Math.random() * 4,
+                        width: bubbleSize,
+                        height: bubbleSize,
                         borderRadius: "50%",
                         backgroundColor: "#fff",
                         boxShadow: `0 0 8px 2px ${modeColor}`
                       }}
                     />
-                  ))}
+                    );
+                  })}
                   {/* Tiny Smoke Traces */}
                   {Array.from({ length: 3 }).map((_, i) => (
                     <motion.div

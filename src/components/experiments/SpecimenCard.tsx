@@ -42,12 +42,12 @@ export default function SpecimenCard({ experiment, isSelected, onClick }: Specim
               transform: "translateX(-50%)",
               zIndex: 50,
               backgroundColor: "rgba(18, 13, 11, 0.4)", // Lower opacity
-              backdropFilter: "blur(8px)",
+              backdropFilter: "blur(2px)",
               border: `1px solid ${glowColor}`,
               borderRadius: "4px",
               padding: "0.75rem 1rem",
               whiteSpace: "nowrap",
-              boxShadow: `0 8px 32px rgba(0,0,0,0.3)`, // More subtle
+              boxShadow: `0 4px 20px rgba(0,0,0,0.15)`, // 20% less intense
               pointerEvents: "none",
               display: "flex",
               flexDirection: "column",
