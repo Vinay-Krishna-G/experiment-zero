@@ -8,48 +8,54 @@ import { ImpactPanel } from '@/components/narrative';
 export default function DocumentArticle({ experiment }: { experiment: Experiment }) {
   const journeyData = getExperimentJourney(experiment.id);
   return (
-    <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-emerald-500/30">
+    <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-emerald-dim)] selection:text-[var(--fg-primary)]">
       <article>
-        <header className="mb-16 border-b border-white/10 pb-8">
+        <header className="mb-16 border-b border-[var(--border-subtle)] pb-8">
           <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-emerald-400 mb-6">
             <span>{experiment.primaryCategory}</span>
             <span className="w-1 h-1 bg-white/20 rounded-full" />
             <span>{experiment.year}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-serif text-[var(--fg-primary)] mb-6">
             {experiment.title}
           </h1>
-          <p className="text-xl text-white/60 font-light">
+          <p className="text-xl text-[var(--fg-secondary)] font-light">
             {experiment.tagline}
           </p>
         </header>
 
+        {experiment.evidence && (
+          <div className="mb-12">
+            <ImpactPanel evidence={experiment.evidence} />
+          </div>
+        )}
+
         <section className="mb-12">
-          <h2 className="text-xs uppercase tracking-widest text-white/40 mb-4">Overview</h2>
-          <p className="text-lg leading-relaxed text-white/80">
+          <h2 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-4">Overview</h2>
+          <p className="text-lg leading-relaxed text-[var(--fg-primary)]">
             {experiment.description}
           </p>
         </section>
 
         {experiment.content?.problem && (
           <section className="mb-12">
-            <h2 className="text-xs uppercase tracking-widest text-white/40 mb-4">The Problem</h2>
+            <h2 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-4">The Problem</h2>
             <p className="leading-relaxed">{experiment.content.problem}</p>
           </section>
         )}
 
         {experiment.content?.solution && (
           <section className="mb-12">
-            <h2 className="text-xs uppercase tracking-widest text-white/40 mb-4">The Solution</h2>
+            <h2 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-4">The Solution</h2>
             <p className="leading-relaxed">{experiment.content.solution}</p>
           </section>
         )}
 
         <section className="mb-12">
-          <h2 className="text-xs uppercase tracking-widest text-white/40 mb-4">Technology Stack</h2>
+          <h2 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-4">Technology Stack</h2>
           <div className="flex flex-wrap gap-2">
             {experiment.stack.map(tech => (
-              <span key={tech} className="px-3 py-1 text-sm bg-white/5 border border-white/10 rounded-full text-white/70">
+              <span key={tech} className="px-3 py-1 text-sm bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-full text-[var(--fg-secondary)]">
                 {tech}
               </span>
             ))}
@@ -57,8 +63,6 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
         </section>
 
         {journeyData && <ExperimentJourneyView data={journeyData} />}
-
-        {experiment.evidence && <ImpactPanel evidence={experiment.evidence} />}
 
         <EnterLaboratoryCTA expId={experiment.id} />
         <RelatedContentGrid experiment={experiment} />

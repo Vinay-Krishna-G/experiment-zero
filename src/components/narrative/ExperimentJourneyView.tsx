@@ -5,11 +5,11 @@ export default function ExperimentJourneyView({ data }: { data: JourneyViewData 
   const { title, status, progress, timeline, logs, blueprintId, blueprintTitle } = data;
 
   return (
-    <div className="my-16 p-8 rounded-lg border border-white/10 bg-white/[0.02] backdrop-blur-md">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-white/10">
+    <div className="my-16 p-8 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] backdrop-blur-md">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-[var(--border-subtle)]">
         <div>
           <h3 className="text-xs uppercase tracking-widest text-emerald-400 font-mono mb-2">Narrative Journey</h3>
-          <h2 className="text-2xl font-serif text-white font-medium">{title} Timeline</h2>
+          <h2 className="text-2xl font-serif text-[var(--fg-primary)] font-medium">{title} Timeline</h2>
         </div>
 
         {blueprintId && blueprintTitle && (
@@ -24,7 +24,7 @@ export default function ExperimentJourneyView({ data }: { data: JourneyViewData 
 
       {/* Progress segment */}
       <div className="mb-10">
-        <div className="flex justify-between items-baseline text-xs uppercase tracking-wider text-white/50 mb-2 font-mono">
+        <div className="flex justify-between items-baseline text-xs uppercase tracking-wider text-[var(--fg-muted)] mb-2 font-mono">
           <span>Development Phase</span>
           <span>{status} ({progress}%)</span>
         </div>
@@ -39,7 +39,7 @@ export default function ExperimentJourneyView({ data }: { data: JourneyViewData 
       {/* Roadmap milestones timeline */}
       {timeline.length > 0 && (
         <div className="mb-12">
-          <h4 className="text-xs uppercase tracking-widest text-white/40 mb-6 font-mono">Milestone Status</h4>
+          <h4 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-6 font-mono">Milestone Status</h4>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
             {timeline.map((step, idx) => {
               const isDone = step.status === "done";
@@ -50,14 +50,14 @@ export default function ExperimentJourneyView({ data }: { data: JourneyViewData 
                   key={idx} 
                   className={`p-4 rounded border transition ${
                     isDone 
-                      ? "border-emerald-500/30 bg-emerald-500/[0.03] text-white/80" 
+                      ? "border-emerald-500/30 bg-emerald-500/[0.03] text-[var(--fg-primary)]" 
                       : isCurrent 
-                      ? "border-amber-500/30 bg-amber-500/[0.03] text-white animate-pulse" 
-                      : "border-white/5 bg-white/[0.01] text-white/30"
+                      ? "border-amber-500/30 bg-amber-500/[0.03] text-[var(--fg-primary)] animate-pulse" 
+                      : "border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--fg-subtle)]"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[0.6rem] font-mono tracking-widest uppercase text-white/40">
+                    <span className="text-[0.6rem] font-mono tracking-widest uppercase text-[var(--fg-muted)]">
                       Step 0{idx + 1}
                     </span>
                     <span 
@@ -78,17 +78,17 @@ export default function ExperimentJourneyView({ data }: { data: JourneyViewData 
 
       {/* Associated research logs stream */}
       <div>
-        <h4 className="text-xs uppercase tracking-widest text-white/40 mb-6 font-mono">Archive Logs</h4>
+        <h4 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-6 font-mono">Archive Logs</h4>
         {logs.length === 0 ? (
-          <div className="text-sm text-white/40 italic font-mono py-4 border border-dashed border-white/5 text-center rounded">
+          <div className="text-sm text-[var(--fg-muted)] italic font-mono py-4 border border-dashed border-[var(--border-subtle)] text-center rounded">
             No research logs archived for this project phase.
           </div>
         ) : (
-          <div className="relative border-l border-white/10 pl-6 ml-3 space-y-8">
+          <div className="relative border-l border-[var(--border-subtle)] pl-6 ml-3 space-y-8">
             {logs.map((log) => (
               <div key={log.id} className="relative group">
                 {/* Timeline node node */}
-                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full border border-emerald-500/40 bg-neutral-950 transition group-hover:scale-125 group-hover:border-emerald-400" />
+                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full border border-emerald-500/40 bg-[var(--bg-primary)] transition group-hover:scale-125 group-hover:border-emerald-400" />
                 
                 <span className="text-[0.65rem] font-mono tracking-widest text-emerald-400/70 block mb-1">
                   {log.date}
@@ -96,12 +96,12 @@ export default function ExperimentJourneyView({ data }: { data: JourneyViewData 
                 
                 <Link 
                   href={`/research/${log.slug}`}
-                  className="block p-4 rounded border border-white/5 hover:border-white/10 bg-white/[0.01] hover:bg-white/[0.03] transition duration-200"
+                  className="block p-4 rounded border border-[var(--border-subtle)] hover:border-[var(--border-subtle)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] transition duration-200"
                 >
-                  <h5 className="font-serif text-white group-hover:text-emerald-300 font-medium tracking-wide mb-2 transition">
+                  <h5 className="font-serif text-[var(--fg-primary)] group-hover:text-emerald-300 font-medium tracking-wide mb-2 transition">
                     {log.title}
                   </h5>
-                  <p className="text-sm text-white/60 font-light line-clamp-2">
+                  <p className="text-sm text-[var(--fg-secondary)] font-light line-clamp-2">
                     {log.summary}
                   </p>
                 </Link>

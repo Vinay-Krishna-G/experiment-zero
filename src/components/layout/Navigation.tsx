@@ -5,18 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const ARCHIVE_INDEX = [
-  { number: "00", label: "Laboratory", href: "#hero" },
-  { number: "01", label: "Experiments", href: "#experiments" },
-  { number: "02", label: "Blueprint Archive", href: "#blueprints" },
-  { number: "03", label: "Research Log", href: "#research-log" },
-  { number: "04", label: "Correspondence", href: "#contact" },
+  { number: "00", label: "Home", href: "#hero" },
+  { number: "01", label: "Projects", href: "#experiments" },
+  { number: "02", label: "Architecture", href: "#blueprints" },
+  { number: "03", label: "Notes", href: "#research-log" },
+  { number: "04", label: "Contact", href: "#contact" },
 ];
 
 const NAV_ITEMS = [
-  { label: "Experiments", href: "#experiments" },
-  { label: "Blueprints", href: "#blueprints" },
-  { label: "Research Log", href: "#research-log" },
-  { label: "Correspondence", href: "#contact" },
+  { label: "Projects", href: "#experiments" },
+  { label: "Architecture", href: "#blueprints" },
+  { label: "Notes", href: "#research-log" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -166,6 +166,37 @@ export default function Navigation() {
 
           {/* Right side: Lab status (desktop) + Archive Index trigger (mobile) */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
+            {/* Resume CTA (desktop) */}
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.6rem",
+                fontWeight: 500,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--bg-card)",
+                backgroundColor: "var(--fg-primary)",
+                padding: "0.4rem 0.8rem",
+                textDecoration: "none",
+                borderRadius: "2px",
+                transition: "background-color 0.2s ease",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--fg-primary)";
+              }}
+            >
+              Resume
+            </a>
+
             {/* Lab status indicator */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1px" }}>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.25em", color: "var(--fg-subtle)", textTransform: "uppercase", lineHeight: 1 }}>

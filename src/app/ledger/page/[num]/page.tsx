@@ -86,7 +86,7 @@ export default async function PaginatedLedgerPage({ params }: PageProps) {
   };
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-emerald-500/30">
+    <main className="max-w-3xl mx-auto px-6 py-24 min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-emerald-dim)] selection:text-[var(--fg-primary)]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsSchema) }}
@@ -111,7 +111,7 @@ export default async function PaginatedLedgerPage({ params }: PageProps) {
       />
 
       {/* Pagination controls */}
-      <footer className="mt-12 pt-8 border-t border-white/10 flex items-center justify-between font-mono text-xs text-white/50">
+      <footer className="mt-12 pt-8 border-t border-[var(--border-subtle)] flex items-center justify-between font-mono text-xs text-[var(--fg-muted)]">
         {pageNum > 1 ? (
           <Link href={`/ledger/page/${pageNum - 1}`} className="hover:text-emerald-300 transition">
             &larr; Previous Page

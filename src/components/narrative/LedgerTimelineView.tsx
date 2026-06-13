@@ -70,10 +70,10 @@ export default function LedgerTimelineView({
         Skip Timeline Content
       </a>
 
-      <header className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/10">
+      <header className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[var(--border-subtle)]">
         <div>
-          <h2 className="text-3xl font-serif text-white font-medium">{title}</h2>
-          <p className="text-sm text-white/50 font-mono mt-1" aria-live="polite">
+          <h2 className="text-3xl font-serif text-[var(--fg-primary)] font-medium">{title}</h2>
+          <p className="text-sm text-[var(--fg-muted)] font-mono mt-1" aria-live="polite">
             Viewing {filteredEvents.length} ledger nodes
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function LedgerTimelineView({
             placeholder="Search ledger..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 text-sm text-white bg-white/5 border border-white/10 rounded focus:border-emerald-500/40 focus:outline-none focus:ring-1 focus:ring-emerald-500/20 font-mono"
+            className="w-full px-4 py-2 text-sm text-[var(--fg-primary)] bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded focus:border-emerald-500/40 focus:outline-none focus:ring-1 focus:ring-emerald-500/20 font-mono"
             aria-label="Search ledger items"
           />
         </div>
@@ -105,7 +105,7 @@ export default function LedgerTimelineView({
             className={`px-3 py-1.5 text-xs font-mono tracking-wider uppercase border transition duration-250 cursor-pointer ${
               selectedType === btn.value
                 ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
-                : "bg-white/5 border-white/10 hover:border-white/20 text-white/70 hover:text-white"
+                : "bg-[var(--bg-card)] border-[var(--border-subtle)] hover:border-[var(--border-medium)] text-[var(--fg-secondary)] hover:text-[var(--fg-primary)]"
             }`}
             aria-pressed={selectedType === btn.value}
           >
@@ -126,7 +126,7 @@ export default function LedgerTimelineView({
         className="focus:outline-none space-y-12"
       >
         {filteredEvents.length === 0 ? (
-          <div className="p-8 text-center font-mono italic text-sm text-white/40 border border-dashed border-white/5 rounded">
+          <div className="p-8 text-center font-mono italic text-sm text-[var(--fg-muted)] border border-dashed border-[var(--border-subtle)] rounded">
             No chronological ledger items match selected query filters.
           </div>
         ) : (
@@ -137,7 +137,7 @@ export default function LedgerTimelineView({
               <section 
                 key={groupKey} 
                 aria-labelledby={`heading-${groupKey}`}
-                className="relative border-l border-white/10 pl-6 ml-3 space-y-6"
+                className="relative border-l border-[var(--border-subtle)] pl-6 ml-3 space-y-6"
               >
                 {/* Visual grouping node */}
                 <div className="absolute -left-[30px] top-1 w-2 h-2 rounded-full bg-emerald-500 ring-4 ring-neutral-950" />

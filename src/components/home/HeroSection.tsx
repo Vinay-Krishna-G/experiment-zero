@@ -171,57 +171,57 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* VINAY */}
-            <motion.h1
-              variants={lineVariants}
-              className="text-hero"
-              style={{
-                display: "block",
-                lineHeight: 0.88,
-                marginBottom: "0.15em",
-              }}
-            >
-              VINAY
-            </motion.h1>
-
-            {/* Changing title row */}
-            <motion.div
-              variants={lineVariants}
-              style={{
-                paddingBlock: "0.6rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "1rem",
-              }}
-            >
-              <div
-                aria-hidden="true"
+            {/* NAME */}
+            <h1 style={{ margin: 0, padding: 0, border: 0 }}>
+              <motion.span
+                variants={lineVariants}
+                className="text-hero"
                 style={{
-                  width: 32,
-                  height: 1,
-                  backgroundColor: "var(--accent-emerald)",
-                  flexShrink: 0,
-                  opacity: 0.6,
+                  display: "block",
+                  lineHeight: 0.88,
+                  marginBottom: "0.15em",
                 }}
-              />
-              <TitleCycler />
-            </motion.div>
+              >
+                VINAY
+              </motion.span>
 
-            {/* KRISHNA */}
-            <motion.span
-              variants={lineVariants}
-              className="text-hero"
-              style={{
-                display: "block",
-                lineHeight: 0.88,
-                marginTop: "0.1em",
-              }}
-              aria-label="KRISHNA"
-            >
-              KRISHNA
-            </motion.span>
+              {/* Changing title row */}
+              <motion.div
+                variants={lineVariants}
+                style={{
+                  paddingBlock: "0.6rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                }}
+              >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    width: 32,
+                    height: 1,
+                    backgroundColor: "var(--accent-emerald)",
+                    flexShrink: 0,
+                    opacity: 0.6,
+                  }}
+                />
+                <TitleCycler />
+              </motion.div>
 
-            {/* Mission block */}
+              <motion.span
+                variants={lineVariants}
+                className="text-hero"
+                style={{
+                  display: "block",
+                  lineHeight: 0.88,
+                  marginTop: "0.1em",
+                }}
+              >
+                KRISHNA
+              </motion.span>
+            </h1>
+
+            {/* Positioning Statement */}
             <motion.div
               variants={fadeVariants}
               style={{
@@ -232,7 +232,6 @@ export default function HeroSection() {
                 maxWidth: "44ch",
               }}
             >
-              {/* MISSION label */}
               <span
                 style={{
                   fontFamily: "var(--font-mono)",
@@ -244,10 +243,9 @@ export default function HeroSection() {
                   opacity: 0.8,
                 }}
               >
-                Mission
+                Positioning
               </span>
 
-              {/* Primary tagline — left-rule notebook style */}
               <div
                 style={{
                   borderLeft: "2px solid var(--accent-emerald)",
@@ -267,25 +265,11 @@ export default function HeroSection() {
                     letterSpacing: "0.01em",
                   }}
                 >
-                  Building useful software,
+                  Full Stack Engineer focused on AI tooling,
                   <br />
-                  one experiment at a time.
-                </p>
-
-                {/* Secondary — what Vinay builds */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "clamp(0.78rem, 1.15vw, 0.88rem)",
-                    color: "var(--fg-muted)",
-                    fontWeight: 300,
-                    lineHeight: 1.75,
-                    letterSpacing: "0.01em",
-                  }}
-                >
-                  AI-powered tools, interactive experiences,
+                  developer platforms, and highly scalable
                   <br />
-                  and software experiments that ship.
+                  knowledge systems.
                 </p>
               </div>
             </motion.div>
@@ -305,13 +289,12 @@ export default function HeroSection() {
               }}
             >
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg-subtle)", marginBottom: "0.25rem" }}>
-                Archive Status
+                Platform Scale
               </span>
               <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--fg-secondary)" }}>
-                <span>Experiments: {EXPERIMENTS.length}</span>
-                <span>Blueprints: {BLUEPRINTS.length}</span>
-                <span>Research Logs: {RESEARCH_LOGS.length}</span>
-                <span style={{ color: "var(--accent-emerald)" }}>Connections: {connections}</span>
+                <span>Production Projects: {EXPERIMENTS.length}</span>
+                <span>Architecture Blueprints: {BLUEPRINTS.length}</span>
+                <span style={{ color: "var(--accent-emerald)" }}>Engineering Notes: {RESEARCH_LOGS.length}</span>
               </div>
             </motion.div>
 
@@ -328,7 +311,7 @@ export default function HeroSection() {
             >
               <a
                 href="#experiments"
-                id="hero-view-experiments"
+                id="hero-view-projects"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "0.72rem",
@@ -350,11 +333,13 @@ export default function HeroSection() {
                   (e.currentTarget as HTMLElement).style.backgroundColor = "var(--fg-primary)";
                 }}
               >
-                View Experiments
+                View Projects
               </a>
               <a
-                href="#contact"
-                id="hero-contact"
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                id="hero-resume"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "0.72rem",
@@ -380,8 +365,42 @@ export default function HeroSection() {
                   el.style.color = "var(--fg-secondary)";
                 }}
               >
-                Open Lab
+                Download Resume
               </a>
+              <div style={{ display: "flex", gap: "0.75rem", marginLeft: "0.5rem" }}>
+                <a
+                  href="https://github.com/vinaykrishna"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Profile"
+                  style={{
+                    color: "var(--fg-muted)",
+                    transition: "color 0.2s ease",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a
+                  href="https://linkedin.com/in/vinaykrishna"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile"
+                  style={{
+                    color: "var(--fg-muted)",
+                    transition: "color 0.2s ease",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-primary)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--fg-muted)"; }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+              </div>
             </motion.div>
           </motion.div>
         </motion.div>

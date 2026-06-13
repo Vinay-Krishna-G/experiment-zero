@@ -19,10 +19,10 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
   const recentEvents = events.slice(0, 5);
 
   return (
-    <main className="max-w-5xl mx-auto px-6 py-24 min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-emerald-500/30">
+    <main className="max-w-5xl mx-auto px-6 py-24 min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-emerald-dim)] selection:text-[var(--fg-primary)]">
       
       {/* Header section */}
-      <header className="mb-16 border-b border-white/10 pb-8">
+      <header className="mb-16 border-b border-[var(--border-subtle)] pb-8">
         <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
           <span className="text-xs uppercase tracking-widest text-emerald-400 font-mono">
             Platform Engine: Phase 7D
@@ -37,10 +37,10 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
             RSS Syndicate
           </Link>
         </div>
-        <h1 className="text-4xl md:text-5xl font-serif text-white mb-6">
+        <h1 className="text-4xl md:text-5xl font-serif text-[var(--fg-primary)] mb-6">
           Laboratory Ledger
         </h1>
-        <p className="text-lg text-white/60 font-light max-w-2xl leading-relaxed">
+        <p className="text-lg text-[var(--fg-secondary)] font-light max-w-2xl leading-relaxed">
           The canonical chronological index of Experiment Zero. A semantic knowledge archive tracking system builds, dynamic visual profile transitions, architectural verification stages, and research notebooks.
         </p>
       </header>
@@ -53,9 +53,9 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
           { label: "Verified Blueprints", value: stats.verifiedBlueprints },
           { label: "Research Entries", value: stats.researchLogs },
         ].map((stat, idx) => (
-          <div key={idx} className="p-4 rounded border border-white/5 bg-white/[0.01] text-left">
-            <div className="text-[0.6rem] font-mono uppercase tracking-widest text-white/40 mb-1">{stat.label}</div>
-            <div className="text-2xl font-mono text-white font-semibold">{stat.value}</div>
+          <div key={idx} className="p-4 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)] text-left">
+            <div className="text-[0.6rem] font-mono uppercase tracking-widest text-[var(--fg-muted)] mb-1">{stat.label}</div>
+            <div className="text-2xl font-mono text-[var(--fg-primary)] font-semibold">{stat.value}</div>
           </div>
         ))}
       </section>
@@ -79,8 +79,8 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
         <aside className="space-y-12" aria-label="Timeline navigation filters">
           
           {/* Project Threads */}
-          <section className="p-6 rounded border border-white/5 bg-white/[0.01]">
-            <h3 className="text-xs uppercase tracking-widest text-white/40 mb-4 font-mono font-semibold">
+          <section className="p-6 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+            <h3 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-4 font-mono font-semibold">
               Project Threads
             </h3>
             <ul className="space-y-3">
@@ -88,12 +88,12 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
                 <li key={proj.slug}>
                   <Link 
                     href={`/ledger/project/${proj.slug}`}
-                    className="block p-3 rounded border border-white/5 hover:border-white/10 bg-white/[0.01] hover:bg-white/[0.03] transition duration-200"
+                    className="block p-3 rounded border border-[var(--border-subtle)] hover:border-[var(--border-subtle)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] transition duration-200"
                   >
-                    <span className="font-serif text-sm font-medium text-white block hover:text-emerald-300 transition">
+                    <span className="font-serif text-sm font-medium text-[var(--fg-primary)] block hover:text-emerald-300 transition">
                       {proj.name}
                     </span>
-                    <span className="text-[0.6rem] font-mono text-white/40 tracking-widest uppercase">
+                    <span className="text-[0.6rem] font-mono text-[var(--fg-muted)] tracking-widest uppercase">
                       status: {proj.status}
                     </span>
                   </Link>
@@ -103,8 +103,8 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
           </section>
 
           {/* Topical categories */}
-          <section className="p-6 rounded border border-white/5 bg-white/[0.01]">
-            <h3 className="text-xs uppercase tracking-widest text-white/40 mb-4 font-mono font-semibold">
+          <section className="p-6 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+            <h3 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-4 font-mono font-semibold">
               Semantic Tag Silos
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -112,7 +112,7 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
                 <Link
                   key={tag}
                   href={`/ledger/tag/${tag.toLowerCase()}`}
-                  className="px-3 py-1.5 text-xs font-mono bg-white/5 border border-white/10 hover:border-white/20 rounded text-white/60 hover:text-white transition"
+                  className="px-3 py-1.5 text-xs font-mono bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)] rounded text-[var(--fg-secondary)] hover:text-[var(--fg-primary)] transition"
                 >
                   #{tag}
                 </Link>
@@ -121,8 +121,8 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
           </section>
 
           {/* Annual archives */}
-          <section className="p-6 rounded border border-white/5 bg-white/[0.01]">
-            <h3 className="text-xs uppercase tracking-widest text-white/40 mb-4 font-mono font-semibold">
+          <section className="p-6 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+            <h3 className="text-xs uppercase tracking-widest text-[var(--fg-muted)] mb-4 font-mono font-semibold">
               Annual ledgers
             </h3>
             <div className="grid grid-cols-2 gap-2">
@@ -130,7 +130,7 @@ export default function LedgerHub({ events, stats, projects, tags }: LedgerHubPr
                 <Link
                   key={year}
                   href={`/ledger/year/${year}`}
-                  className="p-3 text-center text-xs font-mono bg-white/5 border border-white/10 hover:border-white/20 rounded text-white/60 hover:text-white transition block"
+                  className="p-3 text-center text-xs font-mono bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)] rounded text-[var(--fg-secondary)] hover:text-[var(--fg-primary)] transition block"
                 >
                   {year} Archive
                 </Link>
