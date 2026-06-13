@@ -85,6 +85,27 @@ export default function RootLayout({
       "name": "Experiment Archive",
       "description": "A curated library of software experiments, architectural blueprints, and research logs.",
       "url": SITE_SETTINGS.siteUrl
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "CodeMelt",
+      "applicationCategory": "DeveloperApplication",
+      "url": "https://codemelt.vercel.app"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PromptVault",
+      "applicationCategory": "DeveloperApplication",
+      "url": "https://trendyprompt.vercel.app"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "StudySpark",
+      "applicationCategory": "EducationalApplication",
+      "url": "https://study-spark-seven-rouge.vercel.app"
     }
   ];
 

@@ -52,7 +52,7 @@ export const studySpark = createExperiment({
 
   blueprintId: "studyspark",
   github: "https://github.com",
-  liveUrl: "https://study-spark-seven-rouge.vercel.app/",
+  liveUrl: "https://study-spark-seven-rouge.vercel.app",
 
   evidence: {
     problem:

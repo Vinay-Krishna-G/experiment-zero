@@ -51,7 +51,7 @@ export const promptvault = createExperiment({
 
   blueprintId: "promptvault",
   github: "https://github.com",
-  liveUrl: "https://trendyprompt.vercel.app/",
+  liveUrl: "https://trendyprompt.vercel.app",
 
   evidence: {
     problem:

@@ -51,7 +51,7 @@ export const aiCodebaseAnalyzer = createExperiment({
 
   blueprintId: "codemelt",
   github: "https://github.com",
-  liveUrl: "https://codemelt.vercel.app/",
+  liveUrl: "https://codemelt.vercel.app",
 
   evidence: {
     problem:

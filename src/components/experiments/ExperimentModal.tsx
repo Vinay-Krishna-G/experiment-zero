@@ -273,6 +273,28 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
                 </p>
               </motion.div>
 
+              {/* ── Action links (Prominent for Recruiters) ── */}
+              {(experiment.github || experiment.liveUrl || experiment.demo) && (
+                <motion.div variants={rowVariants} style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
+                  {(experiment.liveUrl || experiment.demo) && (
+                    <a href={experiment.liveUrl || experiment.demo} target="_blank" rel="noopener noreferrer" id={`preview-demo-${experiment.id}`}
+                      style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--bg-card)", backgroundColor: "var(--accent-emerald)", padding: "0.6rem 1.2rem", textDecoration: "none", borderRadius: "4px", transition: "background-color 0.2s ease, transform 0.2s ease", display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600, boxShadow: "0 4px 14px rgba(16, 185, 129, 0.2)" }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--fg-primary)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}>
+                      Live Demo ↗
+                    </a>
+                  )}
+                  {experiment.github && (
+                    <a href={experiment.github} target="_blank" rel="noopener noreferrer" id={`preview-github-${experiment.id}`}
+                      style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg-primary)", border: "1px solid var(--border-medium)", backgroundColor: "var(--bg-secondary)", padding: "0.6rem 1.2rem", textDecoration: "none", borderRadius: "4px", transition: "border-color 0.2s ease, background-color 0.2s ease", display: "inline-flex", alignItems: "center", gap: "0.5rem", fontWeight: 600 }}
+                      onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--fg-primary)"; el.style.backgroundColor = "var(--bg-card-hover)"; }}
+                      onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--border-medium)"; el.style.backgroundColor = "var(--bg-secondary)"; }}>
+                      GitHub ↗
+                    </a>
+                  )}
+                </motion.div>
+              )}
+
               {/* ── Complexity + Timeline side-by-side ── */}
               <motion.div variants={rowVariants} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "2rem", marginBottom: "2rem" }}>
                 <div>
@@ -312,27 +334,7 @@ export default function ExperimentModal({ experiment, onClose }: ExperimentModal
                 </motion.div>
               )}
 
-              {/* ── Action links ── */}
-              {(experiment.github || experiment.liveUrl || experiment.demo) && (
-                <motion.div variants={rowVariants} style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-                  {experiment.github && (
-                    <a href={experiment.github} target="_blank" rel="noopener noreferrer" id={`preview-github-${experiment.id}`}
-                      style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg-secondary)", border: "1px solid var(--border-medium)", padding: "0.4rem 0.9rem", textDecoration: "none", borderRadius: "2px", transition: "border-color 0.2s ease, color 0.2s ease", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
-                      onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--fg-primary)"; el.style.color = "var(--fg-primary)"; }}
-                      onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--border-medium)"; el.style.color = "var(--fg-secondary)"; }}>
-                      GitHub ↗
-                    </a>
-                  )}
-                  {(experiment.liveUrl || experiment.demo) && (
-                    <a href={experiment.liveUrl || experiment.demo} target="_blank" rel="noopener noreferrer" id={`preview-demo-${experiment.id}`}
-                      style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--bg-card)", backgroundColor: "var(--fg-primary)", padding: "0.4rem 0.9rem", textDecoration: "none", borderRadius: "2px", transition: "background-color 0.2s ease", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--accent-emerald)"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--fg-primary)"; }}>
-                      Live Demo ↗
-                    </a>
-                  )}
-                </motion.div>
-              )}
+
 
               {experiment.status === "Planned" && (
                 <motion.p variants={rowVariants} style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--fg-subtle)", fontStyle: "italic" }}>
