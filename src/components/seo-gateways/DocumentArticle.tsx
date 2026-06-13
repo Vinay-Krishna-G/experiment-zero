@@ -4,6 +4,9 @@ import RelatedContentGrid from './RelatedContentGrid';
 import { getExperimentJourney } from '@/narrative/queries/journey';
 import ExperimentJourneyView from '@/components/narrative/ExperimentJourneyView';
 import { ImpactPanel } from '@/components/narrative';
+import ArchitectureOverview from '@/components/artifacts/ArchitectureOverview';
+import SystemPipeline from '@/components/artifacts/SystemPipeline';
+import ArtifactRelationshipMap from '@/components/artifacts/ArtifactRelationshipMap';
 
 export default function DocumentArticle({ experiment }: { experiment: Experiment }) {
   const journeyData = getExperimentJourney(experiment.id);
@@ -27,7 +30,48 @@ export default function DocumentArticle({ experiment }: { experiment: Experiment
         {experiment.evidence && (
           <div className="mb-12">
             <ImpactPanel evidence={experiment.evidence} />
+            {experiment.id === 'ai-codebase-analyzer' && (
+              <SystemPipeline 
+                title="RAG Pipeline Architecture"
+                accentColor="var(--accent-emerald)"
+                stages={[
+                  { id: "repo", label: "Repository Upload", purpose: "Ingest target source code repository." },
+                  { id: "extract", label: "File Extraction", purpose: "Filter non-code files and parse text." },
+                  { id: "chunk", label: "Chunking Strategy", purpose: "Split into semantic blocks.", tradeoff: "AST parsing vs. Token length." },
+                  { id: "embed", label: "Embedding Generation", purpose: "Convert chunks to dense vectors." },
+                  { id: "vectordb", label: "Vector Storage", purpose: "Store embeddings in Pinecone." },
+                  { id: "retrieve", label: "Retriever", purpose: "Fetch top-K relevant chunks via cosine similarity." },
+                  { id: "llm", label: "LLM Response", purpose: "Synthesize answer using context window." }
+                ]}
+              />
+            )}
           </div>
+        )}
+
+        {experiment.id === 'experiment-zero' && <ArchitectureOverview />}
+        {experiment.id === 'promptvault' && (
+          <SystemPipeline 
+            title="System Interaction Flow"
+            accentColor="#1e3a8a"
+            stages={[
+              { id: "auth", label: "Authentication", purpose: "Secure user sessions." },
+              { id: "registry", label: "Prompt Registry", purpose: "Store immutable prompt templates." },
+              { id: "category", label: "Categorization", purpose: "Apply semantic tags." },
+              { id: "search", label: "Search Engine", purpose: "Full-text indexing." },
+              { id: "persist", label: "Persistence", purpose: "PostgreSQL storage." },
+              { id: "retrieve", label: "Retrieval API", purpose: "Expose endpoints for external integration.", tradeoff: "Latency vs Cache consistency." }
+            ]}
+          />
+        )}
+        
+        {/* Relationship Map for all Flagship projects */}
+        {(experiment.id === 'experiment-zero' || experiment.id === 'ai-codebase-analyzer' || experiment.id === 'promptvault') && (
+          <ArtifactRelationshipMap 
+            experimentTitle={experiment.title}
+            blueprintTitle={`${experiment.title} Architecture Blueprint`}
+            insightsCount={experiment.id === 'experiment-zero' ? 3 : 2}
+            hasEvidence={!!experiment.evidence}
+          />
         )}
 
         <section className="mb-12">

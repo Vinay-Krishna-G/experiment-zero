@@ -67,7 +67,7 @@ export default function Footer() {
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.58rem",
+                fontSize: "0.65rem",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 color: "var(--fg-subtle)",
@@ -78,7 +78,7 @@ export default function Footer() {
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.58rem",
+                fontSize: "0.65rem",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 color: "var(--fg-subtle)",

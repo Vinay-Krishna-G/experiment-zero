@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Experiment } from "@/types";
 import { getVisualProfile } from "@/visuals/getVisualProfile";
 import { COLORS } from "@/visuals/colors";
+import EquipmentTag from "@/components/ui/EquipmentTag";
 
 interface ExperimentBottleProps {
   experiment: Experiment;
@@ -125,7 +126,7 @@ export default function ExperimentBottle({
                     fontWeight: 600,
                   }}
                 >
-                  {v}
+                  {k === "Category" ? <EquipmentTag label={v} /> : v}
                 </span>
               </div>
             ))}

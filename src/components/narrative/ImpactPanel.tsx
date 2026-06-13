@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { EvidenceBlock } from "@/types";
+import EvidenceTimeline from "@/components/artifacts/EvidenceTimeline";
 
 interface ImpactPanelProps {
   evidence: EvidenceBlock;
@@ -63,6 +64,8 @@ export default function ImpactPanel({ evidence }: ImpactPanelProps) {
           Engineering Decisions & Measurable Outcomes
         </h2>
       </div>
+
+      <EvidenceTimeline />
 
       {/* Grid: Problem & Constraints */}
       <div

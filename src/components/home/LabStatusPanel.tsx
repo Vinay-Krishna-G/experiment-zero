@@ -117,11 +117,11 @@ export default function LabStatusPanel() {
               display: "flex", alignItems: "center", gap: "0.75rem",
             }}
           >
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "var(--fg-subtle)" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "var(--fg-subtle)" }}>
               Field Notes — Ongoing
             </span>
             <div style={{ flex: 1, height: 1, backgroundColor: "var(--border-subtle)" }} />
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", letterSpacing: "0.18em", color: "var(--fg-subtle)" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "var(--fg-subtle)" }}>
               {LAB_STATUS.updatedAt}
             </span>
           </div>
@@ -142,19 +142,19 @@ export default function LabStatusPanel() {
             {sections.map((section) => (
               <motion.div key={section.id} variants={itemVariants}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.65rem" }}>
-                  <span style={{ color: section.accent, fontSize: "0.7rem", lineHeight: 1 }} aria-hidden="true">{section.icon}</span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg-muted)" }}>
+                  <span style={{ color: section.accent, fontSize: "0.8rem", lineHeight: 1 }} aria-hidden="true">{section.icon}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg-muted)" }}>
                     {section.label}
                   </span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", marginBottom: "0.6rem" }}>
                   {section.entries.map((entry) => (
-                    <div key={entry} style={{ fontFamily: "var(--font-display)", fontSize: "clamp(0.95rem, 1.8vw, 1.2rem)", fontWeight: 700, color: "var(--fg-primary)", letterSpacing: "-0.01em", lineHeight: 1.25 }}>
+                    <div key={entry} style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.05rem, 2vw, 1.4rem)", fontWeight: 700, color: "var(--fg-primary)", letterSpacing: "-0.01em", lineHeight: 1.25 }}>
                       {entry}
                     </div>
                   ))}
                 </div>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", letterSpacing: "0", color: section.accent, opacity: 0.85, fontStyle: "italic" }}>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", letterSpacing: "0", color: section.accent, opacity: 0.85, fontStyle: "italic" }}>
                   {section.note}
                 </span>
               </motion.div>
@@ -163,10 +163,10 @@ export default function LabStatusPanel() {
 
           {/* Footer */}
           <div style={{ marginTop: "2.5rem", marginLeft: "1rem", paddingTop: "1rem", borderTop: "1px solid var(--border-subtle)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.18em", color: "var(--fg-subtle)", textTransform: "uppercase" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "var(--fg-subtle)", textTransform: "uppercase" }}>
               Last updated: {LAB_STATUS.updatedAt}
             </span>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.18em", color: "var(--accent-emerald)", textTransform: "uppercase" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "var(--accent-emerald)", textTransform: "uppercase" }}>
               ● Active
             </span>
           </div>

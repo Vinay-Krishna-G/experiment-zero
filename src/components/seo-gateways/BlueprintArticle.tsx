@@ -3,6 +3,7 @@ import EnterLaboratoryCTA from './EnterLaboratoryCTA';
 import { getBlueprintLineage } from '@/narrative/queries/lineage';
 import BlueprintLineageView from '@/components/narrative/BlueprintLineageView';
 import { ImpactPanel } from '@/components/narrative';
+import BlueprintSnapshot from '@/components/artifacts/BlueprintSnapshot';
 
 export default function BlueprintArticle({ blueprint }: { blueprint: Blueprint }) {
   const lineageData = getBlueprintLineage(blueprint.id);
@@ -32,6 +33,8 @@ export default function BlueprintArticle({ blueprint }: { blueprint: Blueprint }
             {blueprint.objective}
           </p>
         </section>
+
+        <BlueprintSnapshot />
 
         {blueprint.technologies?.length > 0 && (
           <section className="mb-12">
