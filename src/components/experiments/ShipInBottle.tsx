@@ -119,6 +119,7 @@ export default function ShipInBottle() {
                   height: "160px",
                   zIndex: 2
                 }}>
+                  {/*
                   <svg viewBox="0 0 200 140" style={{ width: "100%", height: "100%", overflow: "visible" }}>
                     <defs>
                       <linearGradient id="hullGradient" x1="0" y1="0" x2="0" y2="1">
@@ -127,19 +128,16 @@ export default function ShipInBottle() {
                       </linearGradient>
                     </defs>
 
-                    {/* Masts */}
                     <line x1="50" y1="20" x2="50" y2="100" stroke="#2a180b" strokeWidth="3" />
                     <line x1="100" y1="10" x2="100" y2="100" stroke="#2a180b" strokeWidth="4" />
                     <line x1="150" y1="25" x2="150" y2="100" stroke="#2a180b" strokeWidth="3" />
 
-                    {/* Rigging Lines */}
                     <path d="M 10 100 L 50 20 L 100 10 L 150 25 L 225 70" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5" />
                     <line x1="50" y1="45" x2="100" y2="10" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
                     <line x1="100" y1="45" x2="150" y2="25" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
                     <line x1="100" y1="80" x2="50" y2="20" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
                     <line x1="150" y1="80" x2="100" y2="10" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
 
-                    {/* Sails */}
                     <path d="M 100 15 Q 60 30 100 45 Q 120 30 100 15 Z" fill="#ffffff" opacity="0.95" />
                     <path d="M 100 50 Q 50 65 100 85 Q 130 65 100 50 Z" fill="#ffffff" opacity="0.95" />
                     
@@ -151,11 +149,10 @@ export default function ShipInBottle() {
                     
                     <path d="M 150 30 Q 180 50 225 70 L 150 80 Z" fill="#ffffff" opacity="0.9" />
 
-                    {/* Hull */}
                     <path d="M 15 120 L 180 120 Q 200 120 205 95 L 5 95 Q 10 120 15 120 Z" fill="url(#hullGradient)" />
-                    {/* Bowsprit */}
                     <line x1="200" y1="98" x2="225" y2="70" stroke="#2a180b" strokeWidth="3" />
                   </svg>
+                  */}
                 </div>
 
                 {/* Multi-layer Animated Water */}
